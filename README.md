@@ -4,5 +4,5 @@ Este repositório será destinado no armazenamento do projeto "Nota Dez" da mat�
 Integrantes:
 . Caio José Burdim Menali RA: 25013468
 . Felipe Cesar Ferreira Lirani
-. Felipe Bastista Bastos
+. Felipe Batista Bastos
 . Gabriel Batista Bastos
