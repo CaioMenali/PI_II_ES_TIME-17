@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <title>NotaDez login</title>
+        <link href="/styles/loguin.css" rel="stylesheet" type="Text/css"/>
+        <script src="/scripts/login.js"></script>
+    </head>
+    <body>
+        <div id="login">
+            <!-- Tela de loguin para o usuario -->
+            <h1>NotaDez</h1>
+            <div id="loginInput">
+                <p>Preencha os campos de login ou crie uma conta</p>
+                <input id="email" type="email" placeholder="E-mail"><br/>
+                <input id="password" type="password" placeholder="Senha"><br/>
+                <button id="submitbtn" type="submit" onclick="try_login()">Entrar</button><br/>
+                <ul id="listLoginHelp">
+                    <li><a href="loginRegister.html">Cadastrar usuário</a></li>
+                    <li>|</li>
+                    <li><a href="#">Esqueci minha senha</a></li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
