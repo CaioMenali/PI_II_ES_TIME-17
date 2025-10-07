@@ -1,0 +1,70 @@
+body {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:black;
+    margin:0;
+    padding: 0;
+    background-color: #ebebeb;
+}
+
+p {
+    margin:0;
+    padding:0;
+}
+
+#login {
+    margin: auto;
+    margin-top: 100px;
+    text-align: center;
+}
+
+#loginInput {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #b4b4b4;
+    border-radius: 18px;
+    padding-top: 15px;
+    width: 400px;
+    height: 180px;
+    margin: auto;
+}
+
+#loginInput input {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #b4b4b4;
+    border-radius: 5px;
+}
+
+#listLoginHelp {
+    margin: 0;
+    padding: 10px;
+    list-style: none;
+    display: inline-flex;
+}
+
+#listLoginHelp li a {
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-decoration: none;
+    color: black;
+    letter-spacing: -0.3px;
+}
+
+#listLoginHelp li a:hover {
+    text-decoration: underline;
+}
+
+#submitbtn {
+    background-color: #00a2ff;
+    color: #ffffff;
+    border: solid #424242 1px;
+    border-radius: 5px;
+    margin-top: 5px;
+    width: 70px;
+    height: 25px;
+}
+
+#submitbtn:hover {
+    cursor: pointer;
+    background-color: #006eff;
+}
