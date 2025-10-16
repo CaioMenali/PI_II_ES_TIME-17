@@ -1,0 +1,2 @@
+# Aqui serão colocados os arquivos e pastas que não queremos versionar no Git
+node_modules/
