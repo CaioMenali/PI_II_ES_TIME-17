@@ -1,6 +1,10 @@
 # PI_II_ES_TIME-17
 
-Este repositório será destinado ao armazenamento do projeto "Nota Dez" da matéria do Projeto Integrador II
+Este repositório será destinado ao armazenamento do projeto "Nota Dez" da matéria do Projeto Integrador II.
+
+A main será reservada apenas aos arquivos do programa e suas versões finais 
+e nas Branches as versões a qual estão sendo desenvolvidas. 
+
 
 Integrantes:
 
