@@ -1,0 +1,29 @@
+.saudacao p {
+    margin-top:0px;
+    padding:5px;
+    background-color:rgb(23, 63, 143);
+    color: white;
+    border:2px solid rgb(16, 45, 102);
+}
+
+.saudacao h1 {
+    margin:10px;
+    padding:5px;
+    background-color:rgb(23, 63, 143);
+    color: white;
+    border:2px solid rgb(16, 45, 102);
+}
+
+a {
+    color:rgb(22, 20, 172);
+}
+
+
+a:hover{
+    color: rgb(214, 31, 31);
+}
+
+a:visited {
+    color:rgb(78, 0, 147);
+}
+
