@@ -1,16 +1,16 @@
-CREATE TABLE Usuario (
+CREATE TABLE Docente (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     telefone VARCHAR(20),
-    senha_hash VARCHAR(255) NOT NULL
+    senha VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Instituicao (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
-    id_usuario INT NOT NULL, 
-    FOREIGN KEY (id_usuario) REFERENCES Usuario(id)
+    id_docente INT NOT NULL, 
+    FOREIGN KEY (id_docente) REFERENCES Docente(id)
 );
 
 CREATE TABLE Disciplina (
@@ -28,6 +28,7 @@ CREATE TABLE Turma (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     codigo VARCHAR(50),
+    apelido VARCHAR(100) NOT NULL,
     id_disciplina INT NOT NULL,
     FOREIGN KEY (id_disciplina) REFERENCES Disciplina(id)
 );
@@ -46,10 +47,10 @@ CREATE TABLE TurmaAluno (
     FOREIGN KEY (id_aluno) REFERENCES Aluno(id)
 );
 
-CREATE TABLE ComponenteNota (
+CREATE TABLE Componente (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
-    sigla_formula VARCHAR(20), 
+    sigla VARCHAR(20), 
     descricao TEXT,
     peso DECIMAL(4,2), 
     id_disciplina INT NOT NULL,
@@ -59,20 +60,20 @@ CREATE TABLE ComponenteNota (
 CREATE TABLE Nota (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_aluno INT NOT NULL,
-    id_componente_nota INT NOT NULL,
+    id_componente INT NOT NULL,
     valor DECIMAL(4,2) NOT NULL,
     FOREIGN KEY (id_aluno) REFERENCES Aluno(id),
-    FOREIGN KEY (id_componente_nota) REFERENCES ComponenteNota(id)
+    FOREIGN KEY (id_componente) REFERENCES ComponenteNota(id)
 );
 
 CREATE TABLE AuditoriaNota (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT NOT NULL, 
+    id_docente INT NOT NULL, 
     id_aluno INT NOT NULL, 
-    id_componente_nota INT NOT NULL,
+    id_componente INT NOT NULL,
     data_hora DATETIME NOT NULL,
     descricao TEXT, 
-    FOREIGN KEY (id_usuario) REFERENCES Usuario(id),
+    FOREIGN KEY (id_docente) REFERENCES Docente(id),
     FOREIGN KEY (id_aluno) REFERENCES Aluno(id),
-    FOREIGN KEY (id_componente_nota) REFERENCES ComponenteNota(id)
+    FOREIGN KEY (id_componente) REFERENCES Componente(id)
 );
