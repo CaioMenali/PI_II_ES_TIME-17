@@ -40,7 +40,7 @@ app.get('/instituicao', (req, res) => {
 
 // Rota para a tela inicio.html
 app.get('/inicio', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'inicio.html'));
+    res.sendFile(path.join(__dirname, 'public', 'inicial.html'));
 });
 
 // Rota para a tela turmas.html
