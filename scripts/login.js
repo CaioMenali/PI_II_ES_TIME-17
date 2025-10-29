@@ -5,7 +5,9 @@ function try_login() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
+    
+
     alert(`Email: ${email}\nPassword: ${password}`);
 
-    window.location.href = '/pages/homepage.html';
+    window.location.href = '../../T_inicial/html/inicial.html';
 }
