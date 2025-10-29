@@ -1,73 +1,112 @@
+/* autores: Caio José Burdim Menali */
+
+/* O "*" seleciona TUDO na página */
+* {
+    margin: 0; /* Remove as margens que o navegador coloca por padrão */
+    padding: 0; /* Remove os preenchimentos que o navegador coloca por padrão */
+    box-sizing: border-box; /* Faz com que a largura e altura não sejam afetadas por padding ou bordas */
+}
+
 body {
-    margin: 0;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    background-color: #fff;
+    font-family: Arial, sans-serif; /* Define uma fonte padrão e fácil de ler */
+    background-color: #f4f4f4; /* Define uma cor de fundo cinza bem clara para a página */
+    color: #333333; /* Define a cor padrão do texto para um cinza escuro */
 }
 
-/* Estrutura principal da Superbar */
+/* ------------------------------------------- */
+/* --- CABEÇALHO (A BARRA SUPERIOR) --- */
+/* ------------------------------------------- */
+
 .superbar-notadez {
-    background-color: #f5f5f5; /* Um cinza claro, similar ao ML */
-    padding: 15px 0;
-    border-bottom: 1px solid #ddd;
-    width: 100%;
+    background-color: #ffffff; /* Fundo branco para o cabeçalho */
+    padding: 15px 0; /* Espaço em cima/baixo. O espaço lateral será controlado pelo .container */
+    border-bottom: 1px solid #dddddd; /* Linha cinza clara na parte de baixo */
 }
 
+/* Este é o container DENTRO do cabeçalho */
 .superbar-notadez .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 30px; /* Espaçamento entre logo, busca e nav */
+    max-width: 1200px; /* Define uma largura máxima para o conteúdo não ficar esticado em telas grandes */
+    margin: 0 auto; /* Centraliza o container na página */
+    padding: 0 20px; /* Dá um respiro nas laterais para o conteúdo não colar na borda */
+    
+    /* A MÁGICA ACONTECE AQUI */
+    display: flex; /* Ativa o modo de alinhamento Flexbox */
+    justify-content: space-between; /* Joga os itens para os cantos opostos (logo na esquerda, nav na direita) */
+    align-items: center; /* Alinha os itens verticalmente no centro */
 }
 
-/* Estilo do Logo */
+/* ------------------------------------------- */
+/* --- LOGO "NotaDez" --- */
+/* ------------------------------------------- */
+
 .logo {
-    font-size: 28px;
-    font-weight: 700;
-    color: #007BFF; /* COR AZUL PRINCIPAL */
-    text-decoration: none;
-    flex-shrink: 0; /* Impede que o logo diminua de tamanho */
+    font-size: 24px; /* Tamanho da fonte */
+    font-weight: bold; /* Deixa o texto em negrito */
+    color: #007bff; /* Cor do texto em azul */
+    text-decoration: none; /* Remove o sublinhado padrão dos links */
 }
 
-
-/* Estilo da Navegação e Botões */
-.main-nav {
-    flex-shrink: 0; /* Impede que a navegação diminua */
-}
+/* ------------------------------------------- */
+/* --- BOTÃO DE LOGIN --- */
+/* ------------------------------------------- */
 
 .main-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    gap: 25px; /* Espaço entre os links */
+    list-style-type: none; /* Remove a "bolinha" da lista do menu */
 }
 
-.main-nav a {
-    text-decoration: none;
-    color: #333;
-    font-size: 16px;
-    transition: color 0.3s ease;
+.button-login {
+    background-color: #28a745; /* Cor de fundo verde */
+    color: #ffffff; /* Cor do texto branca */
+    padding: 10px 20px; /* Espaçamento interno para o botão parecer maior */
+    border-radius: 5px; /* Deixa as bordas do botão arredondadas */
+    text-decoration: none; /* Remove o sublinhado do link */
+    font-weight: bold; /* Texto em negrito */
 }
 
-.main-nav a:hover {
-    color: #007BFF; /* Efeito hover azul */
+/* Efeito simples quando o mouse passa por cima do botão */
+.button-login:hover {
+    background-color: #218838; /* Deixa o fundo um pouco mais escuro */
 }
 
-/* Estilo específico para o botão de Login */
-.main-nav .button-login {
-    background-color: #007BFF; /* COR AZUL PRINCIPAL */
-    color: white;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 700;
-    transition: background-color 0.3s ease;
+
+/* ------------------------------------------- */
+/* --- ÁREA CENTRAL COM OS BALÕES --- */
+/* ------------------------------------------- */
+
+.balloon-container {
+    padding-top: 80px; /* Adiciona um bom espaço no topo para empurrar os balões para baixo */
+    padding-bottom: 80px; /* Adiciona um espaço embaixo */
+    text-align: center; /* Centraliza o texto e os itens dentro do container */
 }
 
-.main-nav .button-login:hover {
-    background-color: #0056b3; /* Um azul mais escuro no hover */
-    color: white;
+/* ------------------------------------------- */
+/* --- ESTILO DE CADA BALÃO --- */
+/* ------------------------------------------- */
+
+.balloon {
+    /* Dimensões e Cor */
+    background-color: #007bff; /* Fundo azul, igual ao do logo */
+    color: #ffffff; /* Texto branco */
+    width: 180px; /* Largura fixa */
+    height: 180px; /* Altura fixa (igual à largura para formar um círculo perfeito) */
+    
+    /* Forma e Espaçamento */
+    border-radius: 50%; /* A mágica acontece aqui: isso deixa o elemento redondo */
+    margin: 15px; /* Cria um espaço de 15px em volta de cada balão */
+    
+    /* Exibição e Alinhamento do Texto */
+    display: inline-block; /* Faz com que os balões fiquem um ao lado do outro */
+    line-height: 180px; /* Centraliza o texto verticalmente (truque: use o mesmo valor da altura) */
+    
+    /* Texto */
+    text-decoration: none; /* Remove o sublinhado do link */
+    font-size: 16px; /* Tamanho do texto */
+    font-weight: bold; /* Texto em negrito */
+}
+
+/* Efeito simples quando o mouse passa por cima do balão */
+.balloon:hover {
+    background-color: #0056b3; /* Deixa o fundo azul um pouco mais escuro */
+    transform: scale(1.1); /* Aumenta o tamanho do balão em 10% */
+    transition: 0.3s; /* Faz a animação de aumentar ser suave */
 }
