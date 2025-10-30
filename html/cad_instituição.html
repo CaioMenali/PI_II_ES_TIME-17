@@ -1,0 +1,44 @@
+<!--Autores: Felipe Batista Bastos-->
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="utf-8">
+        <link href="../Styles/cad_instituicao.css" rel="stylesheet" type="Text/css"/>
+        <script src="../script/script.js"></script>
+        <title>Nota Dez - Minhas Instituições</title>
+    </head>
+
+    <header class="superbar-notadez">
+        <div class="container">
+            <a href="/" class="logo">NotaDez</a>
+
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/login" class="button-login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <body>
+        
+        <main class="content-container">
+            <h1>Minhas Instituições</h1>
+
+            <div class="list-container" id="lista-instituicoes">
+                <p id="msg-lista-vazia">Nenhuma instituição cadastrada. Adicione uma abaixo.</p>
+                </div>
+
+            <div class="form-container-inline">
+                <h2>Cadastrar Nova Instituição</h2>
+                <form id="form-cad-instituicao">
+                    <div class="form-group">
+                        <label for="nome">Nome da Instituição</label>
+                        <input type="text" id="nome" name="nome" placeholder="Ex: PUC-Campinas" required>
+                    </div>
+                    <button type="submit" class="button-submit">Salvar Instituição</button>
+                </form>
+            </div>
+        </main>
+
+    </body>
+</html>
