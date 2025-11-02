@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="utf-8">
+        <link href="../Styles/cad_disciplina.css" rel="stylesheet" type="Text/css"/>
+        <script src="../script/script.js"></script>
+        <title>Nota Dez - Minhas Disciplinas</title>
+    </head>
+
+    <header class="superbar-notadez">
+        <div class="container">
+            <a href="/" class="logo">NotaDez</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/login" class="button-login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <body>
+        
+        <main class="content-container">
+            <h1>Minhas Disciplinas</h1>
+
+            <div class="list-container" id="lista-disciplinas">
+                <p id="msg-lista-vazia-disciplinas">Nenhuma disciplina cadastrada. Adicione uma abaixo.</p>
+                
+                </div>
+
+            <div class="form-container-inline">
+                <h2>Cadastrar Nova Disciplina</h2>
+                
+                <form id="form-cad-disciplina">
+                    
+                    <div class="form-group">
+                        <label for="nome_disciplina">Nome da Disciplina</label>
+                        <input type="text" id="nome_disciplina" name="nome" placeholder="Ex: Projeto Integrador II" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sigla_disciplina">Sigla</label>
+                        <input type="text" id="sigla_disciplina" name="sigla" placeholder="Ex: PI2" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="codigo_disciplina">Código</label>
+                        <input type="text" id="codigo_disciplina" name="codigo" placeholder="Ex: ES8A41" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="periodo_disciplina">Período do Curso</label>
+                        <input type="text" id="periodo_disciplina" name="periodo" placeholder="Ex: 4º Semestre" required>
+                    </div>
+
+                    <button type="submit" class="button-submit">Salvar Disciplina</button>
+                </form>
+            </div>
+        </main>
+
+    </body>
+</html>
