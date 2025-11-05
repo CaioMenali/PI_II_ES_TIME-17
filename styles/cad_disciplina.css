@@ -1,224 +1,185 @@
-/* Autores: Felipe Batista Bastos */
+    /* Autores: Felipe Batista Bastos */
 
-/* O "*" seleciona TUDO na página */
-* {
-    margin: 0; /* Remove as margens que o navegador coloca por padrão */
-    padding: 0; /* Remove os preenchimentos que o navegador coloca por padrão */
-    box-sizing: border-box; /* Faz com que a largura e altura não sejam afetadas por padding ou bordas */
-}
+    /* O "*" seleciona TUDO na página */
+    * {
+        margin: 0; /* Remove as margens que o navegador coloca por padrão */
+        padding: 0; /* Remove os preenchimentos que o navegador coloca por padrão */
+        box-sizing: border-box; /* Faz com que a largura e altura não sejam afetadas por padding ou bordas */
+    }
 
-body {
-    font-family: Arial, sans-serif; /* Define uma fonte padrão e fácil de ler */
-    background-color: #f4f4f4; /* Define uma cor de fundo cinza bem clara para a página */
-    color: #333333; /* Define a cor padrão do texto para um cinza escuro */
-}
+    body {
+        font-family: Arial, sans-serif; /* Define uma fonte padrão e fácil de ler */
+        background-color: #f4f4f4; /* Define uma cor de fundo cinza bem clara para a página */
+        color: #333333; /* Define a cor padrão do texto para um cinza escuro */
+    }
 
-/* ------------------------------------------- */
-/* --- CABEÇALHO (A BARRA SUPERIOR) --- */
-/* ------------------------------------------- */
+    /* ------------------------------------------- */
+    /* --- CABEÇALHO (A BARRA SUPERIOR) --- */
+    /* ------------------------------------------- */
 
-.superbar-notadez {
-    background-color: #ffffff; /* Fundo branco para o cabeçalho */
-    padding: 15px 0; /* Espaço em cima/baixo. O espaço lateral será controlado pelo .container */
-    border-bottom: 1px solid #dddddd; /* Linha cinza clara na parte de baixo */
-}
+    .superbar-notadez {
+        background-color: #ffffff; /* Fundo branco para o cabeçalho */
+        padding: 15px 0; /* Espaço em cima/baixo. O espaço lateral será controlado pelo .container */
+        border-bottom: 1px solid #dddddd; /* Linha cinza clara na parte de baixo */
+    }
 
-/* Este é o container DENTRO do cabeçalho */
-.superbar-notadez .container {
-    max-width: 1200px; /* Define uma largura máxima para o conteúdo não ficar esticado em telas grandes */
-    margin: 0 auto; /* Centraliza o container na página */
-    padding: 0 20px; /* Dá um respiro nas laterais para o conteúdo não colar na borda */
-    
-    /* A MÁGICA ACONTECE AQUI */
-    display: flex; /* Ativa o modo de alinhamento Flexbox */
-    justify-content: space-between; /* Joga os itens para os cantos opostos (logo na esquerda, nav na direita) */
-    align-items: center; /* Alinha os itens verticalmente no centro */
-}
+    /* Este é o container DENTRO do cabeçalho */
+    .superbar-notadez .container {
+        max-width: 1200px; /* Define uma largura máxima para o conteúdo não ficar esticado em telas grandes */
+        margin: 0 auto; /* Centraliza o container na página */
+        padding: 0 20px; /* Dá um respiro nas laterais para o conteúdo não colar na borda */
+        
+        /* A MÁGICA ACONTECE AQUI */
+        display: flex; /* Ativa o modo de alinhamento Flexbox */
+        justify-content: space-between; /* Joga os itens para os cantos opostos (logo na esquerda, nav na direita) */
+        align-items: center; /* Alinha os itens verticalmente no centro */
+    }
 
-/* ------------------------------------------- */
-/* --- LOGO "NotaDez" --- */
-/* ------------------------------------------- */
+    /* ------------------------------------------- */
+    /* --- LOGO "NotaDez" --- */
+    /* ------------------------------------------- */
 
-.logo {
-    font-size: 24px; /* Tamanho da fonte */
-    font-weight: bold; /* Deixa o texto em negrito */
-    color: #007bff; /* Cor do texto em azul */
-    text-decoration: none; /* Remove o sublinhado padrão dos links */
-}
+    .logo {
+        font-size: 24px; /* Tamanho da fonte */
+        font-weight: bold; /* Deixa o texto em negrito */
+        color: #007bff; /* Cor do texto em azul */
+        text-decoration: none; /* Remove o sublinhado padrão dos links */
+    }
 
-/* ------------------------------------------- */
-/* --- BOTÃO DE LOGIN --- */
-/* ------------------------------------------- */
+    /* ------------------------------------------- */
+    /* --- BOTÃO DE LOGIN --- */
+    /* ------------------------------------------- */
 
-.main-nav ul {
-    list-style-type: none; /* Remove a "bolinha" da lista do menu */
-}
+    .main-nav ul {
+        list-style-type: none; /* Remove a "bolinha" da lista do menu */
+    }
 
-.button-login {
-    background-color: #28a745; /* Cor de fundo verde */
-    color: #ffffff; /* Cor do texto branca */
-    padding: 10px 20px; /* Espaçamento interno para o botão parecer maior */
-    border-radius: 5px; /* Deixa as bordas do botão arredondadas */
-    text-decoration: none; /* Remove o sublinhado do link */
-    font-weight: bold; /* Texto em negrito */
-}
+    .button-login {
+        background-color: #28a745; /* Cor de fundo verde */
+        color: #ffffff; /* Cor do texto branca */
+        padding: 10px 20px; /* Espaçamento interno para o botão parecer maior */
+        border-radius: 5px; /* Deixa as bordas do botão arredondadas */
+        text-decoration: none; /* Remove o sublinhado do link */
+        font-weight: bold; /* Texto em negrito */
+    }
 
-/* Efeito simples quando o mouse passa por cima do botão */
-.button-login:hover {
-    background-color: #218838; /* Deixa o fundo um pouco mais escuro */
-}
+    /* Efeito simples quando o mouse passa por cima do botão */
+    .button-login:hover {
+        background-color: #218838; /* Deixa o fundo um pouco mais escuro */
+    }
 
+    /* ======================================================= */
+    /* --- NOVOS ESTILOS (TELA DE CADASTRO DE INSTITUIÇÃO) --- */
+    /* ======================================================= */
 
-/* ------------------------------------------- */
-/* --- ÁREA CENTRAL COM OS BALÕES (TELA INICIAL) --- */
-/* ------------------------------------------- */
+    /* Este é o container principal para páginas de formulário */
+    .content-container {
+        max-width: 900px; /* Mais estreito que o cabeçalho, melhor para leitura/formulários */
+        margin: 40px auto; /* Centraliza na horizontal e dá espaço do topo */
+        padding: 20px;
+    }
 
-.balloon-container {
-    padding-top: 80px; /* Adiciona um bom espaço no topo para empurrar os balões para baixo */
-    padding-bottom: 80px; /* Adiciona um espaço embaixo */
-    text-align: center; /* Centraliza o texto e os itens dentro do container */
-}
+    .content-container h1 {
+        font-size: 28px;
+        color: #333;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 25px;
+    }
 
-.balloon {
-    /* Dimensões e Cor */
-    background-color: #007bff; /* Fundo azul, igual ao do logo */
-    color: #ffffff; /* Texto branco */
-    width: 180px; /* Largura fixa */
-    height: 180px; /* Altura fixa (igual à largura para formar um círculo perfeito) */
-    
-    /* Forma e Espaçamento */
-    border-radius: 50%; /* A mágica acontece aqui: isso deixa o elemento redondo */
-    margin: 15px; /* Cria um espaço de 15px em volta de cada balão */
-    
-    /* Exibição e Alinhamento do Texto */
-    display: inline-block; /* Faz com que os balões fiquem um ao lado do outro */
-    line-height: 180px; /* Centraliza o texto verticalmente (truque: use o mesmo valor da altura) */
-    
-    /* Texto */
-    text-decoration: none; /* Remove o sublinhado do link */
-    font-size: 16px; /* Tamanho do texto */
-    font-weight: bold; /* Texto em negrito */
-}
+    /* Container da lista de itens */
+    .list-container {
+        margin-bottom: 40px;
+    }
 
-.balloon:hover {
-    background-color: #0056b3; /* Deixa o fundo azul um pouco mais escuro */
-    transform: scale(1.1); /* Aumenta o tamanho do balão em 10% */
-    transition: 0.3s; /* Faz a animação de aumentar ser suave */
-}
+    .list-container p {
+        color: #777;
+        font-style: italic;
+        font-size: 16px;
+        padding: 10px;
+    }
 
+    /* Cada item da lista (criado pelo JS) */
+    .list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        background-color: #ffffff; /* Fundo branco, como o cabeçalho */
+    }
 
-/* ======================================================= */
-/* --- NOVOS ESTILOS (TELA DE CADASTRO DE INSTITUIÇÃO) --- */
-/* ======================================================= */
+    .list-item strong {
+        font-size: 18px;
+        color: #333;
+    }
 
-/* Este é o container principal para páginas de formulário */
-.content-container {
-    max-width: 900px; /* Mais estreito que o cabeçalho, melhor para leitura/formulários */
-    margin: 40px auto; /* Centraliza na horizontal e dá espaço do topo */
-    padding: 20px;
-}
+    .list-item a {
+        text-decoration: none;
+        color: #007bff; /* Azul, para combinar com o logo/balões */
+        font-weight: 600;
+        font-size: 15px;
+    }
 
-.content-container h1 {
-    font-size: 28px;
-    color: #333;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-    margin-bottom: 25px;
-}
-
-/* Container da lista de itens */
-.list-container {
-    margin-bottom: 40px;
-}
-
-.list-container p {
-    color: #777;
-    font-style: italic;
-    font-size: 16px;
-    padding: 10px;
-}
-
-/* Cada item da lista (criado pelo JS) */
-.list-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #ffffff; /* Fundo branco, como o cabeçalho */
-}
-
-.list-item strong {
-    font-size: 18px;
-    color: #333;
-}
-
-.list-item a {
-    text-decoration: none;
-    color: #007bff; /* Azul, para combinar com o logo/balões */
-    font-weight: 600;
-    font-size: 15px;
-}
-
-.list-item a:hover {
-    text-decoration: underline;
-}
+    .list-item a:hover {
+        text-decoration: underline;
+    }
 
 
-/* O formulário de cadastro */
-.form-container-inline {
-    padding: 25px;
-    background-color: #ffffff; /* Fundo branco */
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-}
+    /* O formulário de cadastro */
+    .form-container-inline {
+        padding: 25px;
+        background-color: #ffffff; /* Fundo branco */
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    }
 
-.form-container-inline h2 {
-    text-align: center;
-    color: #333;
-    margin-top: 0;
-    margin-bottom: 25px;
-    font-size: 22px;
-}
+    .form-container-inline h2 {
+        text-align: center;
+        color: #333;
+        margin-top: 0;
+        margin-bottom: 25px;
+        font-size: 22px;
+    }
 
-.form-group {
-    margin-bottom: 20px;
-}
+    .form-group {
+        margin-bottom: 20px;
+    }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #444;
-    font-size: 15px;
-}
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #444;
+        font-size: 15px;
+    }
 
-.form-group input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    font-family: Arial, sans-serif;
-}
+    .form-group input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+    }
 
-/* Botão de submit do formulário */
-.button-submit {
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff; /* Azul, combinando com o tema (logo/balões) */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    /* Botão de submit do formulário */
+    .button-submit {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff; /* Azul, combinando com o tema (logo/balões) */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-.button-submit:hover {
-    background-color: #0056b3; /* Mesmo hover do balão */
-}
+    .button-submit:hover {
+        background-color: #0056b3; /* Mesmo hover do balão */
+    }
