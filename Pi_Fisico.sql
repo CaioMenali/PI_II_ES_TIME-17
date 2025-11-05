@@ -77,7 +77,3 @@
         FOREIGN KEY (id_aluno) REFERENCES Aluno(id),
         FOREIGN KEY (id_componente) REFERENCES Componente(id)
     );
-    FOREIGN KEY (id_aluno) REFERENCES Aluno(id),
-    FOREIGN KEY (id_componente) REFERENCES Componente(id)
-);
-
