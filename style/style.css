@@ -73,40 +73,50 @@ body {
 /* --- ÁREA CENTRAL COM OS BALÕES --- */
 /* ------------------------------------------- */
 
-.balloon-container {
-    padding-top: 80px; /* Adiciona um bom espaço no topo para empurrar os balões para baixo */
-    padding-bottom: 80px; /* Adiciona um espaço embaixo */
-    text-align: center; /* Centraliza o texto e os itens dentro do container */
-}
-
 /* ------------------------------------------- */
-/* --- ESTILO DE CADA BALÃO --- */
+/* --- ÁREA CENTRAL E BOTÕES --- */
 /* ------------------------------------------- */
 
-.balloon {
-    /* Dimensões e Cor */
-    background-color: #007bff; /* Fundo azul, igual ao do logo */
-    color: #ffffff; /* Texto branco */
-    width: 180px; /* Largura fixa */
-    height: 180px; /* Altura fixa (igual à largura para formar um círculo perfeito) */
-    
-    /* Forma e Espaçamento */
-    border-radius: 50%; /* A mágica acontece aqui: isso deixa o elemento redondo */
-    margin: 15px; /* Cria um espaço de 15px em volta de cada balão */
-    
-    /* Exibição e Alinhamento do Texto */
-    display: inline-block; /* Faz com que os balões fiquem um ao lado do outro */
-    line-height: 180px; /* Centraliza o texto verticalmente (truque: use o mesmo valor da altura) */
-    
-    /* Texto */
-    text-decoration: none; /* Remove o sublinhado do link */
-    font-size: 16px; /* Tamanho do texto */
-    font-weight: bold; /* Texto em negrito */
+.main-container {
+    text-align: center;
+    padding: 100px 20px;
 }
 
-/* Efeito simples quando o mouse passa por cima do balão */
-.balloon:hover {
-    background-color: #0056b3; /* Deixa o fundo azul um pouco mais escuro */
-    transform: scale(1.1); /* Aumenta o tamanho do balão em 10% */
-    transition: 0.3s; /* Faz a animação de aumentar ser suave */
+.main-container h1 {
+    font-size: 28px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.main-container p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.button-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Botões retangulares do menu inicial */
+.menu-button {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 18px 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    min-width: 220px;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.menu-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
 }
