@@ -1,3 +1,4 @@
+// Autores: Felipe Cesar Ferreira Lirani
 // inicial.js
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -1,4 +1,4 @@
-/* autores: Caio José Burdim Menali, Felipe Cesar Ferreira Lirani*/
+/* autores: Caio José Burdim Menali, Felipe Cesar Ferreira Lirani */
 
 /* O "*" seleciona TUDO na página */
 * {
@@ -48,7 +48,7 @@ body {
     list-style-type: none; /* Remove a "bolinha" da lista do menu */
 }
 
-.button-login {
+.btnCadastInstituicao {
     background-color: #28a745; /* Cor de fundo verde */
     color: #ffffff; /* Cor do texto branca */
     padding: 10px 20px; /* Espaçamento interno para o botão parecer maior */
@@ -58,7 +58,7 @@ body {
 }
 
 /* Efeito simples quando o mouse passa por cima do botão */
-.button-login:hover {
+.btnCadastInstituicao:hover {
     background-color: #218838; /* Deixa o fundo um pouco mais escuro */
 }
 
