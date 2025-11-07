@@ -1,4 +1,4 @@
-/* autores: Caio José Burdim Menali */
+/* autores: Caio José Burdim Menali, Felipe Cesar Ferreira Lirani*/
 
 /* O "*" seleciona TUDO na página */
 * {
@@ -13,9 +13,7 @@ body {
     color: #333333; /* Define a cor padrão do texto para um cinza escuro */
 }
 
-/* ------------------------------------------- */
 /* --- CABEÇALHO (A BARRA SUPERIOR) --- */
-/* ------------------------------------------- */
 
 .superbar-notadez {
     background-color: #ffffff; /* Fundo branco para o cabeçalho */
@@ -35,9 +33,7 @@ body {
     align-items: center; /* Alinha os itens verticalmente no centro */
 }
 
-/* ------------------------------------------- */
 /* --- LOGO "NotaDez" --- */
-/* ------------------------------------------- */
 
 .logo {
     font-size: 24px; /* Tamanho da fonte */
@@ -46,9 +42,7 @@ body {
     text-decoration: none; /* Remove o sublinhado padrão dos links */
 }
 
-/* ------------------------------------------- */
 /* --- BOTÃO DE LOGIN --- */
-/* ------------------------------------------- */
 
 .main-nav ul {
     list-style-type: none; /* Remove a "bolinha" da lista do menu */
@@ -69,13 +63,6 @@ body {
 }
 
 
-/* ------------------------------------------- */
-/* --- ÁREA CENTRAL COM OS BALÕES --- */
-/* ------------------------------------------- */
-
-/* ------------------------------------------- */
-/* --- ÁREA CENTRAL E BOTÕES --- */
-/* ------------------------------------------- */
 
 .main-container {
     text-align: center;
@@ -106,7 +93,7 @@ body {
     background-color: #007bff;
     color: #ffffff;
     padding: 18px 30px;
-    border-radius: 10px;
+    border-radius: 10px; border: 0px;
     text-decoration: none;
     font-size: 18px;
     font-weight: bold;
@@ -119,4 +106,46 @@ body {
 .menu-button:hover {
     background-color: #0056b3;
     transform: translateY(-3px);
+    cursor: pointer;
+}
+
+.menu-button.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  pointer-events: all;
+}
+
+/* Painel de alerta */
+.painel {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 999;
+}
+
+.painel.hidden { display: none; }
+
+.painel-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  width: 350px;
+}
+
+.painel-content h2 {
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.painel-content button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #ccc;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
