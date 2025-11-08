@@ -1,14 +1,26 @@
 // Autores: Felipe Cesar Ferreira Lirani
 // inicial.js
 
-document.addEventListener("DOMContentLoaded", () => {
-    const fecharPainel = document.getElementById("fecharPainel");
-    fecharPainel.addEventListener("click", () => {
-        document.getElementById("painelAlerta").classList.add("hidden");
-    });
-});
+// Função para verificar existencia de cadasto de intituicao e curso
+window.onload = async function carregarVerificarInstituicaoECurso() {
+    const autorizado = await verificarInstituicaoECurso();
+    if (autorizado) {
+        console.log ("Autorizado");
+        return;
+    } else {
+        const painelAlerta = this.document.getElementById("painelAlerta");
+        document.getElementById("painelAlerta");
+        painelAlerta.classList.remove("hidden");
+    }
+}
 
-// Ações chamadas pelo onclick dos botões
+// Função para fechar painel alerta institucao e curso
+function fecharPainelAlerta() {
+    const painelAlerta = document.getElementById("painelAlerta");
+    painelAlerta.classList.add("hidden");
+}
+
+// Chamadas do onclick do botão
 function abrirInstituicao() {
     window.location.href = "../../T_instituicao/html/";
 }
@@ -31,17 +43,17 @@ async function abrirTurmas() {
     }
 }
 
-// Simulação da verificação no backend (aqui será substituído futuramente)
+// Verificação no backend (verificar existencia de cadasto de intituicao e curso)
 async function verificarInstituicaoECurso() {
     try {
-        // Exemplo real futuro:
+        // Substituir depois do backend estar funcional:
         // const resp = await fetch('/api/verificarInstituicaoCurso');
         // const data = await resp.json();
         // return data.temInstituicao && data.temCurso;
 
         // Por enquanto, simulação:
         const temInstituicao = false;
-        const temCurso = false;
+        const temCurso = true;
         return temInstituicao && temCurso;
     } catch (erro) {
         console.error("Erro ao verificar instituição e curso:", erro);
