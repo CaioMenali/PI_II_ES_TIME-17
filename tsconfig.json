@@ -5,7 +5,7 @@
     // tipo de padrao de escrita 
     "target":"es2020",
     "module": "commonjs",
-    // pega tudo que tiver no ./src dentro do ./dist
+    // pega tudo que tiver no ./src para dentro do ./dist
     "rootDir": "./src",
     "outDir": "./dist",
     "strict": true,
@@ -27,6 +27,4 @@
     "node_modulos",
     "dist"
   ]
-
-  
 }

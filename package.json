@@ -4,7 +4,6 @@
   "description": "notadez servidor",
   "main": "app.js",
   "scripts": {
-    "verifyts": "ts-node src/teste.ts",
     "build": "tsc"
   },
   "repository": {
