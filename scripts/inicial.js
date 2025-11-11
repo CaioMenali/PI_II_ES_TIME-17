@@ -22,7 +22,7 @@ function fecharPainelAlerta() {
 
 // Chamadas do onclick do botão
 function abrirInstituicao() {
-    window.location.href = "../../T_instituicao/html/";
+    window.location.href = "../../T_instituicao/html/instituicao.html";
 }
 
 async function abrirDisciplinas() {
@@ -52,7 +52,7 @@ async function verificarInstituicaoECurso() {
         // return data.temInstituicao && data.temCurso;
 
         // Por enquanto, simulação:
-        const temInstituicao = false;
+        const temInstituicao = true;
         const temCurso = true;
         return temInstituicao && temCurso;
     } catch (erro) {
