@@ -1,0 +1,82 @@
+/* autores: Felipe Batista Bastos , Felipe Cesar Ferreira Lirani */
+
+/* O "*" seleciona TUDO na página */
+* {
+    margin: 0; /* Remove as margens que o navegador coloca por padrão */
+    padding: 0; /* Remove os preenchimentos que o navegador coloca por padrão */
+    box-sizing: border-box; /* Faz com que a largura e altura não sejam afetadas por padding ou bordas */
+}
+
+body {
+    font-family: Arial, sans-serif; /* Define uma fonte padrão e fácil de ler */
+    background-color: #f4f4f4; /* Define uma cor de fundo cinza bem clara para a página */
+    color: #333333; /* Define a cor padrão do texto para um cinza escuro */
+}
+
+/* CABEÇALHO/A BARRA SUPERIOR */
+
+.superbar-notadez {
+    background-color: #ffffff; /* Fundo branco para o cabeçalho */
+    padding: 15px 0; /* Espaço em cima/baixo. O espaço lateral será controlado pelo .container */
+    border-bottom: 1px solid #dddddd; /* Linha cinza clara na parte de baixo */
+}
+
+/* Este é o container DENTRO do cabeçalho */
+.superbar-notadez .container {
+    max-width: 1200px; /* Define uma largura máxima para o conteúdo não ficar esticado em telas grandes */
+    margin: 0 auto; /* Centraliza o container na página */
+    padding: 0 20px; /* Dá um respiro nas laterais para o conteúdo não colar na borda */
+    
+    /* A MÁGICA ACONTECE AQUI */
+    display: flex; /* Ativa o modo de alinhamento Flexbox */
+    justify-content: space-between; /* Joga os itens para os cantos opostos (logo na esquerda, nav na direita) */
+    align-items: center; /* Alinha os itens verticalmente no centro */
+}
+
+/* --- LOGO "NotaDez" --- */
+
+.logo {
+    font-size: 24px; /* Tamanho da fonte */
+    font-weight: bold; /* Deixa o texto em negrito */
+    color: #007bff; /* Cor do texto em azul */
+    text-decoration: none; /* Remove o sublinhado padrão dos links */
+}
+
+/* --- BOTÃO DE LOGIN --- */
+
+.main-nav ul {
+    list-style-type: none; /* Remove a "bolinha" da lista do menu */
+}
+
+.button-login {
+    background-color: #28a745; /* Cor de fundo verde */
+    color: #ffffff; /* Cor do texto branca */
+    padding: 10px 20px; /* Espaçamento interno para o botão parecer maior */
+    border-radius: 5px; /* Deixa as bordas do botão arredondadas */
+    text-decoration: none; /* Remove o sublinhado do link */
+    font-weight: bold; /* Texto em negrito */
+}
+
+.button-login:hover {
+    background-color: #218838; /* Deixa o fundo um pouco mais escuro */
+}
+
+/* estilzacao do main */
+.main-container {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.main-container h1 {
+    font-size: 28px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.main-container p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+#lista-instituicoes.hidden { display: none; }
