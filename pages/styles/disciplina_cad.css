@@ -1,0 +1,138 @@
+/* Autores: Felipe Batista Bastos, Felipe Cesar Ferreira Lirani */
+
+/* O "*" seleciona TUDO na página */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333333;
+}
+
+/* ------------------------------------------- */
+/* --- CABEÇALHO (A BARRA SUPERIOR) --- */
+/* ------------------------------------------- */
+
+.superbar-notadez {
+    background-color: #ffffff;
+    padding: 15px 0;
+    border-bottom: 1px solid #dddddd;
+}
+
+/* Este é o container DENTRO do cabeçalho */
+.superbar-notadez .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ------------------------------------------- */
+/* --- LOGO "NotaDez" --- */
+/* ------------------------------------------- */
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* ------------------------------------------- */
+/* --- BOTÃO DE LOGIN --- */
+/* ------------------------------------------- */
+
+.main-nav ul {
+    list-style-type: none;
+}
+
+.button-login {
+    background-color: #28a745;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.button-login:hover {
+    background-color: #218838;
+}
+
+/* ======================================================= */
+/* --- ESTILOS DE FORMULÁRIO (TELA DE CADASTRO) --- */
+/* ======================================================= */
+
+/*
+ * Como esta tela não tem o .content-container,
+ * estilizamos o .form-container-inline para ser o 
+ * container principal da página.
+*/
+.form-container-inline {
+    max-width: 700px; /* Largura do formulário */
+    margin: 40px auto; /* Centraliza na tela com espaço no topo */
+    padding: 30px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.form-container-inline h2 {
+    text-align: center;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #444;
+    font-size: 15px;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+/* * Estilo para o botão "Salvar Disciplina".
+ * Como você usou uma tag <a>, precisamos
+ * garantir que ela se pareça com um botão.
+*/
+.button-submit {
+    display: block; /* Faz o link ocupar a largura inteira */
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff; /* Azul, combinando com o tema */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Remove o sublinhado do link */
+    text-align: center; /* Centraliza o texto */
+}
+
+.button-submit:hover {
+    background-color: #0056b3; /* Azul mais escuro no hover */
+}

@@ -1,0 +1,67 @@
+<!-- Autores: Felipe Batista Bastos, Felipe Cesar Ferreira Lirani -->
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <link href="styles/nota_cad.css" rel="stylesheet" type="Text/css"/>
+    <title>Nota Dez - Componentes de Nota</title>
+</head>
+
+<header class="superbar-notadez">
+    <div class="container">
+        <a href="../../T_inicial/html/inicial.html" class="logo">NotaDez</a>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="../../T_login/html/login.html" class="button-login">Login</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<body>
+    
+    <main class="content-container">
+        <h1>Componentes de Nota</h1>
+
+        <div class="list-container" id="lista-componentes">
+            <p id="msg-lista-vazia-componentes">Nenhum componente cadastrado. Adicione um abaixo.</p>
+            
+            </div>
+
+        <div class="form-container-inline">
+            <h2>Cadastrar Novo Componente</h2>
+            
+            <form id="form-cad-componente">
+                
+                <div class="form-group">
+                    <label for="nome_componente">Nome do Componente</label>
+                    <input type="text" id="nome_componente" name="nome" placeholder="Ex: Prova 1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="sigla_componente">Nota da Prova 1</label>
+                    <input type="text" id="prova1_componente" name="Prova" placeholder="Ex: P1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="sigla_componente">Nota da Prova 2</label>
+                    <input type="text" id="prova2_componente" name="Prova" placeholder="Ex: P2" required>
+                </div>
+
+                    <div class="form-group">
+                    <label for="sigla_componente">Nota da Prova 3</label>
+                    <input type="text" id="prova3_componente" name="Prova" placeholder="Ex: P3" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="desc_componente">Descrição</label>
+                    <textarea id="desc_componente" name="descricao" placeholder="Ex: Prova teórica sobre conteúdo do primeiro módulo."></textarea>
+                </div>
+
+                <button type="submit" class="button-submit">Salvar Componente</button>
+            </form>
+        </div>
+    </main>
+    <script src="scripts/nota_cad.js"></script>
+</body>
+</html>

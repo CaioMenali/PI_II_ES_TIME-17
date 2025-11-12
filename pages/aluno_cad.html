@@ -1,0 +1,53 @@
+<!-- Autores: Felipe Batista Bastos, Felipe Cesar Ferreira Lirani -->
+
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="utf-8">
+        <link href="../Styles/aluno_cad.css" rel="stylesheet" type="Text/css"/>
+        <script src="../script/script.js"></script>
+        <title>Nota Dez - Alunos</title>
+    </head>
+
+    <header class="superbar-notadez">
+        <div class="container">
+            <a href="../../T_inicial/html/inicial.html" class="logo">NotaDez</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../../T_login/html/login.html" class="button-login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <body>
+        
+        <main class="content-container">
+            <h1>Meus Alunos</h1>
+
+            <div class="list-container" id="lista-alunos">
+                <p id="msg-lista-vazia-alunos">Nenhum aluno cadastrado. Adicione um abaixo.</p>
+                
+                </div>
+
+            <div class="form-container-inline">
+                <h2>Cadastrar Novo Aluno</h2>
+                
+                <form id="form-cad-aluno">
+                    
+                    <div class="form-group">
+                        <label for="nome_aluno">Nome do Aluno</label>
+                        <input type="text" id="nome_aluno" name="nome" placeholder="Ex: Nome completo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="RA_aluno">RA</label>
+                        <input type="text" id="RA_aluno" name="sigla" placeholder="Ex: 25005678" required>
+                    </div>
+
+                    <button type="submit" class="button-submit">Salvar Aluno</button>
+                </form>
+            </div>
+        </main>
+
+    </body>
+</html>

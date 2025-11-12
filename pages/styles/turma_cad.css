@@ -1,0 +1,194 @@
+/* Autores: Felipe Batista Bastos*/
+
+/* O "*" seleciona TUDO na página */
+* {
+    margin: 0; /* Remove as margens que o navegador coloca por padrão */
+    padding: 0; /* Remove os preenchimentos que o navegador coloca por padrão */
+    box-sizing: border-box; /* Faz com que a largura e altura não sejam afetadas por padding ou bordas */
+}
+
+body {
+    font-family: Arial, sans-serif; /* Define uma fonte padrão e fácil de ler */
+    background-color: #f4f4f4; /* Define uma cor de fundo cinza bem clara para a página */
+    color: #333333; /* Define a cor padrão do texto para um cinza escuro */
+}
+
+/* ------------------------------------------- */
+/* --- CABEÇALHO (A BARRA SUPERIOR) --- */
+/* ------------------------------------------- */
+
+.superbar-notadez {
+    background-color: #ffffff; /* Fundo branco para o cabeçalho */
+    padding: 15px 0; /* Espaço em cima/baixo. O espaço lateral será controlado pelo .container */
+    border-bottom: 1px solid #dddddd; /* Linha cinza clara na parte de baixo */
+}
+
+/* Este é o container DENTRO do cabeçalho */
+.superbar-notadez .container {
+    max-width: 1200px; /* Define uma largura máxima para o conteúdo não ficar esticado em telas grandes */
+    margin: 0 auto; /* Centraliza o container na página */
+    padding: 0 20px; /* Dá um respiro nas laterais para o conteúdo não colar na borda */
+    
+    /* A MÁGICA ACONTECE AQUI */
+    display: flex; /* Ativa o modo de alinhamento Flexbox */
+    justify-content: space-between; /* Joga os itens para os cantos opostos (logo na esquerda, nav na direita) */
+    align-items: center; /* Alinha os itens verticalmente no centro */
+}
+
+/* ------------------------------------------- */
+/* --- LOGO "NotaDez" --- */
+/* ------------------------------------------- */
+
+.logo {
+    font-size: 24px; /* Tamanho da fonte */
+    font-weight: bold; /* Deixa o texto em negrito */
+    color: #007bff; /* Cor do texto em azul */
+    text-decoration: none; /* Remove o sublinhado padrão dos links */
+}
+
+/* ------------------------------------------- */
+/* --- BOTÃO DE LOGIN --- */
+/* ------------------------------------------- */
+
+.main-nav ul {
+    list-style-type: none; /* Remove a "bolinha" da lista do menu */
+}
+
+.button-login {
+    background-color: #28a745; /* Cor de fundo verde */
+    color: #ffffff; /* Cor do texto branca */
+    padding: 10px 20px; /* Espaçamento interno para o botão parecer maior */
+    border-radius: 5px; /* Deixa as bordas do botão arredondadas */
+    text-decoration: none; /* Remove o sublinhado do link */
+    font-weight: bold; /* Texto em negrito */
+}
+
+/* Efeito simples quando o mouse passa por cima do botão */
+.button-login:hover {
+    background-color: #218838; /* Deixa o fundo um pouco mais escuro */
+}
+
+
+/* ======================================================= */
+/* --- ESTILOS DE CONTEÚDO E FORMULÁRIO (Telas Internas) --- */
+/* ======================================================= */
+
+/* Este é o container principal para páginas de formulário */
+.content-container {
+    max-width: 900px; /* Mais estreito que o cabeçalho, melhor para leitura/formulários */
+    margin: 40px auto; /* Centraliza na horizontal e dá espaço do topo */
+    padding: 20px;
+}
+
+.content-container h1 {
+    font-size: 28px;
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+
+/* Container da lista de itens */
+.list-container {
+    margin-bottom: 40px;
+}
+
+.list-container p {
+    color: #777;
+    font-style: italic;
+    font-size: 16px;
+    padding: 10px;
+}
+
+/* Cada item da lista (criado pelo JS) */
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #ffffff; /* Fundo branco, como o cabeçalho */
+}
+
+.list-item strong {
+    font-size: 18px;
+    color: #333;
+}
+
+.list-item a {
+    text-decoration: none;
+    color: #007bff; /* Azul, para combinar com o logo/balões */
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.list-item a:hover {
+    text-decoration: underline;
+}
+
+
+/* O formulário de cadastro */
+.form-container-inline {
+    padding: 25px;
+    background-color: #ffffff; /* Fundo branco */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.form-container-inline h2 {
+    text-align: center;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 22px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #444;
+    font-size: 15px;
+}
+
+/* Estilo unificado para inputs e textarea */
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo específico para o textarea */
+.form-group textarea {
+    min-height: 80px; /* Altura mínima */
+    resize: vertical; /* Permite ao usuário redimensionar apenas verticalmente */
+}
+
+/* Botão de submit do formulário */
+.button-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff; /* Azul, combinando com o tema (logo/balões) */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-submit:hover {
+    background-color: #0056b3; /* Mesmo hover do balão */
+}

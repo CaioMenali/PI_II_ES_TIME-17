@@ -5,6 +5,7 @@ Este repositório será destinado ao armazenamento do projeto "Nota Dez" da mat�
 A main será reservada apenas aos arquivos do programa e suas versões finais 
 e nas Branches as versões de cada parte do projeto, separado por tópicos, a qual estão sendo desenvolvidas e/ou terminadas. 
 
+A pagina de login é a primeira pagina a ser aberta no sistema
 
 Integrantes:
 
