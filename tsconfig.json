@@ -15,6 +15,7 @@
 
     // outras opcoes necessarias
     "esModuleInterop": true,
+    
     // pular a verificação de tipos dos arquivos
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
