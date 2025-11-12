@@ -2,49 +2,50 @@
 
 <!DOCTYPE html>
 <html lang="pt">
-    <head>
-        <meta charset="utf-8">
-        <link href="../styles/inicial.css" rel="stylesheet" />
-		<script src="../scripts/inicial.js"></script>        
-        <title>Nota Dez</title>
-    </head>
+<head>
+	<meta charset="utf-8">
+	<link href="../styles/inicial.css" rel="stylesheet" />
+	<title>NotaDez - Pagina inicial</title>
+</head>
 
-    <header class="superbar-notadez">
-		<div class="container">
-			<!-- Logo -->
-			<a href="../../T_inicial/html/inicial.html" class="logo">NotaDez</a>
-			<!-- Navegação e Botões -->
-			<nav class="main-nav">
-				<ul>
-				    <li>
-						<a href="../../T_login/html/login.html" class="button-login">Login</a>
-					</li>
-				</ul>
-			</nav>
+<header class="superbar-notadez">
+	<div class="container">
+		<!-- Logo -->
+		<a href="../../T_inicial/html/inicial.html" class="logo">NotaDez</a>
+		<!-- Navegação e Botões -->
+		<nav class="main-nav">
+			<ul>
+				<li>
+					<a href="../../T_login/html/login.html" class="button-login">Login</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<body>
+	<main class="main-container">
+		<h1>Bem-vindo ao Sistema NotaDez</h1>
+		<p></p>
+		
+		<!-- Botões para acessar as demais telas -->
+		<div class="button-grid">
+			<button class="menu-button" id="btnInstituicao" onclick="abrirInstituicao()">Gerenciar Instituição e Curso</button>
+			<button class="menu-button" id="btnDisciplinas" onclick="abrirDisciplinas()">Gerenciar Disciplinas</button>
+			<button class="menu-button" id="btnTurmas" onclick="abrirTurmas()">Gerenciar Turmas</button>
 		</div>
-    </header>
 
-    <body>
-		<main class="main-container">
-		    <h1>Bem-vindo ao Sistema NotaDez</h1>
-			<p></p>
-			
-			<!-- Botões para acessar as demais telas -->
-			<div class="button-grid">
-				<button class="menu-button" id="btnInstituicao" onclick="abrirInstituicao()">Gerenciar Instituição e Curso</button>
-				<button class="menu-button" id="btnDisciplinas" onclick="abrirDisciplinas()">Gerenciar Disciplinas</button>
-				<button class="menu-button" id="btnTurmas" onclick="abrirTurmas()">Gerenciar Turmas</button>
+		<!-- Painel de alerta -->
+		<div id="painelAlerta" class="painel hidden">
+			<div class="painel-content">
+				<h2>Atenção</h2>
+				<p>Você precisa cadastrar uma instituição e um curso antes de continuar.</p>
+				<a href="../../T_instituicao/html/instituicao.html" class="btnCadastInstituicao">Ir para cadastro</a>
+				<button id="fecharPainel" onclick="fecharPainelAlerta()">Fechar</button>
 			</div>
-
-			<!-- Painel de alerta -->
-			<div id="painelAlerta" class="painel hidden">
-				<div class="painel-content">
-					<h2>Atenção</h2>
-					<p>Você precisa cadastrar uma instituição e um curso antes de continuar.</p>
-					<a href="../../T_instituicao/html/instituicao.html" class="btnCadastInstituicao">Ir para cadastro</a>
-					<button id="fecharPainel" onclick="fecharPainelAlerta()">Fechar</button>
-				</div>
-			</div>
-		</main>
-    </body>
+		</div>
+	</main>
+	
+	<script src="../scripts/inicial.js"></script>        
+</body>
 </html>
