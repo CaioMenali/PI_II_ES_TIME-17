@@ -83,6 +83,12 @@ CREATE TABLE Auditoria (
     ID_Componente INT
 );
 
+CREATE SEQUENCE SEQ_DOCENTE
+START WITH 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
+
 ALTER TABLE Curso ADD CONSTRAINT fk_Disciplina_ID_Disciplina FOREIGN KEY (fk_Disciplina_ID_Disciplina) REFERENCES Disciplina(ID_Disciplina);
 
 ALTER TABLE Docente ADD CONSTRAINT fk_Instituicao_ID_Instituicao FOREIGN KEY (fk_Instituicao_ID_Instituicao) REFERENCES Instituicao(ID_Instituicao);
