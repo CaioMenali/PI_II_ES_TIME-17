@@ -22,13 +22,13 @@ function fecharPainelAlerta() {
 
 // Chamadas do onclick do botão
 function abrirInstituicao() {
-    window.location.href = "../../T_instituicao/html/instituicao.html";
+    window.location.href = "instituicao.html";
 }
 
 async function abrirDisciplinas() {
     const autorizado = await verificarInstituicaoECurso();
     if (autorizado) {
-        window.location.href = "../../T_disciplina/html/disciplina.html";
+        window.location.href = "disciplina.html";
     } else {
         document.getElementById("painelAlerta").classList.remove("hidden");
     }
@@ -37,7 +37,7 @@ async function abrirDisciplinas() {
 async function abrirTurmas() {
     const autorizado = await verificarInstituicaoECurso();
     if (autorizado) {
-        window.location.href = "../../T_turma/html/";
+        window.location.href = "turma.html";
     } else {
         document.getElementById("painelAlerta").classList.remove("hidden");
     }
