@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <link href="styles/loginRecover.css" rel="stylesheet" type="Text/css"/>
+    <title>NotaDez recuperar senha</title>
+</head>
+<body>
+    <div id="login">
+        <h1>NotaDez</h1>
+        <div id="loginInput">
+            <p>Recuperar senha</p>
+            <input id="email" type="email" placeholder="E-mail"><br/>
+            <button type="button" onclick="verify_email()">Verificar</button><br/>
+            <div id="resetBox" style="display:none;">
+                <input id="newPassword" type="password" placeholder="Nova senha"><br/>
+                <button type="button" onclick="reset_password()">Atualizar senha</button><br/>
+            </div>
+            <ul id="listLoginHelp">
+                <li><a href="login.html">Voltar ao login</a></li>
+            </ul>
+        </div>
+    </div>
+    <script src="scripts/loginRecover.js"></script>
+</body>
+</html>

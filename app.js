@@ -49,8 +49,8 @@ const port = 3000;
 // Configuração da conexão com o banco de dados Oracle
 const conexao = {
   user: "SYSTEM",
-  password: "Fgrc2006*",
-  connectString: "localhost:1521/XEPDB1"
+  password: "senha*",
+  connectString: "localhost:1521/xe"
 };
 
 
@@ -58,7 +58,7 @@ const conexao = {
 //Acesso ao servidor
 
 app.get("/", (req, res) => {
-  res.send("Servidor rodando"); 
+  res.send("Servidor NotaDez rodando"); 
 });
 
 // ROTA 2: Cadastro de um novo docente (professor)
@@ -82,9 +82,9 @@ app.post("/cadastro", async (req, res) => {
       // Se não existir, crie com: CREATE SEQUENCE SEQ_DOCENTE START WITH 1 INCREMENT BY 1;
       await conn.execute(
         `INSERT INTO DOCENTE (ID_DOCENTE, NOME, E_MAIL, TELEFONE_CELULAR, SENHA, FK_INSTITUICAO_ID_INSTITUICAO, FK_AUDITORIA_ID_AUDITORIA)
-         VALUES ("SYSTEM"."SEQ_DOCENTE".NEXTVAL, :nome, :email, :telefone, :senha, NULL, NULL)`,
-         [nome, email, telefone, senha],
-          { autoCommit: true }
+        VALUES ("SYSTEM"."SEQ_DOCENTE".NEXTVAL, :nome, :email, :telefone, :senha, NULL, NULL)`,
+        [nome, email, telefone, senha],
+        { autoCommit: true }
 );
 
       res.send("Docente cadastrado com sucesso!");
@@ -99,40 +99,33 @@ app.post("/cadastro", async (req, res) => {
 });
 
 
-// ROTA 3: Login de docentes
+// Rota para login de docentes
 
-app.post("/login", async (req, res) => {
-  const { email, senha } = req.body;
-
-  try {
-    const conn = await oracledb.getConnection(conexao);
-    const resultado = await conn.execute(
-      "SELECT ID_DOCENTE, NOME, E_MAIL, SENHA FROM DOCENTE WHERE E_MAIL = :email",
-      [email]
-    );
-
-    if (resultado.rows.length === 0) {
-      res.send("Docente não encontrado!");
-    } else {
-      const dados = resultado.rows[0];
-      if (senha === dados[3]) {
-        res.send("Login realizado com sucesso!");
-      } else {
-        res.send("Senha incorreta!");
-      }
-    }
-
-    await conn.close();
-
-  } catch (erro) {
-    console.error("Erro no login:", erro);
-    res.status(500).send("Erro no servidor ou no banco de dados!");
+app.post('/login', async (req, res) => {
+  // Lê credenciais enviadas pelo cliente
+  const { username, password } = req.body;
+  // Abre conexão com Oracle usando configuração global
+  const conn = await oracledb.getConnection(conexao);
+  // Consulta por combinação de e-mail e senha
+  const r = await conn.execute(
+    'SELECT COUNT(*) AS COUNT FROM DOCENTE WHERE E_MAIL = :email AND SENHA = :senha',
+    [username, password],
+    { outFormat: oracledb.OUT_FORMAT_OBJECT }
+  );
+  // Interpreta o resultado (COUNT > 0 indica credenciais válidas)
+  const ok = r.rows && r.rows[0] && (r.rows[0].COUNT || r.rows[0]['COUNT']) > 0;
+  // Fecha a conexão
+  await conn.close();
+  // Responde ao cliente conforme validação
+  if (ok) {
+    res.json({ success: true, message: 'Login do Docente bem-sucedido!' });
+  } else {
+    res.json({ success: false, message: 'E-mail ou senha inválidos para docente.' });
   }
 });
 
 
-
-// ROTA 4: Listar todos os docentes cadastrados
+// Rota para listar todos os docentes cadastrados
 
 app.get("/docentes", async (req, res) => {
   try {
@@ -149,63 +142,69 @@ app.get("/docentes", async (req, res) => {
 });
 
 
-// ROTA 5: Excluir um docente pelo ID
-
-app.delete("/docentes/:id", async (req, res) => {
-  const id = req.params.id;
-
-  try {
-    const conn = await oracledb.getConnection(conexao);
-    const resultado = await conn.execute(
-      "DELETE FROM DOCENTE WHERE ID_DOCENTE = :id",
-      [id],
-      { autoCommit: true }
-    );
-
-    if (resultado.rowsAffected === 0) {
-      res.send("Docente não encontrado!");
-    } else {
-      res.send("Docente removido com sucesso!");
-    }
-
-    await conn.close();
-
-  } catch (erro) {
-    console.error("Erro ao excluir docente:", erro);
-    res.status(500).send("Erro no servidor ou no banco de dados!");
-  }
-});
-
-
 // Rota para a tela Instituição.html
 app.get('/instituicao', (req, res) => {
-    // O método res.sendFile() envia o arquivo HTML especificado como resposta.
-    // path.join() é usado para criar um caminho absoluto para o arquivo,
-    // garantindo que funcione em qualquer sistema operacional.
-    res.sendFile(path.join(__dirname, 'public', 'Instituicao.html'));
+    res.sendFile(path.join(__dirname, 'pages', 'Instituicao.html'));
 });
 
 // Rota para a tela inicio.html
 app.get('/inicio', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'inicial.html'));
+    res.sendFile(path.join(__dirname, 'pages', 'index.html'));
 });
 
 // Rota para a tela turmas.html
 app.get('/turmas', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'turmas.html'));
+    res.sendFile(path.join(__dirname, 'pages', 'turmas.html'));
 });
 
 // Rota para a tela notas.html
 app.get('/notas', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'notas.html'));
+    res.sendFile(path.join(__dirname, 'pages', 'notas.html'));
+});
+
+// Rota para a tela loginRecover.html
+app.get('/recover', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', 'loginRecover.html'));
+});
+
+
+// Rota para verificar se o e-mail existe no banco de dados
+app.post('/recover/check-email', async (req, res) => {
+  const { email } = req.body;
+  const conn = await oracledb.getConnection(conexao);
+  const r = await conn.execute(
+    'SELECT COUNT(*) AS COUNT FROM DOCENTE WHERE E_MAIL = :email',
+    [email],
+    { outFormat: oracledb.OUT_FORMAT_OBJECT }
+  );
+  const exists = r.rows && r.rows[0] && (r.rows[0].COUNT || r.rows[0]['COUNT']) > 0;
+  await conn.close();
+  res.json({ exists });
+});
+
+// Rota para resetar a senha
+app.post('/recover/reset', async (req, res) => {
+  const { email, newPassword } = req.body;
+  const conn = await oracledb.getConnection(conexao);
+  const r = await conn.execute(
+    'UPDATE DOCENTE SET SENHA = :senha WHERE E_MAIL = :email',
+    [newPassword, email],
+    { autoCommit: true }
+  );
+  await conn.close();
+  res.json({ success: !!(r.rowsAffected && r.rowsAffected > 0) });
 });
 
 
 /*************************fim das rotas**********************/ 
 
+app.listen(port, ()=>{
+  console.log(`servidor de backend rodando na porta: ${port}`);
+});
 
 //ao chegar a função listen, o servidor abrirá a porta definida
 //para esperar as chamadas nas rotas que possui
-app.listen(port, ()=>{
-    console.log(`servidor de backend rodando na porta: ${port}`);
-});
+//quando chegar uma chamada, ele irá verificar a rota
+//e executar a função associada a ela
+//no caso, a rota /login, ele irá executar a função de login
+//e a rota /docentes, ele irá executar a função de listar docentes
