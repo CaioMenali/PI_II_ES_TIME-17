@@ -81,10 +81,10 @@ app.post("/cadastro", async (req, res) => {
       // Verifica se a sequência existe (importante no Oracle)
       // Se não existir, crie com: CREATE SEQUENCE SEQ_DOCENTE START WITH 1 INCREMENT BY 1;
       await conn.execute(
-        `INSERT INTO DOCENTE (ID_DOCENTE, NOME, E_MAIL, TELEFONE_CELULAR, SENHA, FK_INSTITUICAO_ID_INSTITUICAO, FK_AUDITORIA_ID_AUDITORIA)
-        VALUES ("SYSTEM"."SEQ_DOCENTE".NEXTVAL, :nome, :email, :telefone, :senha, NULL, NULL)`,
-        [nome, email, telefone, senha],
-        { autoCommit: true }
+      `INSERT INTO DOCENTE (ID_DOCENTE, NOME, E_MAIL, TELEFONE_CELULAR, SENHA, FK_INSTITUICAO_ID_INSTITUICAO, FK_AUDITORIA_ID_AUDITORIA)
+      VALUES (SEQ_DOCENTE.NEXTVAL, :nome, :email, :telefone, :senha, NULL, NULL)`,
+      [nome, email, telefone, senha],
+      { autoCommit: true }
 );
 
       res.send("Docente cadastrado com sucesso!");
