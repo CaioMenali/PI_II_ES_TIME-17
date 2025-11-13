@@ -4,61 +4,48 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     // Tenta encontrar o form de turma e configurar a página
-    configurarPaginaTurma();
+    configurarCadastroTurma();
 });
 
 
 /**
  * Procura e configura os elementos da página de TURMA
  */
-function configurarPaginaTurma() {
+function configurarCadastroTurma() {
     const form = document.getElementById("form-cad-turma");
-    if (!form) return; // Se o form não existe, para aqui.
+    if (!form) return;
 
-    // Seletores da página de turma
     const inputNome = document.getElementById("nome_turma");
     const inputCodigo = document.getElementById("codigo_turma");
-    const listaContainer = document.getElementById("lista-turmas");
-    const msgVazia = document.getElementById("msg-lista-vazia-turmas");
 
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
         event.preventDefault();
-        
+
         const dados = {
             nome: inputNome.value.trim(),
             codigo: inputCodigo.value.trim()
         };
 
-        if (dados.nome === "" || dados.codigo === "") {
-             alert("Por favor, preencha o Nome e o Código da turma.");
-             return;
+        if (!dados.nome || !dados.codigo) {
+            alert("Por favor, preencha o Nome e o Código da turma.");
+            return;
         }
 
-        adicionarTurmaNaLista(dados);
+            // Envia ao backend
+        const r = await fetch("http://localhost:3000/turmas", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(dados)
+        });
 
-        // Limpa os campos
-        inputNome.value = "";
-        inputCodigo.value = "";
+        const resposta = await r.json();
+
+        if (resposta.success) {
+            alert("Turma cadastrada com sucesso!");
+            inputNome.value = "";
+            inputCodigo.value = "";
+        } else {
+            alert("Erro ao salvar turma: " + resposta.message);
+        }
     });
-
-    // Função auxiliar (helper) que cria o HTML do item da lista
-    function adicionarTurmaNaLista(dados) {
-        if (msgVazia) msgVazia.style.display = "none";
-        
-        const divItem = document.createElement("div");
-        divItem.className = "list-item";
-        
-        const strongNome = document.createElement("strong");
-        // Combina o nome e o código para exibição
-        strongNome.textContent = `${dados.nome} (${dados.codigo})`; 
-
-        const linkAlunos = document.createElement("a");
-        linkAlunos.href = "#"; // Placeholder
-        linkAlunos.textContent = "Ver Alunos"; // Próximo passo lógico
-        
-        divItem.appendChild(strongNome);
-        divItem.appendChild(linkAlunos);
-        
-        listaContainer.appendChild(divItem);
     }
-}

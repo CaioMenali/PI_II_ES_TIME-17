@@ -1,41 +1,34 @@
-<!-- Autores: Felipe Batista Bastos, Felipe Cesar Ferreira Lirani -->
-
+<!-- Autores: Felipe Batista Bastos-->
 <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="utf-8">
-    <link href="styles/turma_cad.css" rel="stylesheet" type="Text/css"/>
-    <title>Nota Dez - Minhas Turmas</title>
+    <link href="styles/turma_cad.css" rel="stylesheet" type="text/css"/>
+    <title>Nota Dez - Cadastrar Turma</title>
 </head>
 
 <header class="superbar-notadez">
-	<div class="container">
-		<!-- Logo -->
-		<a href="index.html" class="logo">NotaDez</a>
-		<!-- Navegação e Botões -->
-		<nav class="main-nav">
-			<ul>
-				<li>
-					<a href="login.html" class="button-login">Login</a>
+    <div class="container">
+        <a href="index.html" class="logo">NotaDez</a>
+
+        <nav class="main-nav">
+            <ul>
+                <li>
+                    <a href="login.html" class="button-login">Login</a>
+                </li>
             </ul>
         </nav>
     </div>
 </header>
-<body>
-    
-    <main class="content-container">
-        <h1>Minhas Turmas</h1>
 
-        <div class="list-container" id="lista-turmas">
-            <p id="msg-lista-vazia-turmas">Nenhuma turma cadastrada. Adicione uma abaixo.</p>
-            
-            </div>
+<body>
+
+    <main class="content-container">
+        <h1>Cadastrar Nova Turma</h1>
 
         <div class="form-container-inline">
-            <h2>Cadastrar Nova Turma</h2>
-            
             <form id="form-cad-turma">
-                
+
                 <div class="form-group">
                     <label for="nome_turma">Nome da Turma</label>
                     <input type="text" id="nome_turma" name="nome" placeholder="Ex: Turma A - Noturno" required>
@@ -48,6 +41,8 @@
 
                 <button type="submit" class="button-submit">Salvar Turma</button>
             </form>
+
+            <a href="turma.html" class="button-voltar">Voltar para Minhas Turmas</a>
         </div>
     </main>
 

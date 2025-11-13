@@ -149,3 +149,9 @@ body {
 .button-add:hover {
     background-color: #0056b3; /* Azul mais escuro (como hover do balão) */
 }
+/* Botão grande de adicionar */
+.button-add {
+    display: block;
+    width: fit-content;
+    margin-bottom: 25px;
+}

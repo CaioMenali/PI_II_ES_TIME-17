@@ -141,6 +141,50 @@ app.get("/docentes", async (req, res) => {
   }
 });
 
+// Rota para cadastrar uma nova turma
+app.post("/turmas", async (req, res) => {
+  const { nome, codigo } = req.body;
+
+  try {
+    const conn = await oracledb.getConnection(conexao);
+
+    // Inserir nova turma
+    await conn.execute(
+      `INSERT INTO TURMA (ID_TURMA, NOME, CODIGO, HORARIO, LOCAL)
+       VALUES (SEQ_TURMA.NEXTVAL, :nome, :codigo, NULL, NULL)`,
+      [nome, codigo],
+      { autoCommit: true }
+    );
+
+    await conn.close();
+    res.json({ success: true, message: "Turma cadastrada com sucesso!" });
+
+  } catch (erro) {
+    console.error("Erro ao cadastrar turma:", erro);
+    res.status(500).json({ success: false, message: erro.message });
+  }
+});
+
+//Rota para listar todas as turmas cadastradas
+app.get("/turmas/listar", async (req, res) => {
+  try {
+    const conn = await oracledb.getConnection(conexao);
+    const resultado = await conn.execute(
+      `SELECT ID_TURMA, NOME, CODIGO FROM TURMA ORDER BY ID_TURMA`
+    );
+    await conn.close();
+
+    res.json(resultado.rows);
+  } catch (erro) {
+    console.error("Erro ao listar turmas:", erro);
+    res.status(500).json({ success: false, message: erro.message });
+  }
+});
+
+// Rota para a tela turmas.html
+app.get('/turmas', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', 'turmas.html'));
+});
 
 // Rota para a tela Instituição.html
 app.get('/instituicao', (req, res) => {
@@ -150,11 +194,6 @@ app.get('/instituicao', (req, res) => {
 // Rota para a tela inicio.html
 app.get('/inicio', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'index.html'));
-});
-
-// Rota para a tela turmas.html
-app.get('/turmas', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'turmas.html'));
 });
 
 // Rota para a tela notas.html
