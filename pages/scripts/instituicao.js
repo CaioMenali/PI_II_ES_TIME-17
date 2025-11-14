@@ -1,3 +1,4 @@
+//Autores: Felipe Cesar Ferreira Lirani
 // Função para receber e adicionar as instituicoes e cursos em uma lista 
 window.onload = async function adicionarItem() {
   
