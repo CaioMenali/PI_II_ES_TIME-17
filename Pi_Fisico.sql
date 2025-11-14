@@ -81,7 +81,10 @@ CREATE TABLE Auditoria (
     Mensagem VARCHAR2(255),
     ID_Docente INT,
     ID_Aluno INT,
-    ID_Componente INT
+    ID_Componente INT,
+    fk_Auditoria_Docente INT,
+    fk_Auditoria_Aluno INT,
+    fk_Auditoria_Componente INT
 );
 
 CREATE SEQUENCE SEQ_DOCENTE
