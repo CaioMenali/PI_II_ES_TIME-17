@@ -4,14 +4,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     // Tenta encontrar o form de turma e configurar a página
-    configurarCadastroTurma();
+    CadastroTurma();
 });
 
 
 /**
  * Procura e configura os elementos da página de TURMA
  */
-function configurarCadastroTurma() {
+function CadastroTurma() {
     const form = document.getElementById("form-cad-turma");
     if (!form) return;
 

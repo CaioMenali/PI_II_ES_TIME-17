@@ -1,9 +1,33 @@
 // Autores: Felipe Cesar Ferreira Lirani
 
+document.addEventListener("DOMContentLoaded", () => {
+    // Tenta encontrar o form de login e configurar a página
+    LoginRecover();
+});
+
+/**
+ * Procura e configura os elementos da página de LOGIN
+ */
+function LoginRecover() {
+    const form = document.getElementById("form-recover");
+    if (!form) return;
+
+    const inputEmail = document.getElementById("email");
+    if (!inputEmail) return;
+
+    const btnSubmit = document.getElementById("btn-submit");
+    if (!btnSubmit) return;
+
+    btnSubmit.addEventListener("click", (e) => {
+        e.preventDefault();
+        verify_email();
+    });
+}
+
 async function verify_email() {
     const email = document.getElementById('email').value;
     try {
-        const r = await fetch('http://localhost:3000/recover/check-email', {
+        const r = await fetch('http://localhost:3000/recover/verify-email', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email })

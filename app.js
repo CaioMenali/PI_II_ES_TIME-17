@@ -208,7 +208,7 @@ app.get('/recover', (req, res) => {
 
 
 // Rota para verificar se o e-mail existe no banco de dados
-app.post('/recover/check-email', async (req, res) => {
+app.post('/recover/verify-email', async (req, res) => {
   const { email } = req.body;
   const conn = await oracledb.getConnection(conexao);
   const r = await conn.execute(
