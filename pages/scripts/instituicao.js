@@ -1,20 +1,53 @@
-//Autores: Felipe Cesar Ferreira Lirani
+/* Autores: Felipe Batista Bastos , Felipe Cesar Ferreira Lirani*/
 
-// Função para receber e adicionar as instituicoes e cursos em uma lista 
-window.onload = async function adicionarItem() {
-  
-    const container = document.getElementById('container');
+document.addEventListener("DOMContentLoaded", async () => {
 
-    const novoParagrafo = document.createElement('p');
+    const listaContainer = document.getElementById("lista-instituicoes");
+    const msgVazia = document.getElementById("msg-lista-vazia");
 
-    novoParagrafo.textContent = 'Este é um item novo!';
-  
-    novoParagrafo.classList.add('item-lista');
+    const r = await fetch("http://localhost:3000/instituicoes/listar");
+    const lista = await r.json();
 
-    container.appendChild(novoParagrafo);
-}
+    listaContainer.innerHTML = ""; // limpa antes de preencher
+
+    if (!lista || lista.length === 0) {
+        msgVazia.style.display = "block";
+        return;
+    }
+
+    msgVazia.style.display = "none";
+
+    lista.forEach(inst => {
+
+        const divItem = document.createElement("div");
+        divItem.className = "list-item";
+
+        const strongNome = document.createElement("strong");
+        strongNome.textContent = inst[1]; // nome da instituição
+
+        const linkCursos = document.createElement("a");
+        linkCursos.href = "#";
+        linkCursos.textContent = "Ver Cursos";
+
+        divItem.appendChild(strongNome);
+        divItem.appendChild(linkCursos);
+
+        listaContainer.appendChild(divItem);
+    });
+});
+
 document.addEventListener("DOMContentLoaded", function(){
   var el = document.getElementById('docenteDisplay');
   if(!el) return; var n = localStorage.getItem('docenteName');
   if(n){ el.textContent = n; } else { window.location.href = 'login.html'; }
+});
+
+document.addEventListener("DOMContentLoaded", function(){
+  var b = document.getElementById('logoutBtn');
+  if(!b) return;
+  b.addEventListener('click', function(){
+    localStorage.removeItem('docenteName');
+    localStorage.removeItem('docenteEmail');
+    window.location.href = 'login.html';
+  });
 });

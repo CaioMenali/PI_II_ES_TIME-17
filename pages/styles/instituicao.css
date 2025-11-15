@@ -68,4 +68,27 @@ body {
     margin-bottom: 40px;
 }
 
-#lista-instituicoes.hidden { display: none; }
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+}
+
+.logout-btn {
+    margin-left:10px;
+    padding:6px 12px;
+    background-color:#6c757d;
+    color:#fff;
+    border:none;
+    border-radius:4px;
+    cursor:pointer
+}
+
+.logout-btn:hover {
+    background-color:#5a6268
+}

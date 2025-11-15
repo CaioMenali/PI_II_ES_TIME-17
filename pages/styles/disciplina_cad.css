@@ -125,3 +125,17 @@ body {
 .button-submit:hover {
     background-color: #0056b3; /* Azul mais escuro no hover */
 }
+
+.logout-btn {
+    margin-left:10px;
+    padding:6px 12px;
+    background-color:#6c757d;
+    color:#fff;
+    border:none;
+    border-radius:4px;
+    cursor:pointer
+}
+
+.logout-btn:hover {
+    background-color:#5a6268
+}

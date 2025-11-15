@@ -222,6 +222,7 @@ app.get("/instituicoes/listar", async (req, res) => {
   }
 });
 
+HEAD
 // Rota para cadastrar aluno
 app.post("/alunos", async (req, res) => {
   const { nome, RA } = req.body;
@@ -264,6 +265,7 @@ app.get("/alunos/listar", async (req, res) => {
     res.status(500).json({ success: false, message: erro.message });
   }
 });
+
 
 // Rota para a tela turmas.html
 app.get('/turmas', (req, res) => {
