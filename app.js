@@ -49,7 +49,7 @@ const port = 3000;
 // Configuração da conexão com o banco de dados Oracle
 const conexao = {
   user: "SYSTEM",
-  password: "senha*",
+  password: "senha",
   connectString: "localhost:1521/XEPDB1"
 };
 
@@ -222,7 +222,6 @@ app.get("/instituicoes/listar", async (req, res) => {
   }
 });
 
-HEAD
 // Rota para cadastrar aluno
 app.post("/alunos", async (req, res) => {
   const { nome, RA } = req.body;
