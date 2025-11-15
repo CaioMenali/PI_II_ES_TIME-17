@@ -2,8 +2,9 @@
 // index
 
 // Função para verificar existencia de cadasto de intituicao e curso
-window.onload = async function carregarVerificarInstituicaoECurso() {
+document.addEventListener("DOMContentLoaded", async function() {
     const autorizado = await verificarInstituicaoECurso();
+
     if (autorizado) {
         console.log ("Autorizado");
         return;
@@ -12,7 +13,7 @@ window.onload = async function carregarVerificarInstituicaoECurso() {
         document.getElementById("painelAlerta");
         painelAlerta.classList.remove("hidden");
     }
-}
+})
 
 // Função para fechar painel alerta institucao e curso
 function fecharPainelAlerta() {
