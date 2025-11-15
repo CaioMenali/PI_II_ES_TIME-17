@@ -58,7 +58,7 @@ const conexao = {
 //Acesso ao servidor
 
 app.get("/", (req, res) => {
-  res.send("Servidor NotaDez rodando"); 
+  res.send("Servidor NotaDez rodando!"); 
 });
 
 // ROTA 2: Cadastro de um novo docente (professor)
