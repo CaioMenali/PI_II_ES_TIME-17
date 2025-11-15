@@ -49,8 +49,8 @@ const port = 3000;
 // Configuração da conexão com o banco de dados Oracle
 const conexao = {
   user: "SYSTEM",
-  password: "senha*",
-  connectString: "localhost:1521/xe"
+  password: "senha",
+  connectString: "localhost:1521/XEPDB1"
 };
 
 
