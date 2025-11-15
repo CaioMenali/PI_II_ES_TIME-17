@@ -54,19 +54,7 @@ body {
     list-style-type: none; /* Remove a "bolinha" da lista do menu */
 }
 
-.button-login {
-    background-color: #28a745; /* Cor de fundo verde */
-    color: #ffffff; /* Cor do texto branca */
-    padding: 10px 20px; /* Espaçamento interno para o botão parecer maior */
-    border-radius: 5px; /* Deixa as bordas do botão arredondadas */
-    text-decoration: none; /* Remove o sublinhado do link */
-    font-weight: bold; /* Texto em negrito */
-}
-
-/* Efeito simples quando o mouse passa por cima do botão */
-.button-login:hover {
-    background-color: #218838; /* Deixa o fundo um pouco mais escuro */
-}
+ 
 
 
 /* ======================================================= */

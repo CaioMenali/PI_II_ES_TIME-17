@@ -5,6 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Tenta encontrar o form de turma e configurar a página
     CadastroTurma();
+    
+    var el = document.getElementById('docenteDisplay');
+    if(el){ var n = localStorage.getItem('docenteName');
+      if(n){ el.textContent = n; } else { el.innerHTML = '<a href="login.html">Login</a>'; }
+    }
 });
 
 

@@ -1,4 +1,5 @@
 /* Autores:Felipe Batista Bastos, Felipe Cesar Ferreira Lirani */
+
 // Função principal que roda quando a página carrega
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -69,3 +70,8 @@ function configurarPaginaComponente() {
         listaContainer.appendChild(divItem);
     }
 }
+document.addEventListener("DOMContentLoaded", function(){
+  var el = document.getElementById('docenteDisplay');
+  if(!el) return; var n = localStorage.getItem('docenteName');
+  if(n){ el.textContent = n; } else { el.innerHTML = '<a href="login.html">Login</a>'; }
+});

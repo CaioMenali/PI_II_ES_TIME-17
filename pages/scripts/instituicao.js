@@ -1,4 +1,5 @@
 //Autores: Felipe Cesar Ferreira Lirani
+
 // Função para receber e adicionar as instituicoes e cursos em uma lista 
 window.onload = async function adicionarItem() {
   
@@ -12,3 +13,8 @@ window.onload = async function adicionarItem() {
 
     container.appendChild(novoParagrafo);
 }
+document.addEventListener("DOMContentLoaded", function(){
+  var el = document.getElementById('docenteDisplay');
+  if(!el) return; var n = localStorage.getItem('docenteName');
+  if(n){ el.textContent = n; } else { el.innerHTML = '<a href="login.html">Login</a>'; }
+});

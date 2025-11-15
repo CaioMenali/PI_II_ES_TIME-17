@@ -1,5 +1,5 @@
 // Autores: Felipe Cesar Ferreira Lirani
-// inicial.js
+// index
 
 // Função para verificar existencia de cadasto de intituicao e curso
 window.onload = async function carregarVerificarInstituicaoECurso() {
@@ -60,3 +60,8 @@ async function verificarInstituicaoECurso() {
         return false;
     }
 }
+document.addEventListener("DOMContentLoaded", function(){
+  var el = document.getElementById('docenteDisplay');
+  if(!el) return; var n = localStorage.getItem('docenteName');
+  if(n){ el.textContent = n; } else { el.innerHTML = '<a href="login.html">Login</a>'; }
+});

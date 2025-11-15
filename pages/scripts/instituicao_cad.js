@@ -1,4 +1,4 @@
-/* Autores: Felipe Batista Bastos */
+/* Autores: Felipe Batista Bastos , Felipe Cesar Ferreira Lirani*/
 
     const form = document.getElementById("form-cad-instituicao");
     const inputNome = document.getElementById("nome");
@@ -44,4 +44,10 @@
         // 4. Adiciona o item completo na lista
         listaContainer.appendChild(divItem);
     }
+
+document.addEventListener("DOMContentLoaded", function(){
+  var el = document.getElementById('docenteDisplay');
+  if(!el) return; var n = localStorage.getItem('docenteName');
+  if(n){ el.textContent = n; } else { el.innerHTML = '<a href="login.html">Login</a>'; }
+});
 

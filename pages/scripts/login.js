@@ -21,6 +21,24 @@ async function try_login() {
         alert(data.message || 'Falha no login.');
 
         if (response.ok && data.success) {
+            try {
+                localStorage.setItem('docenteEmail', email);
+                const r = await fetch('http://localhost:3000/docentes');
+                const rows = await r.json();
+                let nome = '';
+                if (Array.isArray(rows)) {
+                    for (let i = 0; i < rows.length; i++) {
+                        const row = rows[i];
+                        if (Array.isArray(row) && row[2] === email) {
+                            nome = row[1];
+                            break;
+                        }
+                    }
+                }
+                if (nome) {
+                    localStorage.setItem('docenteName', nome);
+                }
+            } catch (_) {}
             window.location.href = 'index.html';
         }
     } catch (err) {

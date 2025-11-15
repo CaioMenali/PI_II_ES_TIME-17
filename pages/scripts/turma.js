@@ -1,4 +1,4 @@
-/* Autores: Felipe Batista Bastos */
+/* Autores: Felipe Batista Bastos, Felipe Cesar Ferreira Lirani */
 
 document.addEventListener("DOMContentLoaded", () => {
     carregarTurmas();
@@ -43,3 +43,9 @@ function adicionarTurmaNaLista(id, nome, codigo) {
 
     listaContainer.appendChild(divItem);
 }
+
+document.addEventListener("DOMContentLoaded", function(){
+  var el = document.getElementById('docenteDisplay');
+  if(!el) return; var n = localStorage.getItem('docenteName');
+  if(n){ el.textContent = n; } else { el.innerHTML = '<a href="login.html">Login</a>'; }
+});
