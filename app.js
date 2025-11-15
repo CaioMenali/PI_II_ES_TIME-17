@@ -181,6 +181,47 @@ app.get("/turmas/listar", async (req, res) => {
   }
 });
 
+//Rota para cadastrar uma nova instituição
+app.post("/instituicoes", async (req, res) => {
+  const { nome } = req.body;
+
+  try {
+    const conn = await oracledb.getConnection(conexao);
+
+    await conn.execute(
+      `INSERT INTO INSTITUICAO (ID_INSTITUICAO, NOME)
+       VALUES (SEQ_INSTITUICAO.NEXTVAL, :nome)`,
+      [nome],
+      { autoCommit: true }
+    );
+
+    await conn.close();
+    res.json({ success: true, message: "Instituição cadastrada com sucesso!" });
+
+  } catch (erro) {
+    console.error("Erro ao cadastrar instituição:", erro);
+    res.status(500).json({ success: false, message: erro.message });
+  }
+});
+
+//Rota para listar todas as instituições cadastradas
+app.get("/instituicoes/listar", async (req, res) => {
+  try {
+    const conn = await oracledb.getConnection(conexao);
+
+    const resultado = await conn.execute(
+      `SELECT ID_INSTITUICAO, NOME FROM INSTITUICAO ORDER BY ID_INSTITUICAO`
+    );
+
+    await conn.close();
+    res.json(resultado.rows);
+
+  } catch (erro) {
+    console.error("Erro ao listar instituições:", erro);
+    res.status(500).json({ success: false, message: erro.message });
+  }
+});
+
 // Rota para a tela turmas.html
 app.get('/turmas', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'turmas.html'));
