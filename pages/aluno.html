@@ -1,0 +1,41 @@
+<!-- Autores: Felipe Batista Bastos, Gabriel Batista Bastos -->
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <link href="styles/aluno.css" rel="stylesheet" type="text/css"/>
+    <title>Nota Dez - Meus Alunos</title>
+</head>
+
+<header class="superbar-notadez">
+    <div class="container">
+        <a href="index.html" class="logo">NotaDez</a>
+
+        <nav class="main-nav">
+            <ul>
+                <li>
+                    <span id="docenteDisplay"></span>
+                    <button id="logoutBtn" class="logout-btn" type="button">Sair</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<body>
+
+    <main class="content-container">
+        <h1>Meus Alunos</h1>
+
+        <a href="aluno_cad.html" class="button-add">+ Cadastrar Aluno</a>
+
+        <div class="list-container" id="lista-alunos">
+            <p id="msg-lista-vazia-alunos">Nenhum aluno cadastrado.</p>
+        </div>
+    </main>
+
+    <script src="scripts/aluno.js"></script>
+
+</body>
+</html>

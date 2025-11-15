@@ -114,46 +114,6 @@ body {
     margin-bottom: 25px;
 }
 
-/* Container da lista de itens */
-.list-container {
-    margin-bottom: 40px;
-}
-
-.list-container p {
-    color: #777;
-    font-style: italic;
-    font-size: 16px;
-    padding: 10px;
-}
-
-/* Cada item da lista (criado pelo JS) */
-.list-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #ffffff; /* Fundo branco, como o cabeçalho */
-}
-
-.list-item strong {
-    font-size: 18px;
-    color: #333;
-}
-
-.list-item a {
-    text-decoration: none;
-    color: #007bff; /* Azul, para combinar com o logo/balões */
-    font-weight: 600;
-    font-size: 15px;
-}
-
-.list-item a:hover {
-    text-decoration: underline;
-}
-
 
 /* O formulário de cadastro */
 .form-container-inline {
@@ -209,4 +169,18 @@ body {
 
 .button-submit:hover {
     background-color: #0056b3; /* Mesmo hover do balão */
+}
+
+.logout-btn {
+    margin-left:10px;
+    padding:6px 12px;
+    background-color:#6c757d;
+    color:#fff;
+    border:none;
+    border-radius:4px;
+    cursor:pointer
+}
+
+.logout-btn:hover {
+    background-color:#5a6268
 }

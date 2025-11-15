@@ -49,7 +49,7 @@ const port = 3000;
 // Configuração da conexão com o banco de dados Oracle
 const conexao = {
   user: "SYSTEM",
-  password: "senha",
+  password: "senha*",
   connectString: "localhost:1521/XEPDB1"
 };
 
@@ -177,6 +177,90 @@ app.get("/turmas/listar", async (req, res) => {
     res.json(resultado.rows);
   } catch (erro) {
     console.error("Erro ao listar turmas:", erro);
+    res.status(500).json({ success: false, message: erro.message });
+  }
+});
+
+//Rota para cadastrar uma nova instituição
+app.post("/instituicoes", async (req, res) => {
+  const { nome } = req.body;
+
+  try {
+    const conn = await oracledb.getConnection(conexao);
+
+    await conn.execute(
+      `INSERT INTO INSTITUICAO (ID_INSTITUICAO, NOME)
+       VALUES (SEQ_INSTITUICAO.NEXTVAL, :nome)`,
+      [nome],
+      { autoCommit: true }
+    );
+
+    await conn.close();
+    res.json({ success: true, message: "Instituição cadastrada com sucesso!" });
+
+  } catch (erro) {
+    console.error("Erro ao cadastrar instituição:", erro);
+    res.status(500).json({ success: false, message: erro.message });
+  }
+});
+
+//Rota para listar todas as instituições cadastradas
+app.get("/instituicoes/listar", async (req, res) => {
+  try {
+    const conn = await oracledb.getConnection(conexao);
+
+    const resultado = await conn.execute(
+      `SELECT ID_INSTITUICAO, NOME FROM INSTITUICAO ORDER BY ID_INSTITUICAO`
+    );
+
+    await conn.close();
+    res.json(resultado.rows);
+
+  } catch (erro) {
+    console.error("Erro ao listar instituições:", erro);
+    res.status(500).json({ success: false, message: erro.message });
+  }
+});
+
+// Rota para cadastrar aluno
+app.post("/alunos", async (req, res) => {
+  const { nome, RA } = req.body;
+
+  try {
+    const conn = await oracledb.getConnection(conexao);
+
+    await conn.execute(
+      `INSERT INTO ALUNO (ID_ALUNO, MATRICULA, NOME, FK_NOTA_ID_NOTA, FK_AUDITORIA_ID_AUDITORIA)
+       VALUES (SEQ_ALUNO.NEXTVAL, :ra, :nome, NULL, NULL)`,
+      [RA, nome],
+      { autoCommit: true }
+    );
+
+    await conn.close();
+    res.json({ success: true, message: "Aluno cadastrado com sucesso!" });
+
+  } catch (erro) {
+    console.error("Erro ao cadastrar aluno:", erro);
+    res.status(500).json({ success: false, message: erro.message });
+  }
+});
+
+// Rota para listar todos os alunos
+app.get("/alunos/listar", async (req, res) => {
+  try {
+    const conn = await oracledb.getConnection(conexao);
+
+    const resultado = await conn.execute(
+      `SELECT ID_ALUNO, MATRICULA, NOME 
+       FROM ALUNO 
+       ORDER BY ID_ALUNO`
+    );
+
+    await conn.close();
+
+    res.json(resultado.rows);
+  } catch (erro) {
+    console.error("Erro ao listar alunos:", erro);
     res.status(500).json({ success: false, message: erro.message });
   }
 });

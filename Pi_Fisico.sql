@@ -99,6 +99,18 @@ INCREMENT BY 1
 NOCACHE
 NOCYCLE;
 
+CREATE SEQUENCE SEQ_INSTITUICAO
+START WITH 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
+
+CREATE SEQUENCE SEQ_ALUNO
+START WITH 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
+
 ALTER TABLE Instituicao ADD CONSTRAINT fk_Curso_ID_Curso FOREIGN KEY (fk_Curso_ID_Curso) REFERENCES Curso(ID_Curso);
 
 ALTER TABLE Curso ADD CONSTRAINT fk_Disciplina_ID_Disciplina FOREIGN KEY (fk_Disciplina_ID_Disciplina) REFERENCES Disciplina(ID_Disciplina);
@@ -128,9 +140,3 @@ ALTER TABLE Nota ADD CONSTRAINT fk_Nota_Componente FOREIGN KEY (ID_Componente) R
 ALTER TABLE Aluno ADD CONSTRAINT fk_Aluno_Nota FOREIGN KEY (fk_Nota_ID_Nota) REFERENCES Nota(ID_Nota);
 
 ALTER TABLE Aluno ADD CONSTRAINT fk_Auditoria_Aluno FOREIGN KEY (fk_Auditoria_ID_Auditoria) REFERENCES Auditoria(ID_Auditoria);
-
-ALTER TABLE Auditoria ADD CONSTRAINT fk_Auditoria_Docente FOREIGN KEY (ID_Docente) REFERENCES Docente(ID_Docente);
-
-ALTER TABLE Auditoria ADD CONSTRAINT fk_Auditoria_Aluno FOREIGN KEY (ID_Aluno) REFERENCES Aluno(ID_Aluno);
-
-ALTER TABLE Auditoria ADD CONSTRAINT fk_Auditoria_Componente FOREIGN KEY (ID_Componente) REFERENCES Componente(ID_Componente);

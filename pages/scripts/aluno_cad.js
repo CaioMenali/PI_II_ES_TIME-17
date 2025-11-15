@@ -1,53 +1,75 @@
-/* Autores: Felipe Batista Bastos, Felipe Cesar Ferreira Lirani */
-
+const form = document.getElementById("form-cad-aluno");
 const inputNome = document.getElementById("nome_aluno");
-const inputRA = document.getElementById("sigla_aluno");
-const listaContainer = document.getElementById("lista-aluno");
-const msgVazia = document.getElementById("msg-lista-vazia-aluno");
+const inputRA = document.getElementById("RA_aluno");
+const listaContainer = document.getElementById("lista-alunos");
+const msgVazia = document.getElementById("msg-lista-vazia-alunos");
 
-form.addEventListener("submit", (event) => {
+document.addEventListener("DOMContentLoaded", carregarAlunos);
+
+form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    
+
     const dados = {
         nome: inputNome.value.trim(),
         RA: inputRA.value.trim(),
     };
 
     if (dados.nome === "" || dados.RA === "") {
-            alert("Por favor, preencha pelo menos Nome, Sigla e Código.");
-            return;
+        alert("Por favor, preencha todos os campos.");
+        return;
     }
 
-    adicionarAlunoNaLista(dados);
+    const r = await fetch("http://localhost:3000/alunos", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(dados)
+    });
 
-    // Limpa os campos
-    inputNome.value = "";
-    inputRA.value = "";
+    const resposta = await r.json();
+
+    if (resposta.success) {
+        alert("Aluno cadastrado com sucesso!");
+        adicionarAlunoNaLista(dados);
+        inputNome.value = "";
+        inputRA.value = "";
+    } else {
+        alert("Erro ao salvar aluno: " + resposta.message);
+    }
 });
 
-// Função auxiliar (helper) que cria o HTML do item da lista
-function adicionarAlunoNaLista(dados) {
-    if (msgVazia) msgVazia.style.display = "none";
-    
-    const divItem = document.createElement("div");
-    divItem.className = "list-item";
-    
-    const strongNome = document.createElement("strong");
-    // Combina o nome e o código para exibição
-    strongNome.textContent = `${dados.nome} (${dados.RA})`; 
+async function carregarAlunos() {
+    const r = await fetch("http://localhost:3000/alunos/listar");
+    const lista = await r.json();
 
-    const linkTurmas = document.createElement("a");
-    linkTurmas.href = "#"; // Placeholder
-    linkTurmas.textContent = "Ver Turmas";
-    
-    divItem.appendChild(strongNome);
-    divItem.appendChild(linkTurmas);
-    
-    listaContainer.appendChild(divItem);
+    listaContainer.innerHTML = "";
+
+    if (lista.length === 0) {
+        msgVazia.style.display = "block";
+        return;
+    }
+
+    msgVazia.style.display = "none";
+
+    lista.forEach(a => {
+        adicionarAlunoNaLista({ nome: a[2], RA: a[1] }); 
+    });
 }
 
-document.addEventListener("DOMContentLoaded", function(){
-  var el = document.getElementById('docenteDisplay');
-  if(!el) return; var n = localStorage.getItem('docenteName');
-  if(n){ el.textContent = n; } else { window.location.href = 'login.html'; }
-});
+function adicionarAlunoNaLista(dados) {
+    if (msgVazia) msgVazia.style.display = "none";
+
+    const divItem = document.createElement("div");
+    divItem.className = "list-item";
+
+    const strongNome = document.createElement("strong");
+    strongNome.textContent = `${dados.nome} (${dados.RA})`;
+
+    const linkTurmas = document.createElement("a");
+    linkTurmas.href = "#";
+    linkTurmas.textContent = "Ver Turmas";
+
+    divItem.appendChild(strongNome);
+    divItem.appendChild(linkTurmas);
+
+    listaContainer.appendChild(divItem);
+}
