@@ -1,10 +1,10 @@
-<!-- Autores: Felipe Batista Bastos, Felipe Cesar Ferreira Lirani, Caio José Burdim Menali -->
+<!-- Autores: Felipe Batista Bastos -->
 <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="utf-8">
-    <link href="styles/instituicao.css" rel="stylesheet" type="text/css"/>
-    <title>Nota Dez – Instituições</title>
+    <link href="styles/curso.css" rel="stylesheet" type="text/css"/>
+    <title>Nota Dez - Meus Cursos</title>
 </head>
 
 <header class="superbar-notadez">
@@ -25,15 +25,18 @@
 <body>
 
     <main class="content-container">
-        <h1>Instituições</h1>
+        <h1>Meus Cursos</h1>
 
-        <a href="instituicao_cad.html" class="button-add">+ Adicionar Nova Instituição</a>
+        <label for="select-instituicao">Instituição</label>
+        <select id="select-instituicao"></select>
 
-        <div class="list-container" id="lista-instituicoes">
-            <p id="msg-lista-vazia">Nenhuma instituição cadastrada.</p>
-        </div>
+        <a href="curso_cad.html" class="button-add">+ Adicionar Novo Curso</a>
+
+        <p id="msg-lista-vazia-cursos">Nenhum curso cadastrado.</p>
+        <div class="list-container" id="lista-cursos"></div>
     </main>
 
-    <script src="scripts/instituicao.js"></script>
+    <script src="scripts/curso.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,51 @@
+<!-- Autores: Felipe Batista Bastos -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <link href="styles/curso_cad.css" rel="stylesheet"/>
+    <title>Nota Dez - Cadastrar Curso</title>
+</head>
+
+<header class="superbar-notadez">
+    <div class="container">
+        <a href="index.html" class="logo">NotaDez</a>
+
+        <nav class="main-nav">
+            <ul>
+                <li>
+                    <span id="docenteDisplay"></span>
+                    <button id="logoutBtn" class="logout-btn" type="button">Sair</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<body>
+
+    <main class="content-container">
+        <h1>Cadastrar Novo Curso</h1>
+
+        <div class="form-container-inline">
+
+            <label for="instituicao_select">Instituição</label>
+            <select id="instituicao_select" required></select>
+
+            <form id="form-cad-curso">
+                <div class="form-group">
+                    <label for="nome_curso">Nome do Curso</label>
+                    <input type="text" id="nome_curso" name="nome" placeholder="Ex: Engenharia de Software" required>
+                </div>
+
+                <button type="submit" class="button-submit">Salvar Curso</button>
+            </form>
+
+            <a href="curso.html" class="button-voltar">Voltar</a>
+        </div>
+    </main>
+
+    <script src="scripts/curso_cad.js"></script>
+
+</body>
+</html>

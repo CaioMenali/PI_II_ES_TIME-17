@@ -1,69 +1,66 @@
 /* Autores: Felipe Batista Bastos, Felipe Cesar Ferreira Lirani */
 
-const inputNome = document.getElementById("nome_disciplina");
-const inputSigla = document.getElementById("sigla_disciplina");
-const inputCodigo = document.getElementById("codigo_disciplina");
-const inputPeriodo = document.getElementById("periodo_disciplina");
-const listaContainer = document.getElementById("lista-disciplinas");
-const msgVazia = document.getElementById("msg-lista-vazia-disciplinas");
-
-form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    
-    const dados = {
-        nome: inputNome.value.trim(),
-        sigla: inputSigla.value.trim(),
-        codigo: inputCodigo.value.trim(),
-        periodo: inputPeriodo.value.trim()
-    };
-
-    if (dados.nome === "" || dados.codigo === "" || dados.sigla === "") {
-            alert("Por favor, preencha pelo menos Nome, Sigla e Código.");
-            return;
-    }
-
-    adicionarDisciplinaNaLista(dados);
-
-    // Limpa os campos
-    inputNome.value = "";
-    inputSigla.value = "";
-    inputCodigo.value = "";
-    inputPeriodo.value = "";
+document.addEventListener("DOMContentLoaded", () => {
+    CadastroDisciplina();
 });
 
-// Função auxiliar (helper) que cria o HTML do item da lista
-function adicionarDisciplinaNaLista(dados) {
-    if (msgVazia) msgVazia.style.display = "none";
-    
-    const divItem = document.createElement("div");
-    divItem.className = "list-item";
-    
-    const strongNome = document.createElement("strong");
-    // Combina o nome e o código para exibição
-    strongNome.textContent = `${dados.nome} (${dados.codigo})`; 
+function CadastroDisciplina() {
+    const form = document.getElementById("form-cad-disciplina");
+    if (!form) return;
 
-    const linkTurmas = document.createElement("a");
-    linkTurmas.href = "#"; // Placeholder
-    linkTurmas.textContent = "Ver Turmas";
-    
-    divItem.appendChild(strongNome);
-    divItem.appendChild(linkTurmas);
-    
-    listaContainer.appendChild(divItem);
+    const inputNome = document.getElementById("nome_disciplina");
+    const inputSigla = document.getElementById("sigla_disciplina");
+    const inputCodigo = document.getElementById("codigo_disciplina");
+    const inputPeriodo = document.getElementById("periodo_disciplina");
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const dados = {
+            nome: inputNome.value.trim(),
+            sigla: inputSigla.value.trim(),
+            codigo: inputCodigo.value.trim(),
+            periodo: inputPeriodo.value.trim()
+        };
+
+        if (!dados.nome || !dados.sigla || !dados.codigo) {
+            alert("Preencha Nome, Sigla e Código.");
+            return;
+        }
+
+        const r = await fetch("http://localhost:3000/disciplinas", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        });
+
+        const resposta = await r.json();
+
+        if (resposta.success) {
+            alert("Disciplina cadastrada com sucesso!");
+            inputNome.value = "";
+            inputSigla.value = "";
+            inputCodigo.value = "";
+            inputPeriodo.value = "";
+        } else {
+            alert("Erro ao cadastrar: " + resposta.message);
+        }
+    });
 }
 
-document.addEventListener("DOMContentLoaded", function(){
-  var el = document.getElementById('docenteDisplay');
-  if(!el) return; var n = localStorage.getItem('docenteName');
-  if(n){ el.textContent = n; } else { window.location.href = 'login.html'; }
+/* LOGIN E LOGOUT */
+document.addEventListener("DOMContentLoaded", function () {
+    var el = document.getElementById('docenteDisplay');
+    if (!el) return; var n = localStorage.getItem('docenteName');
+    if (n) { el.textContent = n; } else { window.location.href = 'login.html'; }
 });
 
-document.addEventListener("DOMContentLoaded", function(){
-  var b = document.getElementById('logoutBtn');
-  if(!b) return;
-  b.addEventListener('click', function(){
-    localStorage.removeItem('docenteName');
-    localStorage.removeItem('docenteEmail');
-    window.location.href = 'login.html';
-  });
+document.addEventListener("DOMContentLoaded", function () {
+    var b = document.getElementById('logoutBtn');
+    if (!b) return;
+    b.addEventListener('click', function () {
+        localStorage.removeItem('docenteName');
+        localStorage.removeItem('docenteEmail');
+        window.location.href = 'login.html';
+    });
 });

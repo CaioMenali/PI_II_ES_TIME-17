@@ -1,3 +1,4 @@
+
 const form = document.getElementById("form-cad-aluno");
 const inputNome = document.getElementById("nome_aluno");
 const inputRA = document.getElementById("RA_aluno");

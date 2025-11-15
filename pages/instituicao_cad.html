@@ -6,12 +6,12 @@
     <link href="styles/instituicao_cad.css" rel="stylesheet" type="Text/css"/>
     <title>NotaDez - Cadastrar instituições</title>
 </head>
+
 <header class="superbar-notadez">
-	<div class="container">
-		<!-- Logo -->
-		<a href="index.html" class="logo">NotaDez</a>
-		<!-- Navegação e Botões -->
-		<nav class="main-nav">
+    <div class="container">
+        <a href="index.html" class="logo">NotaDez</a>
+
+        <nav class="main-nav">
             <ul>
                 <li>
                     <span id="docenteDisplay"></span>
@@ -25,19 +25,16 @@
 <body>
     
     <main class="content-container">
-        <h1>Minhas Instituições</h1>
-
-        <div class="list-container" id="lista-instituicoes">
-            <p id="msg-lista-vazia">Nenhuma instituição cadastrada. Adicione uma abaixo.</p>
-        </div>
+        <h1>Cadastrar Instituição</h1> <!-- 🔥 ALTERADO AQUI -->
 
         <div class="form-container-inline">
-            <h2>Cadastrar Nova Instituição</h2>
             <form id="form-cad-instituicao">
+                
                 <div class="form-group">
                     <label for="nome">Nome da Instituição</label>
                     <input type="text" id="nome" name="nome" placeholder="Ex: PUC-Campinas" required>
                 </div>
+
                 <button type="submit" class="button-submit">Salvar Instituição</button>
             </form>
         </div>

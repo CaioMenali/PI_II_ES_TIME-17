@@ -35,7 +35,7 @@ app.use(express.json());
 //além disso, liga o cors com o backend.
 
 app.use(cors({
-  origin: ["http://localhost:3000"],
+  origin: ["http://localhost:3000", "http://localhost:3001"],
   methods: ["GET", "POST", "DELETE", "PUT"],
   allowedHeaders: ["Content-Type"]
 }));
@@ -265,7 +265,96 @@ app.get("/alunos/listar", async (req, res) => {
   }
 });
 
+// Rota para cadastrar disciplina
+app.post("/disciplinas", async (req, res) => {
+  const { nome, sigla, codigo, periodo } = req.body;
 
+  try {
+    const conn = await oracledb.getConnection(conexao);
+
+    await conn.execute(
+      `INSERT INTO DISCIPLINA (
+        ID_DISCIPLINA, NOME, SIGLA, CODIGO, PERIODO, ID_INSTITUICAO, TIPOCALCULO, FK_TURMA_ID_TURMA, FK_COMPONENTE_ID_COMPONENTE
+      ) VALUES (
+        SEQ_DISCIPLINA.NEXTVAL, :nome, :sigla, :codigo, :periodo, NULL, NULL, NULL, NULL
+      )`,
+      [nome, sigla, codigo, periodo],
+      { autoCommit: true }
+    );
+
+    await conn.close();
+    res.json({ success: true, message: "Disciplina cadastrada com sucesso!" });
+
+  } catch (erro) {
+    console.error("Erro ao cadastrar disciplina:", erro);
+    res.status(500).json({ success: false, message: erro.message });
+  }
+});
+
+// Rota para listar disciplinas
+app.get("/disciplinas/listar", async (req, res) => {
+  try {
+    const conn = await oracledb.getConnection(conexao);
+
+    const resultado = await conn.execute(
+      `SELECT ID_DISCIPLINA, NOME, SIGLA, CODIGO, PERIODO
+       FROM DISCIPLINA
+       ORDER BY ID_DISCIPLINA`
+    );
+
+    await conn.close();
+    res.json(resultado.rows);
+
+  } catch (erro) {
+    console.error("Erro ao listar disciplinas:", erro);
+    res.status(500).json({ success: false, message: erro.message });
+  }
+});
+// Rota para cadastrar um novo curso
+app.post("/cursos", async (req, res) => {
+  const { nome, fk_instituicao } = req.body;
+
+  try {
+    const conn = await oracledb.getConnection(conexao);
+
+    await conn.execute(
+      `INSERT INTO CURSO (ID_CURSO, NOME, FK_INSTITUICAO_ID_INSTITUICAO)
+       VALUES (SEQ_CURSO.NEXTVAL, :nome, :inst)`,
+      [nome, fk_instituicao],
+      { autoCommit: true }
+    );
+
+    await conn.close();
+    res.json({ success: true, message: "Curso cadastrado com sucesso!" });
+
+  } catch (erro) {
+    console.error("Erro ao cadastrar curso:", erro);
+    res.status(500).json({ success: false, message: erro.message });
+  }
+});
+// Rota para listar todos os cursos cadastrados
+app.get("/cursos/listar/:idInst", async (req, res) => {
+  const id = req.params.idInst;
+
+  try {
+    const conn = await oracledb.getConnection(conexao);
+
+    const r = await conn.execute(
+      `SELECT ID_CURSO, NOME
+       FROM CURSO
+       WHERE FK_INSTITUICAO_ID_INSTITUICAO = :id
+       ORDER BY ID_CURSO`,
+      [id]
+    );
+
+    await conn.close();
+    res.json(r.rows);
+
+  } catch (erro) {
+    console.error("Erro ao listar cursos:", erro);
+    res.status(500).json({ success: false, message: erro.message });
+  }
+});
 // Rota para a tela turmas.html
 app.get('/turmas', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'turmas.html'));
