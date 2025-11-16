@@ -10,7 +10,7 @@ window.onload = async () => {
     const r = await fetch("http://localhost:3000/alunos/listar");
     const lista = await r.json();
 
-    listaContainer.innerHTML = ""; // limpar antes de exibir
+    listaContainer.innerHTML = "";
 
     if (!lista || lista.length === 0) {
         msgVazia.style.display = "block";
@@ -20,7 +20,6 @@ window.onload = async () => {
     msgVazia.style.display = "none";
 
     lista.forEach(a => {
-        // a = [ID, RA, NOME]
         adicionarAlunoNaLista(listaContainer, a[2], a[1]);
     });
 };
@@ -44,3 +43,17 @@ function adicionarAlunoNaLista(container, nome, RA) {
 
     container.appendChild(divItem);
 }
+
+window.onload = function(){
+    var docenteDisplay = document.getElementById('docenteDisplay');
+    if(!docenteDisplay) return; 
+    var nome = localStorage.getItem('docenteName');
+    if(nome){ docenteDisplay.textContent = nome; } 
+    else { window.location.href = 'login.html'; }
+};
+
+function logout() {
+    localStorage.removeItem('docenteName');
+    localStorage.removeItem('docenteEmail');
+    window.location.href = 'login.html';
+};

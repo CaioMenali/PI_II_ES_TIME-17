@@ -1,4 +1,4 @@
-/* Autores: Felipe Batista Bastos */
+/* Autor: Felipe Batista Bastos */
 
 // Função principal que roda quando a página carrega
 window.onload = () => {
@@ -6,20 +6,19 @@ window.onload = () => {
 };
 
 window.onload = function(){
-  var el = document.getElementById('docenteDisplay');
-  if(!el) return; var n = localStorage.getItem('docenteName');
-  if(n){ el.textContent = n; } else { window.location.href = 'login.html'; }
+    var docenteDisplay = document.getElementById('docenteDisplay');
+    if(!docenteDisplay) return; 
+    var nome = localStorage.getItem('docenteName');
+    if(nome){ docenteDisplay.textContent = nome; } 
+    else { window.location.href = 'login.html'; }
 };
 
-window.onload = function(){
-  var b = document.getElementById('logoutBtn');
-  if(!b) return;
-  b.addEventListener('click', function(){
+function logout() {
     localStorage.removeItem('docenteName');
     localStorage.removeItem('docenteEmail');
     window.location.href = 'login.html';
-  });
 };
+
 
 function CadastroTurma() {
     const form = document.getElementById("form-cad-turma");
@@ -41,7 +40,7 @@ function CadastroTurma() {
             return;
         }
 
-            // Envia ao backend
+        // Envia ao backend
         const r = await fetch("http://localhost:3000/turmas", {
             method: "POST",
             headers: {"Content-Type": "application/json"},

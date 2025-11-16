@@ -1,3 +1,5 @@
+
+
 import OracleDB from "oracledb";
 
 // caminho da wallet de conexao com o oracle

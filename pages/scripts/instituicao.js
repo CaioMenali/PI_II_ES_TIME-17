@@ -1,19 +1,16 @@
-/* Autores: Felipe Batista Bastos , Felipe Cesar Ferreira Lirani */
+/* Autor: Felipe Cesar Ferreira Lirani */
 
 window.onload = async () => {
     carregarInstituicoes();
 };
 
-/* ================================
-   LISTAGEM DE INSTITUIÇÕES
-================================ */
-
 async function carregarInstituicoes() {
     const container = document.getElementById("lista-instituicoes");
     const msgVazia = document.getElementById("msg-lista-vazia");
 
-    const r = await fetch("http://localhost:3000/instituicoes/listar");
-    const lista = await r.json();
+    const docenteEmail = localStorage.getItem('docenteEmail');
+    const response = await fetch(`http://localhost:3000/instituicoes/listar?docenteEmail=${docenteEmail}`);
+    const lista = await response.json();
 
     container.innerHTML = "";
 
@@ -48,26 +45,16 @@ function adicionarInstituicao(id, nome) {
     container.appendChild(divItem);
 }
 
-/* ================================
-   LOGIN / LOGOUT
-================================ */
-
-window.onload = () => {
-    const el = document.getElementById('docenteDisplay');
-    if (!el) return;
-    const nome = localStorage.getItem('docenteName');
-
-    if (nome) el.textContent = nome;
-    else window.location.href = 'login.html';
+window.onload = function(){
+    var docenteDisplay = document.getElementById('docenteDisplay');
+    if(!docenteDisplay) return; 
+    var nome = localStorage.getItem('docenteName');
+    if(nome){ docenteDisplay.textContent = nome; } 
+    else { window.location.href = 'login.html'; }
 };
 
-window.onload = () => {
-    const b = document.getElementById('logoutBtn');
-    if (!b) return;
-
-    b.addEventListener('click', () => {
-        localStorage.removeItem('docenteName');
-        localStorage.removeItem('docenteEmail');
-        window.location.href = 'login.html';
-    });
+function logout() {
+    localStorage.removeItem('docenteName');
+    localStorage.removeItem('docenteEmail');
+    window.location.href = 'login.html';
 };

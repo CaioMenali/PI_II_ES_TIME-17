@@ -1,14 +1,11 @@
+// Autor: Felipe Cesar Ferreira Lirani
 
-const form = document.getElementById("form-cad-aluno");
-const inputNome = document.getElementById("nome_aluno");
-const inputRA = document.getElementById("RA_aluno");
 const listaContainer = document.getElementById("lista-alunos");
 const msgVazia = document.getElementById("msg-lista-vazia-alunos");
 
-window.onload = carregarAlunos;
-
-form.addEventListener("submit", async (event) => {
-    event.preventDefault();
+async function salvarAluno() {
+    const inputNome = document.getElementById("nome_aluno");
+    const inputRA = document.getElementById("RA_aluno");
 
     const dados = {
         nome: inputNome.value.trim(),
@@ -20,27 +17,36 @@ form.addEventListener("submit", async (event) => {
         return;
     }
 
-    const r = await fetch("http://localhost:3000/alunos", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(dados)
-    });
+    try {
+        const response = await fetch("http://localhost:3000/alunos", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(dados)
+        });
 
-    const resposta = await r.json();
+        if (!response.ok) {
+            throw new Error("Requisição falhou com status: " + response.status);
+        }
 
-    if (resposta.success) {
-        alert("Aluno cadastrado com sucesso!");
-        adicionarAlunoNaLista(dados);
-        inputNome.value = "";
-        inputRA.value = "";
-    } else {
-        alert("Erro ao salvar aluno: " + resposta.message);
+        const resposta = await response.json();
+
+        if (resposta.success) {
+            alert("Aluno cadastrado com sucesso!");
+            adicionarAlunoNaLista(dados);
+            inputNome.value = "";
+            inputRA.value = "";
+        } else {
+            alert("Erro ao salvar aluno: " + resposta.message);
+        }
+    } catch (err) {
+        alert("Ocorreu um erro inesperado ao salvar o aluno: " + err.message);
+        console.error("Erro ao salvar aluno:", err);
     }
-});
+}
 
 async function carregarAlunos() {
-    const r = await fetch("http://localhost:3000/alunos/listar");
-    const lista = await r.json();
+    const response = await fetch("http://localhost:3000/alunos/listar");
+    const lista = await response.json();
 
     listaContainer.innerHTML = "";
 
@@ -52,7 +58,7 @@ async function carregarAlunos() {
     msgVazia.style.display = "none";
 
     lista.forEach(a => {
-        adicionarAlunoNaLista({ nome: a[2], RA: a[1] }); 
+        adicionarAlunoNaLista({ nome: a[2], RA: a[1] });
     });
 }
 
@@ -75,18 +81,16 @@ function adicionarAlunoNaLista(dados) {
     listaContainer.appendChild(divItem);
 }
 
-window.onload = function(){
-  var el = document.getElementById('docenteDisplay');
-  if(!el) return; var n = localStorage.getItem('docenteName');
-  if(n){ el.textContent = n; } else { window.location.href = 'login.html'; }
+window.onload = function() {
+    var docenteDisplay = document.getElementById('docenteDisplay');
+    if(!docenteDisplay) return;
+    var nome = localStorage.getItem('docenteName');
+    if(nome){ docenteDisplay.textContent = nome; } 
+    else { window.location.href = 'login.html'; }
 };
 
-window.onload = function(){
-  var b = document.getElementById('logoutBtn');
-  if(!b) return;
-  b.addEventListener('click', function(){
+function logout() {
     localStorage.removeItem('docenteName');
     localStorage.removeItem('docenteEmail');
     window.location.href = 'login.html';
-  });
-};
+}

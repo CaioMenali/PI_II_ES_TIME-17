@@ -19,7 +19,6 @@ async function carregarInstituicoes() {
 
     select.addEventListener("change", carregarCursos);
 
-    // carrega de imediato
     carregarCursos();
 }
 
@@ -66,22 +65,16 @@ function adicionarCursoNaLista(id, nome) {
     listaContainer.appendChild(divItem);
 }
 
-/* ------- LOGIN / LOGOUT ------- */
-
 window.onload = function(){
-  var el = document.getElementById('docenteDisplay');
-  if(!el) return; 
-  var n = localStorage.getItem('docenteName');
-  if(n){ el.textContent = n; } 
-  else { window.location.href = 'login.html'; }
+    var docenteDisplay = document.getElementById('docenteDisplay');
+    if(!docenteDisplay) return; 
+    var nome = localStorage.getItem('docenteName');
+    if(nome){ docenteDisplay.textContent = nome; } 
+    else { window.location.href = 'login.html'; }
 };
 
-window.onload = function(){
-  var b = document.getElementById('logoutBtn');
-  if(!b) return;
-  b.addEventListener('click', function(){
+function logout() {
     localStorage.removeItem('docenteName');
     localStorage.removeItem('docenteEmail');
     window.location.href = 'login.html';
-  });
 };

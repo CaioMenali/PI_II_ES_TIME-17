@@ -39,3 +39,17 @@ async function salvarCurso(event){
         alert("Erro: " + resposta.message);
     }
 }
+
+window.onload = function(){
+    var docenteDisplay = document.getElementById('docenteDisplay');
+    if(!docenteDisplay) return; 
+    var nome = localStorage.getItem('docenteName');
+    if(nome){ docenteDisplay.textContent = nome; } 
+    else { window.location.href = 'login.html'; }
+};
+
+function logout() {
+    localStorage.removeItem('docenteName');
+    localStorage.removeItem('docenteEmail');
+    window.location.href = 'login.html';
+};

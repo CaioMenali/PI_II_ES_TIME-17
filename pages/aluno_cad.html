@@ -1,4 +1,4 @@
-<!-- Autores: Felipe Batista Bastos, Felipe Cesar Ferreira Lirani -->
+<!-- Autor: Felipe Batista Bastos -->
 
 <!DOCTYPE html>
 <html lang="pt">
@@ -10,14 +10,12 @@
 
 <header class="superbar-notadez">
 	<div class="container">
-		<!-- Logo -->
 		<a href="index.html" class="logo">NotaDez</a>
-		<!-- Navegação e Botões -->
 		<nav class="main-nav">
 			<ul>
                 <li>
                     <span id="docenteDisplay"></span>
-                    <button id="logoutBtn" class="logout-btn" type="button">Sair</button>
+                    <button id="logoutBtn" class="logout-btn" type="button" onclick="logout()">Sair</button>
                 </li>
             </ul>
         </nav>
@@ -49,7 +47,7 @@
                     <input type="text" id="RA_aluno" name="sigla" placeholder="Ex: 25005678" required>
                 </div>
 
-                <button type="submit" class="button-submit">Salvar Aluno</button>
+                <button type="submit" class="button-submit" onclick="salvarAluno()">Salvar Aluno</button>
             </form>
         </div>
     </main>

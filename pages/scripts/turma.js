@@ -1,4 +1,4 @@
-/* Autores: Felipe Batista Bastos, Felipe Cesar Ferreira Lirani */
+/* Autor: Felipe Batista Bastos */
 
 window.onload = () => {
     carregarTurmas();
@@ -45,13 +45,15 @@ function adicionarTurmaNaLista(id, nome, codigo) {
 }
 
 window.onload = function(){
-  var el = document.getElementById('docenteDisplay');
-  if(!el) return; var n = localStorage.getItem('docenteName');
-  if(n){ el.textContent = n; } else { window.location.href = 'login.html'; }
+    var docenteDisplay = document.getElementById('docenteDisplay');
+    if(!docenteDisplay) return; 
+    var nome = localStorage.getItem('docenteName');
+    if(nome){ docenteDisplay.textContent = nome; } 
+    else { window.location.href = 'login.html'; }
 };
 
 function logout() {
-  localStorage.removeItem('docenteName');
-  localStorage.removeItem('docenteEmail');
-  window.location.href = 'login.html';
-}
+    localStorage.removeItem('docenteName');
+    localStorage.removeItem('docenteEmail');
+    window.location.href = 'login.html';
+};

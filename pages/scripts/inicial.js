@@ -47,7 +47,7 @@ async function abrirTurmas() {
 // Verificação no backend (verificar existencia de cadasto de intituicao e curso)
 async function verificarInstituicaoECurso() {
     try {
-        // Substituir depois do backend estar funcional:
+        // Substituir depois do backend estar funcionando
         // const resp = await fetch('/api/verificarInstituicaoCurso');
         // const data = await resp.json();
         // return data.temInstituicao && data.temCurso;
@@ -63,16 +63,15 @@ async function verificarInstituicaoECurso() {
 };
 
 window.onload = function(){
-  var el = document.getElementById('docenteDisplay');
-  if(!el) return; var n = localStorage.getItem('docenteName');
-  if(n){ el.textContent = n; } else { window.location.href = 'login.html'; }
+    var docenteDisplay = document.getElementById('docenteDisplay');
+    if(!docenteDisplay) return; 
+    var nome = localStorage.getItem('docenteName');
+    if(nome){ docenteDisplay.textContent = nome; } 
+    else { window.location.href = 'login.html'; }
 };
-window.onload = function(){
-  var b = document.getElementById('logoutBtn');
-  if(!b) return;
-  b.addEventListener('click', function(){
+
+function logout() {
     localStorage.removeItem('docenteName');
     localStorage.removeItem('docenteEmail');
     window.location.href = 'login.html';
-  });
 };

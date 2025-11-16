@@ -1,4 +1,4 @@
-/* Autores:Felipe Batista Bastos, Felipe Cesar Ferreira Lirani */
+/* Autor: Felipe Batista Bastos */
 
 // Função principal que roda quando a página carrega
 window.onload = () => {
@@ -44,7 +44,7 @@ function configurarPaginaComponente() {
         inputDesc.value = "";
     });
 
-    // Função auxiliar (helper) que cria o HTML do item da lista
+    // Função que cria o html do item da lista
     function adicionarComponenteNaLista(dados) {
         if (msgVazia) msgVazia.style.display = "none";
         
@@ -66,17 +66,15 @@ function configurarPaginaComponente() {
 }
 
 window.onload = function(){
-  var el = document.getElementById('docenteDisplay');
-  if(!el) return; var n = localStorage.getItem('docenteName');
-  if(n){ el.textContent = n; } else { window.location.href = 'login.html'; }
+    var docenteDisplay = document.getElementById('docenteDisplay');
+    if(!docenteDisplay) return; 
+    var nome = localStorage.getItem('docenteName');
+    if(nome){ docenteDisplay.textContent = nome; } 
+    else { window.location.href = 'login.html'; }
 };
 
-window.onload = function(){
-  var b = document.getElementById('logoutBtn');
-  if(!b) return;
-  b.addEventListener('click', function(){
+function logout() {
     localStorage.removeItem('docenteName');
     localStorage.removeItem('docenteEmail');
     window.location.href = 'login.html';
-  });
 };

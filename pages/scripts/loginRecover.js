@@ -1,4 +1,4 @@
-// Autores: Felipe Cesar Ferreira Lirani
+// Autor: Felipe Cesar Ferreira Lirani
 
 async function verify_email() {
     const email = document.getElementById('email').value;

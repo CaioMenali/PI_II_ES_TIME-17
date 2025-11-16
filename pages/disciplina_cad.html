@@ -1,4 +1,4 @@
-<!-- Autores: Felipe Batista Bastos, Felipe Cesar Ferreira Lirani -->
+<!-- Autor: Felipe Batista Bastos-->
 
 <!DOCTYPE html>
 <html lang="pt">
@@ -15,7 +15,7 @@
             <ul>
                 <li>
                     <span id="docenteDisplay"></span>
-                    <button id="logoutBtn" class="logout-btn" type="button">Sair</button>
+                    <button id="logoutBtn" class="logout-btn" type="button" onclick="logout()">Sair</button>
                 </li>
             </ul>
         </nav>
@@ -49,11 +49,10 @@
                 <input type="text" id="periodo_disciplina" name="periodo" placeholder="Ex: 4º Semestre" required>
             </div>
 
-            <button type="submit" class="button-submit">Salvar Disciplina</button>
+            <button type="submit" class="button-submit" onclick="salvarDisciplina()">Salvar Disciplina</button>
         </form>
     </div>
 
     <script src="scripts/disciplina_cad.js"></script>
-    
 </body>
 </html>

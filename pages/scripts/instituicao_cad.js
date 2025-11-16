@@ -1,27 +1,30 @@
-/* Autores: Felipe Batista Bastos , Felipe Cesar Ferreira Lirani*/
+/* Autor: Felipe Cesar Ferreira Lirani */
 
-window.onload = () => {
-    
+async function cadastrarInstituicao() {
     const form = document.getElementById("form-cad-instituicao");
     const inputNome = document.getElementById("nome");
 
-    form.addEventListener("submit", async (event) => {
-        event.preventDefault();
+    const nomeInstituicao = inputNome.value.trim();
 
-        const nomeInstituicao = inputNome.value.trim();
+    if (!nomeInstituicao) {
+        alert("Por favor, preencha o nome da instituição.");
+        return;
+    }
 
-        if (!nomeInstituicao) {
-            alert("Por favor, preencha o nome da instituição.");
-            return;
-        }
+    try {
+        const docenteEmail = localStorage.getItem('docenteEmail');
 
-        const r = await fetch("http://localhost:3000/instituicoes", {
+        const response = await fetch("http://localhost:3000/instituicoes", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ nome: nomeInstituicao })
+            body: JSON.stringify({ nome: nomeInstituicao, docenteEmail: docenteEmail })
         });
 
-        const resposta = await r.json();
+        if (!response.ok) {
+            throw new Error("Requisição falhou com status: " + response.status);
+        }
+
+        const resposta = await response.json();
 
         if (resposta.success) {
             alert("Instituição cadastrada com sucesso!");
@@ -29,21 +32,22 @@ window.onload = () => {
         } else {
             alert("Erro ao cadastrar: " + resposta.message);
         }
-    });
-};
+    } catch (err) {
+        alert("Ocorreu um erro inesperado: " + err.message);
+        console.error("Erro no cadastro da instituição:", err);
+    }
+}
 
 window.onload = function(){
-  var el = document.getElementById('docenteDisplay');
-  if(!el) return; var n = localStorage.getItem('docenteName');
-  if(n){ el.textContent = n; } else { window.location.href = 'login.html'; }
+    var docenteDisplay = document.getElementById('docenteDisplay');
+    if(!docenteDisplay) return; 
+    var nome = localStorage.getItem('docenteName');
+    if(nome){ docenteDisplay.textContent = nome; } 
+    else { window.location.href = 'login.html'; }
 };
 
-window.onload = function(){
-  var b = document.getElementById('logoutBtn');
-  if(!b) return;
-  b.addEventListener('click', function(){
+function logout() {
     localStorage.removeItem('docenteName');
     localStorage.removeItem('docenteEmail');
     window.location.href = 'login.html';
-  });
 };

@@ -1,3 +1,5 @@
+// Autor: Felipe Cesar Ferreira Lirani
+
 // aqui teremos os codigos de todos os serviços rotas etc.
 // nosso backend é na verdade um conjunto de pequenos programas.
 // cada pequeno programa é uma função e, esta função é uma rota.
@@ -113,22 +115,6 @@ app.post('/login', async (req, res) => {
   }
 });
 
-
-// Rota para listar todos os docentes cadastrados
-app.get("/docentes", async (req, res) => {
-  try {
-    const conn = await oracledb.getConnection(conexao);
-    const resultado = await conn.execute(
-      "SELECT ID_DOCENTE, NOME, E_MAIL, TELEFONE_CELULAR FROM DOCENTE ORDER BY ID_DOCENTE"
-    );
-    res.send(resultado.rows);
-    await conn.close();
-  } catch (err) {
-    console.error("Erro ao listar docentes:", err);
-    res.status(500).send("Erro no servidor ou no banco de dados!");
-  }
-});
-
 // Rota para cadastrar uma nova turma
 app.post("/turmas", async (req, res) => {
   const { nome, codigo } = req.body;
@@ -171,17 +157,30 @@ app.get("/turmas/listar", async (req, res) => {
 
 //Rota para cadastrar uma nova instituição
 app.post("/instituicoes", async (req, res) => {
-  const { nome } = req.body;
+  const { nome, docenteEmail } = req.body;
 
   try {
     const conn = await oracledb.getConnection(conexao);
 
-    await conn.execute(
+    // Inserir a nova instituição e obter o ID gerado
+    const resultInstituicao = await conn.execute(
       `INSERT INTO INSTITUICAO (ID_INSTITUICAO, NOME)
-       VALUES (SEQ_INSTITUICAO.NEXTVAL, :nome)`,
-      [nome],
+       VALUES (SEQ_INSTITUICAO.NEXTVAL, :nome)
+       RETURNING ID_INSTITUICAO INTO :idInstituicao`,
+      { nome: nome, idInstituicao: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT } },
       { autoCommit: true }
     );
+
+    const idInstituicao = resultInstituicao.outBinds.idInstituicao[0];
+
+    // Associar a instituição ao docente
+    if (docenteEmail && idInstituicao) {
+      await conn.execute(
+        `UPDATE DOCENTE SET FK_INSTITUICAO_ID_INSTITUICAO = :idInstituicao WHERE E_MAIL = :docenteEmail`,
+        [idInstituicao, docenteEmail],
+        { autoCommit: true }
+      );
+    }
 
     await conn.close();
     res.json({ success: true, message: "Instituição cadastrada com sucesso!" });
@@ -196,10 +195,31 @@ app.post("/instituicoes", async (req, res) => {
 app.get("/instituicoes/listar", async (req, res) => {
   try {
     const conn = await oracledb.getConnection(conexao);
+    const docenteEmail = req.query.docenteEmail;
+    let instituicaoId = null;
 
-    const resultado = await conn.execute(
-      `SELECT ID_INSTITUICAO, NOME FROM INSTITUICAO ORDER BY ID_INSTITUICAO`
-    );
+    if (docenteEmail) {
+      const docenteResult = await conn.execute(
+        `SELECT FK_INSTITUICAO_ID_INSTITUICAO FROM DOCENTE WHERE E_MAIL = :email`,
+        [docenteEmail]
+      );
+
+      if (docenteResult.rows.length > 0) {
+        instituicaoId = docenteResult.rows[0][0];
+      }
+    }
+
+    let query = `SELECT ID_INSTITUICAO, NOME FROM INSTITUICAO`;
+    const binds = {};
+
+    if (instituicaoId) {
+      query += ` WHERE ID_INSTITUICAO = :instituicaoId`;
+      binds.instituicaoId = instituicaoId;
+    }
+
+    query += ` ORDER BY ID_INSTITUICAO`;
+
+    const resultado = await conn.execute(query, binds);
 
     await conn.close();
     res.json(resultado.rows);
