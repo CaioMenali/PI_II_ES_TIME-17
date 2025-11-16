@@ -3,12 +3,6 @@
 // Este arquivo contém as funções JavaScript para o cadastro de componentes de nota.
 // Ele lida com a interação do usuário na página de cadastro de componentes, adicionando-os visualmente à lista.
 
-// Função principal que roda quando a página carrega
-// Configura os event listeners e inicializa a página de cadastro de componentes.
-window.onload = () => {
-    configurarPaginaComponente();
-};
-
 // Função para configurar a página de cadastro de componentes.
 // Obtém referências aos elementos do formulário e da lista, e adiciona um event listener para o evento de submit do formulário.
 function configurarPaginaComponente() {
@@ -83,6 +77,9 @@ window.onload = function(){
     var nome = localStorage.getItem('docenteName');
     if(nome){ docenteDisplay.textContent = nome; } 
     else { window.location.href = 'login.html'; }
+
+    // Configura os event listeners e inicializa a página de cadastro de componentes.
+    configurarPaginaComponente();
 };
 
 // Função para realizar o logout do docente.

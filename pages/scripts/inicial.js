@@ -4,18 +4,6 @@
 // Ele é responsável por verificar a existência de cadastro de instituição e curso, exibir alertas e gerenciar a navegação.
 
 // Função para verificar existencia de cadasto de intituicao e curso
-window.onload = async function() {
-    const autorizado = await verificarInstituicaoECurso();
-
-    if (autorizado) {
-        console.log ("Autorizado");
-        return;
-    } else {
-        const painelAlerta = this.document.getElementById("painelAlerta");
-        document.getElementById("painelAlerta");
-        painelAlerta.classList.remove("hidden");
-    };
-};
 
 // Função para fechar o painel de alerta de instituição e curso.
 // Remove a classe 'hidden' do painel, tornando-o invisível.
@@ -73,12 +61,23 @@ async function verificarInstituicaoECurso() {
 // Esta função é executada quando a janela é carregada.
 // Ela verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
 // Além disso, ela exibe o nome do docente logado na interface.
-window.onload = function(){
+window.onload = async function(){
     var docenteDisplay = document.getElementById('docenteDisplay');
     if(!docenteDisplay) return; 
     var nome = localStorage.getItem('docenteName');
     if(nome){ docenteDisplay.textContent = nome; } 
     else { window.location.href = 'login.html'; }
+    
+    const autorizado = await verificarInstituicaoECurso();
+
+    if (autorizado) {
+        console.log ("Autorizado");
+        return;
+    } else {
+        const painelAlerta = this.document.getElementById("painelAlerta");
+        document.getElementById("painelAlerta");
+        painelAlerta.classList.remove("hidden");
+    };
 };
 
 // Função para realizar o logout do docente.

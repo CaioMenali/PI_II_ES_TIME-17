@@ -3,12 +3,6 @@
 // Este arquivo contém as funções JavaScript para a listagem de disciplinas.
 // Ele é responsável por carregar e exibir a lista de disciplinas cadastradas na interface do usuário.
 
-// Esta função é executada quando a janela é carregada.
-// Ela inicia o processo de carregamento das disciplinas.
-window.onload = () => {
-    carregarDisciplinas();
-};
-
 // Função assíncrona para carregar e exibir a lista de disciplinas.
 // Faz uma requisição ao endpoint /disciplinas/listar do backend e preenche a lista na interface.
 // Se não houver disciplinas, exibe uma mensagem de lista vazia.
@@ -68,6 +62,9 @@ window.onload = function(){
     var nome = localStorage.getItem('docenteName');
     if(nome){ docenteDisplay.textContent = nome; } 
     else { window.location.href = 'login.html'; }
+
+    // Esta função inicia o processo de carregamento das disciplinas.
+    carregarDisciplinas();
 };
 
 // Função para realizar o logout do docente.
