@@ -50,17 +50,20 @@ const conexao = {
   connectString: "localhost:1521/XEPDB1"
 };
 
-//Acesso ao servidor
+// Acesso ao servidor
+// Esta rota é responsável por responder à rota raiz ("/") do servidor.
 app.get("/", (req, res) => {
   res.send("Servidor NotaDez rodando!"); 
 });
 
 // Rota para cadastro de um novo docente
+// Esta rota é responsável por cadastrar um novo docente no banco de dados.
+// Ela verifica se o e-mail já existe e, caso contrário, insere os dados do novo docente.
 app.post("/cadastro", async (req, res) => {
   const { nome, email, telefone, senha } = req.body;
 
   try {
-    // Faz a conexão
+    // Inicia a conexão
     const conn = await oracledb.getConnection(conexao);
 
     // Verifica se o e-mail já existe
@@ -94,18 +97,20 @@ app.post("/cadastro", async (req, res) => {
 
 
 // Rota para login de docentes
+// Esta rota é responsável por autenticar um docente.
+// Ela verifica as credenciais (e-mail e senha) fornecidas e responde com sucesso ou falha no login.
 app.post('/login', async (req, res) => {
   // Lê credenciais enviadas pelo cliente
   const { username, password } = req.body;
   // Abre conexão com Oracle usando configuração global
   const conn = await oracledb.getConnection(conexao);
-  // Consulta por combinação de e-mail e senha
+  // Consulta por e-mail e senha
   const r = await conn.execute(
     'SELECT COUNT(*) AS COUNT FROM DOCENTE WHERE E_MAIL = :email AND SENHA = :senha',
     [username, password],
     { outFormat: oracledb.OUT_FORMAT_OBJECT }
   );
-  // Interpreta o resultado da consulta
+
   const ok = r.rows && r.rows[0] && (r.rows[0].COUNT || r.rows[0]['COUNT']) > 0;
   // Fecha a conexão
   await conn.close();
@@ -118,6 +123,8 @@ app.post('/login', async (req, res) => {
 });
 
 // Rota para cadastrar uma nova turma
+// Esta rota é responsável por cadastrar uma nova turma no banco de dados.
+// Ela recebe o nome e o código da turma e os insere na tabela de turmas.
 app.post("/turmas", async (req, res) => {
   const { nome, codigo } = req.body;
 
@@ -142,6 +149,8 @@ app.post("/turmas", async (req, res) => {
 });
 
 //Rota para listar todas as turmas cadastradas
+// Esta rota é responsável por listar todas as turmas cadastradas no banco de dados.
+// Ela retorna uma lista com o ID, nome e código de cada turma.
 app.get("/turmas/listar", async (req, res) => {
   try {
     const conn = await oracledb.getConnection(conexao);
@@ -158,6 +167,8 @@ app.get("/turmas/listar", async (req, res) => {
 });
 
 //Rota para cadastrar uma nova instituição
+// Esta rota é responsável por cadastrar uma nova instituição e associá-la a um docente, se fornecido.
+// Ela insere a instituição e, opcionalmente, atualiza o docente com o ID da nova instituição.
 app.post("/instituicoes", async (req, res) => {
   const { nome, docenteEmail } = req.body;
 
@@ -194,6 +205,8 @@ app.post("/instituicoes", async (req, res) => {
 });
 
 //Rota para listar todas as instituições cadastradas
+// Esta rota é responsável por listar as instituições cadastradas.
+// Ela pode filtrar as instituições por um docente específico, se o e-mail do docente for fornecido.
 app.get("/instituicoes/listar", async (req, res) => {
   try {
     const conn = await oracledb.getConnection(conexao);
@@ -233,6 +246,8 @@ app.get("/instituicoes/listar", async (req, res) => {
 });
 
 // Rota para cadastrar aluno
+// Esta rota é responsável por cadastrar um novo aluno no banco de dados.
+// Ela recebe o nome e o RA do aluno e os insere na tabela de alunos.
 app.post("/alunos", async (req, res) => {
   const { nome, RA } = req.body;
 
@@ -256,6 +271,8 @@ app.post("/alunos", async (req, res) => {
 });
 
 // Rota para listar todos os alunos
+// Esta rota é responsável por listar todos os alunos cadastrados no banco de dados.
+// Ela retorna uma lista com o ID, matrícula e nome de cada aluno.
 app.get("/alunos/listar", async (req, res) => {
   try {
     const conn = await oracledb.getConnection(conexao);
@@ -276,6 +293,8 @@ app.get("/alunos/listar", async (req, res) => {
 });
 
 // Rota para cadastrar disciplina
+// Esta rota é responsável por cadastrar uma nova disciplina no banco de dados.
+// Ela recebe os dados da disciplina e os insere na tabela correspondente.
 app.post("/disciplinas", async (req, res) => {
   const { nome, sigla, codigo, periodo } = req.body;
 
@@ -302,6 +321,8 @@ app.post("/disciplinas", async (req, res) => {
 });
 
 // Rota para listar disciplinas
+// Esta rota é responsável por listar todas as disciplinas cadastradas no banco de dados.
+// Ela retorna uma lista com o ID, nome, sigla, código e período de cada disciplina.
 app.get("/disciplinas/listar", async (req, res) => {
   try {
     const conn = await oracledb.getConnection(conexao);
@@ -322,6 +343,8 @@ app.get("/disciplinas/listar", async (req, res) => {
 });
 
 // Rota para cadastrar um novo curso
+// Esta rota é responsável por cadastrar um novo curso no banco de dados.
+// Ela recebe o nome do curso e o ID da instituição a qual ele pertence.
 app.post("/cursos", async (req, res) => {
   const { nome, fk_instituicao } = req.body;
 
@@ -345,6 +368,8 @@ app.post("/cursos", async (req, res) => {
 });
 
 // Rota para listar todos os cursos cadastrados
+// Esta rota é responsável por listar todos os cursos associados a uma instituição específica.
+// Ela filtra os cursos pelo ID da instituição fornecido na URL.
 app.get("/cursos/listar/:idInst", async (req, res) => {
   const id = req.params.idInst;
 
@@ -369,6 +394,8 @@ app.get("/cursos/listar/:idInst", async (req, res) => {
 });
 
 // Rota para verificar se o e-mail existe no banco de dados
+// Esta rota é responsável por verificar se um e-mail de docente existe no banco de dados.
+// Ela é usada no processo de recuperação de senha para confirmar a existência do usuário.
 app.post('/recover/verify-email', async (req, res) => {
   const { email } = req.body;
   const conn = await oracledb.getConnection(conexao);
@@ -383,6 +410,8 @@ app.post('/recover/verify-email', async (req, res) => {
 });
 
 // Rota para resetar a senha
+// Esta rota é responsável por resetar a senha de um docente.
+// Ela atualiza a senha de um docente no banco de dados com base no e-mail fornecido.
 app.post('/recover/reset', async (req, res) => {
   const { email, newPassword } = req.body;
   const conn = await oracledb.getConnection(conexao);
@@ -397,8 +426,10 @@ app.post('/recover/reset', async (req, res) => {
 
 // Fim das rotas.
 
+// Esta rota inicia o servidor de backend e o faz escutar em uma porta específica.
+// Ela exibe uma mensagem no console indicando que o servidor está rodando e em qual porta.
 app.listen(port, ()=>{
-  console.log(`servidor de backend rodando na porta: ${port}`);
+  console.log(`Servidor de backend rodando na porta: ${port}`);
 });
 
 //ao chegar a função listen, o servidor abrirá a porta definida
