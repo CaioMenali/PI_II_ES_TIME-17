@@ -1,5 +1,6 @@
 /* Autores: Felipe Batista Bastos */
 
+/* Estilo geral para pagina */
 * {
     margin: 0;
     padding: 0;
@@ -12,13 +13,14 @@ body {
     color: #333;
 }
 
-/* ----- CABEÇALHO ----- */
+/* Cabeçalho */
 .superbar-notadez {
     background-color: #ffffff;
     padding: 15px 0;
     border-bottom: 1px solid #dddddd;
 }
 
+/* Container do cabeçalho */
 .superbar-notadez .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -28,6 +30,7 @@ body {
     align-items: center;
 }
 
+/* Nome do site */
 .logo {
     font-size: 24px;
     font-weight: bold;
@@ -35,12 +38,12 @@ body {
     text-decoration: none;
 }
 
+/* Navegação principal */
 .main-nav ul {
     list-style-type: none;
 }
 
-/* ----- FORMULÁRIO ----- */
-
+/* Container principal */
 .content-container {
     max-width: 900px;
     margin: 40px auto;
@@ -55,6 +58,7 @@ body {
     margin-bottom: 25px;
 }
 
+/* Formulário */
 .form-container-inline {
     padding: 25px;
     background-color: #ffffff;
@@ -63,10 +67,12 @@ body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.02);
 }
 
+/* Campos do formulário */
 .form-group {
     margin-bottom: 20px;
 }
 
+/* Rótulos */
 .form-group label {
     display: block;
     margin-bottom: 8px;
@@ -74,6 +80,7 @@ body {
     color: #444;
 }
 
+/* Inputs e selects */
 .form-group input[type="text"],
 select {
     width: 100%;
@@ -83,6 +90,7 @@ select {
     font-size: 16px;
 }
 
+/* Botão submit */
 .button-submit {
     width: 100%;
     padding: 12px;
@@ -98,6 +106,7 @@ select {
     background-color: #0056b3;
 }
 
+/* Botão voltar */
 .button-voltar {
     display: block;
     text-align: center;
@@ -110,10 +119,12 @@ select {
     font-weight: bold;
 }
 
+/* Botão voltar hover */
 .button-voltar:hover {
     background-color: #5a6268;
 }
 
+/* Botão de logout */
 .logout-btn {
     margin-left:10px;
     padding:6px 12px;
@@ -123,4 +134,7 @@ select {
     border-radius:4px;
     cursor:pointer;
 }
-.logout-btn:hover { background-color:#5a6268 }
+
+.logout-btn:hover {
+    background-color:#5a6268
+}

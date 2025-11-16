@@ -1,9 +1,9 @@
 /* Autores: Felipe Batista Bastos */
-document.addEventListener("DOMContentLoaded", async () => {
+
+window.onload = async () => {
 
     const selectInst = document.getElementById("instituicao_select");
 
-    // Carregar instituições no select
     const r = await fetch("http://localhost:3000/instituicoes/listar");
     const lista = await r.json();
 
@@ -13,31 +13,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         op.textContent = i[1];
         selectInst.appendChild(op);
     });
+};
 
-    const form = document.getElementById("form-cad-curso");
+async function salvarCurso(event){
+    if(event) event.preventDefault();
+    const selectInst = document.getElementById("instituicao_select");
+    const nome = document.getElementById("nome_curso").value;
+    const idInst = selectInst.value;
 
-    form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-
-        const nome = document.getElementById("nome_curso").value;
-        const idInst = selectInst.value;
-
-        const r = await fetch("http://localhost:3000/cursos", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                nome,
-                fk_instituicao: idInst
-            })
-        });
-
-        const resposta = await r.json();
-
-        if (resposta.success) {
-            alert("Curso cadastrado com sucesso!");
-            window.location.href = "curso.html";
-        } else {
-            alert("Erro: " + resposta.message);
-        }
+    const r = await fetch("http://localhost:3000/cursos", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            nome,
+            fk_instituicao: idInst
+        })
     });
-});
+
+    const resposta = await r.json();
+
+    if (resposta.success) {
+        alert("Curso cadastrado com sucesso!");
+        window.location.href = "curso.html";
+    } else {
+        alert("Erro: " + resposta.message);
+    }
+}

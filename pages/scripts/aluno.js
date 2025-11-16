@@ -1,7 +1,7 @@
 /* Autores: Felipe Batista Bastos, Gabriel Batista Bastos*/
 
 // Quando carregar a página, listar alunos
-document.addEventListener("DOMContentLoaded", async () => {
+window.onload = async () => {
 
     const listaContainer = document.getElementById("lista-alunos");
     const msgVazia = document.getElementById("msg-lista-vazia-alunos");
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // a = [ID, RA, NOME]
         adicionarAlunoNaLista(listaContainer, a[2], a[1]);
     });
-});
+};
 
 
 // Função para adicionar aluno na lista visualmente

@@ -1,70 +1,54 @@
 /* Autores: Felipe Batista Bastos
 
-/* O "*" seleciona TUDO na página */
+/* Estilo geral para pagina */
 * {
-    margin: 0; /* Remove as margens que o navegador coloca por padrão */
-    padding: 0; /* Remove os preenchimentos que o navegador coloca por padrão */
-    box-sizing: border-box; /* Faz com que a largura e altura não sejam afetadas por padding ou bordas */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif; /* Define uma fonte padrão e fácil de ler */
-    background-color: #f4f4f4; /* Define uma cor de fundo cinza bem clara para a página */
-    color: #333333; /* Define a cor padrão do texto para um cinza escuro */
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333333;
 }
 
-/* ------------------------------------------- */
-/* --- CABEÇALHO (A BARRA SUPERIOR) --- */
-/* ------------------------------------------- */
-
+/* Cabeçalho */
 .superbar-notadez {
-    background-color: #ffffff; /* Fundo branco para o cabeçalho */
-    padding: 15px 0; /* Espaço em cima/baixo. O espaço lateral será controlado pelo .container */
-    border-bottom: 1px solid #dddddd; /* Linha cinza clara na parte de baixo */
+    background-color: #ffffff;
+    padding: 15px 0;
+    border-bottom: 1px solid #dddddd;
 }
 
-/* Este é o container DENTRO do cabeçalho */
+/* Container do cabeçalho */
 .superbar-notadez .container {
-    max-width: 1200px; /* Define uma largura máxima para o conteúdo não ficar esticado em telas grandes */
-    margin: 0 auto; /* Centraliza o container na página */
-    padding: 0 20px; /* Dá um respiro nas laterais para o conteúdo não colar na borda */
-    
-    display: flex; /* Ativa o modo de alinhamento Flexbox */
-    justify-content: space-between; /* Joga os itens para os cantos opostos (logo na esquerda, nav na direita) */
-    align-items: center; /* Alinha os itens verticalmente no centro */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* ------------------------------------------- */
-/* --- LOGO "NotaDez" --- */
-/* ------------------------------------------- */
-
+/* Nome do site */
 .logo {
-    font-size: 24px; /* Tamanho da fonte */
-    font-weight: bold; /* Deixa o texto em negrito */
-    color: #007bff; /* Cor do texto em azul */
-    text-decoration: none; /* Remove o sublinhado padrão dos links */
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
 }
 
-/* ------------------------------------------- */
-/* --- BOTÃO DE LOGIN --- */
-/* ------------------------------------------- */
-
+/* Navegação principal */
 .main-nav ul {
-    list-style-type: none; /* Remove a "bolinha" da lista do menu */
+    list-style-type: none;
 }
-
- 
-
-/* ======================================================= */
-/* --- ESTILOS DE CONTEÚDO E LISTAGEM (Telas Internas) --- */
-/* ======================================================= */
 
 /* Container principal da página */
 .content-container {
     max-width: 900px;
-    margin: 40px auto; /* Centraliza na horizontal e dá espaço do topo */
+    margin: 40px auto;
     padding: 20px;
-    background-color: #ffffff; /* Fundo branco para a área de conteúdo */
+    background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.02);
@@ -92,7 +76,7 @@ body {
     text-align: center;
 }
 
-/* Cada item da lista (criado pelo JS) */
+/* Itens da lista */
 .list-item {
     display: flex;
     justify-content: space-between;
@@ -111,7 +95,7 @@ body {
 
 .list-item a {
     text-decoration: none;
-    color: #007bff; /* Azul, para combinar com o logo */
+    color: #007bff;
     font-weight: 600;
     font-size: 15px;
 }
@@ -120,10 +104,10 @@ body {
     text-decoration: underline;
 }
 
-/* Botão "Adicionar" da tela de listagem */
+/* Botão Adicionar da tela de listagem */
 .button-add {
     display: inline-block;
-    background-color: #007bff; /* Azul primário */
+    background-color: #007bff;
     color: #ffffff;
     padding: 12px 25px;
     border-radius: 5px;
@@ -136,9 +120,10 @@ body {
 }
 
 .button-add:hover {
-    background-color: #0056b3; /* Azul mais escuro (como hover do balão) */
+    background-color: #0056b3;
 }
 
+/* Botão Logout */
 .logout-btn {
     margin-left:10px;
     padding:6px 12px;

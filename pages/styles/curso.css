@@ -1,5 +1,6 @@
 /* Autores: Felipe Batista Bastos */
 
+/* Estilo geral para pagina */
 * {
     margin: 0;
     padding: 0;
@@ -12,8 +13,7 @@ body {
     color: #333;
 }
 
-/* ----- CABEÇALHO ----- */
-
+/*  Cabeçalho */
 .superbar-notadez {
     background-color: #ffffff;
     padding: 15px 0;
@@ -40,9 +40,7 @@ body {
     list-style-type: none;
 }
 
-/* ------------------------------------------- */
-/* ----- ÁREA DE LISTAGEM ----- */
-/* ------------------------------------------- */
+/*  Área de Listagem */
 
 .content-container {
     max-width: 900px;
