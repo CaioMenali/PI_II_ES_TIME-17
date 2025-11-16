@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 
+// conexão com o banco de dados MySQL
 export const AppDataSource = new DataSource({
     type: "mysql",
     host: "localhost",
