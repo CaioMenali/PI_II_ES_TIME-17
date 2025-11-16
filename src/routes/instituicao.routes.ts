@@ -22,7 +22,7 @@ router.post("/", async (req: Request, res: Response) => {
       { autoCommit: true }
     );
 
-    const id = resultInst.outBinds.id[0];
+    const id = (resultInst.outBinds as { id: number[] }).id[0];
 
     if (docenteEmail) {
       await conn.execute(
