@@ -23,7 +23,7 @@ async function cadastrarInstituicao() {
     }
 
     try {
-        const response = await fetch("http://localhost:3000/instituicoes", {
+        const response = await fetch("http://localhost:3000/instituicoes/cadastro", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ nome: nomeInstituicao, docenteEmail: docenteEmail })

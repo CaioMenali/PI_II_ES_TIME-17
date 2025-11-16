@@ -5,7 +5,7 @@ import { getConn } from "../database/oracle";
 const router = Router();
 
 // Cadastrar instituição
-router.post("/", async (req: Request, res: Response) => {
+router.post("/cadastro", async (req: Request, res: Response) => {
   const { nome, docenteEmail } = req.body;
 
   try {
