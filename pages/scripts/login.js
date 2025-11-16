@@ -51,3 +51,8 @@ async function try_login() {
         alert('Erro ao conectar com o servidor!');
     }
 }
+
+window.onload = function() {
+    localStorage.removeItem('docenteName');
+    localStorage.removeItem('docenteEmail');
+}
