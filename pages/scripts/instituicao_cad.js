@@ -11,12 +11,11 @@ async function cadastrarInstituicao() {
     }
 
     try {
-        const docenteEmail = localStorage.getItem('docenteEmail');
 
         const response = await fetch("http://localhost:3000/instituicoes", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ nome: nomeInstituicao, docenteEmail: docenteEmail })
+            body: JSON.stringify({ nome: nomeInstituicao })
         });
 
         if (!response.ok) {
