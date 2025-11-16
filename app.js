@@ -55,7 +55,6 @@ app.get("/", (req, res) => {
 });
 
 // Rota para cadastro de um novo docente
-
 app.post("/cadastro", async (req, res) => {
   const { nome, email, telefone, senha } = req.body;
 
@@ -83,15 +82,14 @@ app.post("/cadastro", async (req, res) => {
 
     await conn.close();
 
-  } catch (erro) {
-  console.error("Erro ao cadastrar docente:", erro);
-  res.status(500).send(`Erro Oracle: ${erro.message}`);
+  } catch (err) {
+  console.error("Erro ao cadastrar docente:", err);
+  res.status(500).send(`Erro Oracle: ${err.message}`);
  }
 });
 
 
 // Rota para login de docentes
-
 app.post('/login', async (req, res) => {
   // Lê credenciais enviadas pelo cliente
   const { username, password } = req.body;
@@ -117,7 +115,6 @@ app.post('/login', async (req, res) => {
 
 
 // Rota para listar todos os docentes cadastrados
-
 app.get("/docentes", async (req, res) => {
   try {
     const conn = await oracledb.getConnection(conexao);
@@ -126,8 +123,8 @@ app.get("/docentes", async (req, res) => {
     );
     res.send(resultado.rows);
     await conn.close();
-  } catch (erro) {
-    console.error("Erro ao listar docentes:", erro);
+  } catch (err) {
+    console.error("Erro ao listar docentes:", err);
     res.status(500).send("Erro no servidor ou no banco de dados!");
   }
 });
@@ -150,9 +147,9 @@ app.post("/turmas", async (req, res) => {
     await conn.close();
     res.json({ success: true, message: "Turma cadastrada com sucesso!" });
 
-  } catch (erro) {
-    console.error("Erro ao cadastrar turma:", erro);
-    res.status(500).json({ success: false, message: erro.message });
+  } catch (err) {
+    console.error("Erro ao cadastrar turma:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
@@ -166,9 +163,9 @@ app.get("/turmas/listar", async (req, res) => {
     await conn.close();
 
     res.json(resultado.rows);
-  } catch (erro) {
-    console.error("Erro ao listar turmas:", erro);
-    res.status(500).json({ success: false, message: erro.message });
+  } catch (err) {
+    console.error("Erro ao listar turmas:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
@@ -189,9 +186,9 @@ app.post("/instituicoes", async (req, res) => {
     await conn.close();
     res.json({ success: true, message: "Instituição cadastrada com sucesso!" });
 
-  } catch (erro) {
-    console.error("Erro ao cadastrar instituição:", erro);
-    res.status(500).json({ success: false, message: erro.message });
+  } catch (err) {
+    console.error("Erro ao cadastrar instituição:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
@@ -207,9 +204,9 @@ app.get("/instituicoes/listar", async (req, res) => {
     await conn.close();
     res.json(resultado.rows);
 
-  } catch (erro) {
-    console.error("Erro ao listar instituições:", erro);
-    res.status(500).json({ success: false, message: erro.message });
+  } catch (err) {
+    console.error("Erro ao listar instituições:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
@@ -230,9 +227,9 @@ app.post("/alunos", async (req, res) => {
     await conn.close();
     res.json({ success: true, message: "Aluno cadastrado com sucesso!" });
 
-  } catch (erro) {
-    console.error("Erro ao cadastrar aluno:", erro);
-    res.status(500).json({ success: false, message: erro.message });
+  } catch (err) {
+    console.error("Erro ao cadastrar aluno:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
@@ -250,9 +247,9 @@ app.get("/alunos/listar", async (req, res) => {
     await conn.close();
 
     res.json(resultado.rows);
-  } catch (erro) {
-    console.error("Erro ao listar alunos:", erro);
-    res.status(500).json({ success: false, message: erro.message });
+  } catch (err) {
+    console.error("Erro ao listar alunos:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
@@ -276,9 +273,9 @@ app.post("/disciplinas", async (req, res) => {
     await conn.close();
     res.json({ success: true, message: "Disciplina cadastrada com sucesso!" });
 
-  } catch (erro) {
-    console.error("Erro ao cadastrar disciplina:", erro);
-    res.status(500).json({ success: false, message: erro.message });
+  } catch (err) {
+    console.error("Erro ao cadastrar disciplina:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
@@ -296,11 +293,12 @@ app.get("/disciplinas/listar", async (req, res) => {
     await conn.close();
     res.json(resultado.rows);
 
-  } catch (erro) {
-    console.error("Erro ao listar disciplinas:", erro);
-    res.status(500).json({ success: false, message: erro.message });
+  } catch (err) {
+    console.error("Erro ao listar disciplinas:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
+
 // Rota para cadastrar um novo curso
 app.post("/cursos", async (req, res) => {
   const { nome, fk_instituicao } = req.body;
@@ -318,11 +316,12 @@ app.post("/cursos", async (req, res) => {
     await conn.close();
     res.json({ success: true, message: "Curso cadastrado com sucesso!" });
 
-  } catch (erro) {
-    console.error("Erro ao cadastrar curso:", erro);
-    res.status(500).json({ success: false, message: erro.message });
+  } catch (err) {
+    console.error("Erro ao cadastrar curso:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
+
 // Rota para listar todos os cursos cadastrados
 app.get("/cursos/listar/:idInst", async (req, res) => {
   const id = req.params.idInst;
@@ -341,36 +340,11 @@ app.get("/cursos/listar/:idInst", async (req, res) => {
     await conn.close();
     res.json(r.rows);
 
-  } catch (erro) {
-    console.error("Erro ao listar cursos:", erro);
-    res.status(500).json({ success: false, message: erro.message });
+  } catch (err) {
+    console.error("Erro ao listar cursos:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
-// Rota para a tela turmas.html
-app.get('/turmas', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'turmas.html'));
-});
-
-// Rota para a tela Instituição.html
-app.get('/instituicao', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'Instituicao.html'));
-});
-
-// Rota para a tela inicio.html
-app.get('/inicio', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'index.html'));
-});
-
-// Rota para a tela notas.html
-app.get('/notas', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'notas.html'));
-});
-
-// Rota para a tela loginRecover.html
-app.get('/recover', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'loginRecover.html'));
-});
-
 
 // Rota para verificar se o e-mail existe no banco de dados
 app.post('/recover/verify-email', async (req, res) => {
@@ -399,8 +373,7 @@ app.post('/recover/reset', async (req, res) => {
   res.json({ success: !!(r.rowsAffected && r.rowsAffected > 0) });
 });
 
-
-/*************************fim das rotas**********************/ 
+// Fim das rotas.
 
 app.listen(port, ()=>{
   console.log(`servidor de backend rodando na porta: ${port}`);
@@ -409,6 +382,3 @@ app.listen(port, ()=>{
 //ao chegar a função listen, o servidor abrirá a porta definida
 //para esperar as chamadas nas rotas que possui
 //quando chegar uma chamada, ele irá verificar a rota
-//e executar a função associada a ela
-//no caso, a rota /login, ele irá executar a função de login
-//e a rota /docentes, ele irá executar a função de listar docentes

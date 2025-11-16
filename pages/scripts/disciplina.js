@@ -1,8 +1,8 @@
 /* Autores: Felipe Batista Bastos, Felipe Cesar Ferreira Lirani */
 
-document.addEventListener("DOMContentLoaded", () => {
+window.onload = () => {
     carregarDisciplinas();
-});
+};
 
 async function carregarDisciplinas() {
     const lista = document.getElementById("lista-disciplinas");
@@ -44,13 +44,13 @@ function adicionarDisciplinaNaLista(id, nome, sigla, codigo, periodo) {
 }
 
 /* LOGIN E LOGOUT */
-document.addEventListener("DOMContentLoaded", function () {
+window.onload = function () {
     var el = document.getElementById('docenteDisplay');
     if (!el) return; var n = localStorage.getItem('docenteName');
     if (n) { el.textContent = n; } else { window.location.href = 'login.html'; }
-});
+};
 
-document.addEventListener("DOMContentLoaded", function () {
+window.onload = function () {
     var b = document.getElementById('logoutBtn');
     if (!b) return;
     b.addEventListener('click', function () {
@@ -58,4 +58,4 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem('docenteEmail');
         window.location.href = 'login.html';
     });
-});
+};

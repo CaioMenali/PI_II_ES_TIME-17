@@ -1,6 +1,6 @@
 /* Autores: Felipe Batista Bastos , Felipe Cesar Ferreira Lirani*/
 
-document.addEventListener("DOMContentLoaded", () => {
+window.onload = () => {
     
     const form = document.getElementById("form-cad-instituicao");
     const inputNome = document.getElementById("nome");
@@ -30,15 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Erro ao cadastrar: " + resposta.message);
         }
     });
-});
+};
 
-document.addEventListener("DOMContentLoaded", function(){
+window.onload = function(){
   var el = document.getElementById('docenteDisplay');
   if(!el) return; var n = localStorage.getItem('docenteName');
   if(n){ el.textContent = n; } else { window.location.href = 'login.html'; }
-});
+};
 
-document.addEventListener("DOMContentLoaded", function(){
+window.onload = function(){
   var b = document.getElementById('logoutBtn');
   if(!b) return;
   b.addEventListener('click', function(){
@@ -46,4 +46,4 @@ document.addEventListener("DOMContentLoaded", function(){
     localStorage.removeItem('docenteEmail');
     window.location.href = 'login.html';
   });
-});
+};

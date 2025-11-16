@@ -1,8 +1,8 @@
 /* Autores: Felipe Batista Bastos , Felipe Cesar Ferreira Lirani */
 
-document.addEventListener("DOMContentLoaded", async () => {
+window.onload = async () => {
     carregarInstituicoes();
-});
+};
 
 /* ================================
    LISTAGEM DE INSTITUIÇÕES
@@ -52,16 +52,16 @@ function adicionarInstituicao(id, nome) {
    LOGIN / LOGOUT
 ================================ */
 
-document.addEventListener("DOMContentLoaded", () => {
+window.onload = () => {
     const el = document.getElementById('docenteDisplay');
     if (!el) return;
     const nome = localStorage.getItem('docenteName');
 
     if (nome) el.textContent = nome;
     else window.location.href = 'login.html';
-});
+};
 
-document.addEventListener("DOMContentLoaded", () => {
+window.onload = () => {
     const b = document.getElementById('logoutBtn');
     if (!b) return;
 
@@ -70,4 +70,4 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem('docenteEmail');
         window.location.href = 'login.html';
     });
-});
+};
