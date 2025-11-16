@@ -1,9 +1,5 @@
 /* Autor: Felipe Cesar Ferreira Lirani */
 
-window.onload = async () => {
-    carregarInstituicoes();
-};
-
 async function carregarInstituicoes() {
     const container = document.getElementById("lista-instituicoes");
     const msgVazia = document.getElementById("msg-lista-vazia");
@@ -46,6 +42,8 @@ function adicionarInstituicao(id, nome) {
 }
 
 window.onload = function(){
+    carregarInstituicoes();
+    
     var docenteDisplay = document.getElementById('docenteDisplay');
     if(!docenteDisplay) return; 
     var nome = localStorage.getItem('docenteName');
