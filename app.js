@@ -170,6 +170,7 @@ app.get("/turmas/listar", async (req, res) => {
 // Esta rota é responsável por cadastrar uma nova instituição e associá-la a um docente, se fornecido.
 // Ela insere a instituição e, opcionalmente, atualiza o docente com o ID da nova instituição.
 app.post("/instituicoes", async (req, res) => {
+  console.log("Dados recebidos:", req.body);
   const { nome, docenteEmail } = req.body;
 
   try {
