@@ -1,19 +1,13 @@
 /* Autores:Felipe Batista Bastos, Felipe Cesar Ferreira Lirani */
 
 // Função principal que roda quando a página carrega
-document.addEventListener("DOMContentLoaded", () => {
-
-    // Tenta encontrar o form de componente e configurar a página
+window.onload = () => {
     configurarPaginaComponente();
-});
+};
 
-
-/**
- * Procura e configura os elementos da página de COMPONENTE DE NOTA
- */
 function configurarPaginaComponente() {
     const form = document.getElementById("form-cad-componente");
-    if (!form) return; // Se o form não existe, para aqui.
+    if (!form) return;
 
     // Seletores da página de componente
     const inputNome = document.getElementById("nome_componente");
@@ -71,13 +65,13 @@ function configurarPaginaComponente() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function(){
+window.onload = function(){
   var el = document.getElementById('docenteDisplay');
   if(!el) return; var n = localStorage.getItem('docenteName');
   if(n){ el.textContent = n; } else { window.location.href = 'login.html'; }
-});
+};
 
-document.addEventListener("DOMContentLoaded", function(){
+window.onload = function(){
   var b = document.getElementById('logoutBtn');
   if(!b) return;
   b.addEventListener('click', function(){
@@ -85,4 +79,4 @@ document.addEventListener("DOMContentLoaded", function(){
     localStorage.removeItem('docenteEmail');
     window.location.href = 'login.html';
   });
-});
+};

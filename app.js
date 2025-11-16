@@ -12,7 +12,6 @@ const app = express();
 const cors = require('cors');
 
 //definimos uma constante que conecta com o banco de dados do oracle;
-
 const oracledb = require("oracledb"); 
 
 //definimos uma constante que possibilita a criação de caminhos.
@@ -33,7 +32,6 @@ app.use(express.json());
 //permite o cors, porem não filtra ninguém.
 //todos podem acessar esse seviço.
 //além disso, liga o cors com o backend.
-
 app.use(cors({
   origin: ["http://localhost:3000", "http://localhost:3001"],
   methods: ["GET", "POST", "DELETE", "PUT"],

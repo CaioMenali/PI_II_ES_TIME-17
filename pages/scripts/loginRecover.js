@@ -3,13 +3,13 @@
 async function verify_email() {
     const email = document.getElementById('email').value;
     try {
-        const r = await fetch('http://localhost:3000/recover/verify-email', {
+        const response = await fetch('http://localhost:3000/recover/verify-email', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email })
         });
-        const data = await r.json();
-        if (r.ok && data.exists) {
+        const data = await response.json();
+        if (response.ok && data.exists) {
             document.getElementById('resetBox').style.display = 'block';
         } else {
             alert('E-mail não encontrado.');
@@ -23,13 +23,13 @@ async function reset_password() {
     const email = document.getElementById('email').value;
     const newPassword = document.getElementById('newPassword').value;
     try {
-        const r = await fetch('http://localhost:3000/recover/reset', {
+        const response = await fetch('http://localhost:3000/recover/reset', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, newPassword })
         });
-        const data = await r.json();
-        if (r.ok && data.success) {
+        const data = await response.json();
+        if (response.ok && data.success) {
             alert('Senha atualizada com sucesso.');
             window.location.href = 'login.html';
         } else {

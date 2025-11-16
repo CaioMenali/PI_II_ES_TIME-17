@@ -23,25 +23,25 @@ async function try_register() {
 
   try {
     // Envia os dados para o backend na rota /cadastro
-    const resposta = await fetch("http://localhost:3000/cadastro", {
+    const response = await fetch("http://localhost:3000/cadastro", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dados)
     });
 
-    // Recebe a resposta do servidor (texto)
-    const resultado = await resposta.text();
+    // Recebe a resposta do servidor como uma string
+    const result = await response.text();
 
     // Mostra o resultado na tela
-    alert(resultado);
+    alert(result);
 
     // Se o cadastro for bem-sucedido, vai para a página de login
-    if (resultado.includes("sucesso")) {
+    if (result.includes("sucesso")) {
       window.location.href = "login.html";
     }
 
-  } catch (erro) {
-    console.error("Erro ao conectar com o servidor:", erro);
+  } catch (err) {
+    console.error("Erro ao conectar com o servidor:", err);
     alert("Erro ao conectar com o servidor!");
   }
 }

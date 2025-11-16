@@ -1,20 +1,17 @@
 /* Autores: Felipe Batista Bastos */
 
 // Função principal que roda quando a página carrega
-document.addEventListener("DOMContentLoaded", () => {
-    
-    // Tenta encontrar o form de turma e configurar a página
+window.onload = () => {
     CadastroTurma();
-    
-});
+};
 
-document.addEventListener("DOMContentLoaded", function(){
+window.onload = function(){
   var el = document.getElementById('docenteDisplay');
   if(!el) return; var n = localStorage.getItem('docenteName');
   if(n){ el.textContent = n; } else { window.location.href = 'login.html'; }
-});
+};
 
-document.addEventListener("DOMContentLoaded", function(){
+window.onload = function(){
   var b = document.getElementById('logoutBtn');
   if(!b) return;
   b.addEventListener('click', function(){
@@ -22,12 +19,8 @@ document.addEventListener("DOMContentLoaded", function(){
     localStorage.removeItem('docenteEmail');
     window.location.href = 'login.html';
   });
-});
+};
 
-
-/**
- * Procura e configura os elementos da página de TURMA
- */
 function CadastroTurma() {
     const form = document.getElementById("form-cad-turma");
     if (!form) return;

@@ -23,8 +23,8 @@ async function try_login() {
         if (response.ok && data.success) {
             try {
                 localStorage.setItem('docenteEmail', email);
-                const r = await fetch('http://localhost:3000/docentes');
-                const rows = await r.json();
+                const res = await fetch('http://localhost:3000/docentes');
+                const rows = await res.json();
                 let nome = '';
                 if (Array.isArray(rows)) {
                     for (let i = 0; i < rows.length; i++) {
