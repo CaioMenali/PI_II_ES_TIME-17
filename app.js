@@ -122,6 +122,26 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Rota para listar todos os docentes
+app.get("/docentes/listar", async (req, res) => {
+  try {
+    const conn = await oracledb.getConnection(conexao);
+
+    const resultado = await conn.execute(
+      `SELECT ID_DOCENTE, NOME, E_MAIL, TELEFONE_CELULAR
+       FROM DOCENTE
+       ORDER BY ID_DOCENTE`
+    );
+
+    await conn.close();
+    res.json(resultado.rows);
+
+  } catch (err) {
+    console.error("Erro ao listar docentes:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 // Rota para cadastrar uma nova turma
 // Esta rota é responsável por cadastrar uma nova turma no banco de dados.
 // Ela recebe o nome e o código da turma e os insere na tabela de turmas.
