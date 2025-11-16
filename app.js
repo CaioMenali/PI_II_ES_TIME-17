@@ -51,7 +51,6 @@ const conexao = {
 };
 
 //Acesso ao servidor
-
 app.get("/", (req, res) => {
   res.send("Servidor NotaDez rodando!"); 
 });
@@ -61,6 +60,7 @@ app.post("/cadastro", async (req, res) => {
   const { nome, email, telefone, senha } = req.body;
 
   try {
+    // Faz a conexão
     const conn = await oracledb.getConnection(conexao);
 
     // Verifica se o e-mail já existe
@@ -83,6 +83,7 @@ app.post("/cadastro", async (req, res) => {
       res.send("Docente cadastrado com sucesso!");
     }
 
+    // Encerra a conexão
     await conn.close();
 
   } catch (err) {
