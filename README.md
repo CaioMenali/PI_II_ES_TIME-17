@@ -5,7 +5,7 @@ Este repositório será destinado ao armazenamento do projeto "Nota Dez" da mat�
 A main será reservada apenas aos arquivos do programa e suas versões finais 
 e nas Branches as versões de cada parte do projeto, separado por tópicos, a qual estão sendo desenvolvidas e/ou terminadas. 
 
-Para iniciar o sistema é necessario instalar as dependencias, alterar os dados de conexão no app.js e executar o app.js com o node, apos isso iniciar na pagina de login.
+Para iniciar o sistema é necessario instalar as dependencias, alterar os dados de conexão do oracle no app.js e executar o app.js com o node, apos isso iniciar na pagina de login.
 
 Integrantes:
 

@@ -6,6 +6,13 @@
 // Quando carregar a página, listar alunos
 window.onload = async () => {
 
+    // Verifica se o usuário está logado
+    var docenteDisplay = document.getElementById('docenteDisplay');
+    if(!docenteDisplay) return; 
+    var nome = localStorage.getItem('docenteName');
+    if(nome){ docenteDisplay.textContent = nome; } 
+    else { window.location.href = 'login.html'; }
+
     const listaContainer = document.getElementById("lista-alunos");
     const msgVazia = document.getElementById("msg-lista-vazia-alunos");
 
@@ -51,17 +58,6 @@ function adicionarAlunoNaLista(container, nome, RA) {
 
     container.appendChild(divItem);
 }
-
-// Esta função é executada quando a janela é carregada.
-// Ela verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
-// Além disso, ela exibe o nome do docente logado na interface.
-window.onload = function(){
-    var docenteDisplay = document.getElementById('docenteDisplay');
-    if(!docenteDisplay) return; 
-    var nome = localStorage.getItem('docenteName');
-    if(nome){ docenteDisplay.textContent = nome; } 
-    else { window.location.href = 'login.html'; }
-};
 
 // Função para realizar o logout do docente.
 // Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.

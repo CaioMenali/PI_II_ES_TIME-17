@@ -123,6 +123,8 @@ app.post('/login', async (req, res) => {
 });
 
 // Rota para listar todos os docentes
+// Esta rota é responsável por listar todos os docentes cadastrados no banco de dados.
+// Ela retorna uma lista com o ID, nome, e-mail e telefone celular de cada docente.
 app.get("/docentes/listar", async (req, res) => {
   try {
     const conn = await oracledb.getConnection(conexao);
