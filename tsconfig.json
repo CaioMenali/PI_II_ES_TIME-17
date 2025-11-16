@@ -1,0 +1,30 @@
+{
+  // compilador que ira gerar os codigos em TS
+  "compilerOptions": {
+    // opcoes basicas
+    // tipo de padrao de escrita 
+    "target":"es2020",
+    "module": "commonjs",
+    // pega tudo que tiver no ./src para dentro do ./dist
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "strict": true,
+
+    // opcoes de caminho para resolucao dos modulos
+    "baseUrl": "./src",
+
+    // outras opcoes necessarias
+    "esModuleInterop": true,
+    // pular a verificação de tipos dos arquivos
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+  },
+  "include":[
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modulos",
+    "dist"
+  ]
+}

@@ -236,6 +236,10 @@ app.get("/instituicoes/listar", async (req, res) => {
 
     const resultado = await conn.execute(query, binds);
 
+    console.log("INSTITUIÇÕES ENCONTRADAS:");
+    console.log("Número total de instituições: " + resultado.rows.length);
+    console.log(resultado.rows);
+
     await conn.close();
     res.json(resultado.rows);
 
