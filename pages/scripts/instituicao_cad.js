@@ -1,9 +1,8 @@
 /* Autor: Felipe Cesar Ferreira Lirani */
 
 async function cadastrarInstituicao() {
-    const form = document.getElementById("form-cad-instituicao");
     const inputNome = document.getElementById("nome");
-
+    console.log("Nome da instituição:", inputNome.value);
     const nomeInstituicao = inputNome.value.trim();
 
     if (!nomeInstituicao) {
