@@ -40,11 +40,8 @@ app.use(cors({
   allowedHeaders: ["Content-Type"]
 }));
 
-//definimos uma porta onde o servidor HTTP de backend, irá funcionar
+// Definimos uma porta onde o servidor HTTP de backend, irá funcionar
 const port = 3000;
-
-
-/***************************ROTAS****************************/
 
 // Configuração da conexão com o banco de dados Oracle
 const conexao = {
@@ -53,15 +50,13 @@ const conexao = {
   connectString: "localhost:1521/XEPDB1"
 };
 
-
-/***************************ROTAS****************************/
 //Acesso ao servidor
 
 app.get("/", (req, res) => {
   res.send("Servidor NotaDez rodando!"); 
 });
 
-// ROTA 2: Cadastro de um novo docente (professor)
+// Rota para cadastro de um novo docente
 
 app.post("/cadastro", async (req, res) => {
   const { nome, email, telefone, senha } = req.body;
@@ -78,8 +73,6 @@ app.post("/cadastro", async (req, res) => {
     if (verifica.rows.length > 0) {
       res.send("E-mail já cadastrado!");
     } else {
-      // Verifica se a sequência existe (importante no Oracle)
-      // Se não existir, crie com: CREATE SEQUENCE SEQ_DOCENTE START WITH 1 INCREMENT BY 1;
       await conn.execute(
       `INSERT INTO DOCENTE (ID_DOCENTE, NOME, E_MAIL, TELEFONE_CELULAR, SENHA, FK_INSTITUICAO_ID_INSTITUICAO, FK_AUDITORIA_ID_AUDITORIA)
       VALUES (SEQ_DOCENTE.NEXTVAL, :nome, :email, :telefone, :senha, NULL, NULL)`,
@@ -112,11 +105,11 @@ app.post('/login', async (req, res) => {
     [username, password],
     { outFormat: oracledb.OUT_FORMAT_OBJECT }
   );
-  // Interpreta o resultado (COUNT > 0 indica credenciais válidas)
+  // Interpreta o resultado da consulta
   const ok = r.rows && r.rows[0] && (r.rows[0].COUNT || r.rows[0]['COUNT']) > 0;
   // Fecha a conexão
   await conn.close();
-  // Responde ao cliente conforme validação
+  // Responde ao cliente de acordo com a validação
   if (ok) {
     res.json({ success: true, message: 'Login do Docente bem-sucedido!' });
   } else {
