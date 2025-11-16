@@ -18,9 +18,9 @@ app.use(express.json());
 app.use(cors());
 
 // Arquivos estáticos
-app.use("/pages/index.html", express.static(path.join(__dirname, "pages")));
-app.use(express.static(path.join(__dirname, "scripts")));
-app.use(express.static(path.join(__dirname, "styles")));
+app.use("/pages", express.static(path.join(__dirname, "../pages")));
+app.use("/scripts", express.static(path.join(__dirname, "../pages/scripts")));
+app.use("/styles", express.static(path.join(__dirname, "../pages/styles")));
 
 // Rotas
 app.use("/docentes", docenteRoutes);

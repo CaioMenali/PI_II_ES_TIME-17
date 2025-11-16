@@ -29,7 +29,7 @@ async function try_register() {
 
     try {
         // Envia os dados para o backend na rota /cadastro
-        const response = await fetch("http://localhost:3000/cadastro", {
+        const response = await fetch("http://localhost:3000/docentes/cadastro", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dados)
