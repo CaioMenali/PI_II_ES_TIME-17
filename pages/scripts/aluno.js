@@ -1,5 +1,8 @@
 /* Autor: Gabriel Batista Bastos*/
 
+// Este arquivo contém as funções JavaScript para a listagem de alunos.
+// Ele é responsável por carregar e exibir a lista de alunos cadastrados na interface do usuário.
+
 // Quando carregar a página, listar alunos
 window.onload = async () => {
 
@@ -25,7 +28,12 @@ window.onload = async () => {
 };
 
 
-// Função para adicionar aluno na lista visualmente
+// Função para adicionar visualmente um aluno à lista exibida na página.
+// Cria elementos HTML para representar o aluno e os anexa ao container da lista.
+// Parâmetros:
+//   - container: O elemento HTML onde o aluno será adicionado.
+//   - nome: O nome do aluno.
+//   - RA: O Registro Acadêmico do aluno.
 function adicionarAlunoNaLista(container, nome, RA) {
 
     const divItem = document.createElement("div");
@@ -44,6 +52,9 @@ function adicionarAlunoNaLista(container, nome, RA) {
     container.appendChild(divItem);
 }
 
+// Esta função é executada quando a janela é carregada.
+// Ela verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
+// Além disso, ela exibe o nome do docente logado na interface.
 window.onload = function(){
     var docenteDisplay = document.getElementById('docenteDisplay');
     if(!docenteDisplay) return; 
@@ -52,6 +63,8 @@ window.onload = function(){
     else { window.location.href = 'login.html'; }
 };
 
+// Função para realizar o logout do docente.
+// Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.
 function logout() {
     localStorage.removeItem('docenteName');
     localStorage.removeItem('docenteEmail');

@@ -1,5 +1,11 @@
 /* Autor: Felipe Cesar Ferreira Lirani */
 
+// Este arquivo contém as funções JavaScript para o cadastro de instituições.
+// Ele lida com a interação do usuário na página de cadastro de instituições, enviando os dados para o backend e associando-os a um docente.
+
+// Função assíncrona para cadastrar uma nova instituição.
+// Captura o nome da instituição e o e-mail do docente logado, valida-os e os envia para o endpoint /instituicoes do backend.
+// Em caso de sucesso, exibe uma mensagem e redireciona para a página de instituições.
 async function cadastrarInstituicao() {
     const inputNome = document.getElementById("nome");
     const nomeInstituicao = inputNome.value;
@@ -42,6 +48,9 @@ async function cadastrarInstituicao() {
     }
 }
 
+// Esta função é executada quando a janela é carregada.
+// Ela verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
+// Além disso, ela exibe o nome do docente logado na interface.
 window.onload = function(){
     var docenteDisplay = document.getElementById('docenteDisplay');
     if(!docenteDisplay) return; 
@@ -50,6 +59,8 @@ window.onload = function(){
     else { window.location.href = 'login.html'; }
 };
 
+// Função para realizar o logout do docente.
+// Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.
 function logout() {
     localStorage.removeItem('docenteName');
     localStorage.removeItem('docenteEmail');

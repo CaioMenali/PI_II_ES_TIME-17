@@ -1,9 +1,17 @@
 /* Autores: Felipe Batista Bastos */
 
+// Este arquivo contém as funções JavaScript para a listagem de cursos.
+// Ele é responsável por carregar e exibir a lista de cursos cadastrados, filtrados por instituição, na interface do usuário.
+
+// Esta função é executada quando a janela é carregada.
+// Ela inicia o processo de carregamento das instituições e, consequentemente, dos cursos.
 window.onload = async () => {
     carregarInstituicoes();
 }; 
 
+// Função assíncrona para carregar e exibir a lista de instituições.
+// Faz uma requisição ao endpoint /instituicoes/listar do backend e preenche um elemento select com as instituições.
+// Também configura um evento de mudança para o select, que recarrega os cursos quando uma nova instituição é selecionada.
 async function carregarInstituicoes() {
     const select = document.getElementById("select-instituicao");
 
@@ -22,6 +30,9 @@ async function carregarInstituicoes() {
     carregarCursos();
 }
 
+// Função assíncrona para carregar e exibir a lista de cursos com base na instituição selecionada.
+// Faz uma requisição ao endpoint /cursos/listar/:idInst do backend e preenche a lista de cursos na interface.
+// Se não houver cursos para a instituição, exibe uma mensagem de lista vazia.
 async function carregarCursos() {
     const select = document.getElementById("select-instituicao");
     const idInst = select.value;
@@ -46,6 +57,11 @@ async function carregarCursos() {
     });
 }
 
+// Função para adicionar visualmente um curso à lista exibida na página.
+// Cria elementos HTML para representar o curso e os anexa ao container da lista.
+// Parâmetros:
+//   - id: O ID do curso.
+//   - nome: O nome do curso.
 function adicionarCursoNaLista(id, nome) {
     const listaContainer = document.getElementById("lista-cursos");
 
@@ -65,6 +81,9 @@ function adicionarCursoNaLista(id, nome) {
     listaContainer.appendChild(divItem);
 }
 
+// Esta função é executada quando a janela é carregada.
+// Ela verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
+// Além disso, ela exibe o nome do docente logado na interface.
 window.onload = function(){
     var docenteDisplay = document.getElementById('docenteDisplay');
     if(!docenteDisplay) return; 
@@ -73,6 +92,8 @@ window.onload = function(){
     else { window.location.href = 'login.html'; }
 };
 
+// Função para realizar o logout do docente.
+// Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.
 function logout() {
     localStorage.removeItem('docenteName');
     localStorage.removeItem('docenteEmail');

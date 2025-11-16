@@ -1,5 +1,11 @@
 // Autor: Felipe Cesar Ferreira Lirani
 
+// Este arquivo contém as funções JavaScript para o registro de novos docentes.
+// Ele lida com a captura dos dados do formulário de registro, validação e envio para o endpoint de cadastro do backend.
+
+// Função assíncrona para tentar registrar um novo docente.
+// Captura os valores dos campos de nome, e-mail, senha e telefone, valida-os e os envia para o endpoint /cadastro do backend.
+// Em caso de sucesso, exibe uma mensagem e redireciona para a página de login.
 async function try_register() {
     // Captura os valores digitados nos campos
     const name = document.getElementById('name').value;

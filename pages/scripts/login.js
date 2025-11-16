@@ -1,5 +1,11 @@
 // Autor: Felipe Cesar Ferreira Lirani
 
+// Este arquivo contém as funções JavaScript para a página de login.
+// Ele lida com a autenticação do usuário, enviando as credenciais para o backend e gerenciando o estado de login no localStorage.
+
+// Função assíncrona para tentar realizar o login do docente.
+// Captura os valores de e-mail e senha, valida-os e os envia para o endpoint /login do backend.
+// Em caso de sucesso, armazena o e-mail e o nome do docente no localStorage e redireciona para a página inicial.
 async function try_login() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;

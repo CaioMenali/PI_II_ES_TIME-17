@@ -1,9 +1,17 @@
 /* Autores: Felipe Batista Bastos */
 
+// Este arquivo contém as funções JavaScript para a listagem de disciplinas.
+// Ele é responsável por carregar e exibir a lista de disciplinas cadastradas na interface do usuário.
+
+// Esta função é executada quando a janela é carregada.
+// Ela inicia o processo de carregamento das disciplinas.
 window.onload = () => {
     carregarDisciplinas();
 };
 
+// Função assíncrona para carregar e exibir a lista de disciplinas.
+// Faz uma requisição ao endpoint /disciplinas/listar do backend e preenche a lista na interface.
+// Se não houver disciplinas, exibe uma mensagem de lista vazia.
 async function carregarDisciplinas() {
     const lista = document.getElementById("lista-disciplinas");
     const msgVazia = document.getElementById("msg-lista-vazia-disciplinas");
@@ -25,6 +33,14 @@ async function carregarDisciplinas() {
     });
 }
 
+// Função para adicionar visualmente uma disciplina à lista exibida na página.
+// Cria elementos HTML para representar a disciplina e os anexa ao container da lista.
+// Parâmetros:
+//   - id: O ID da disciplina.
+//   - nome: O nome da disciplina.
+//   - sigla: A sigla da disciplina.
+//   - codigo: O código da disciplina.
+//   - periodo: O período da disciplina.
 function adicionarDisciplinaNaLista(id, nome, sigla, codigo, periodo) {
     const lista = document.getElementById("lista-disciplinas");
 
@@ -43,6 +59,9 @@ function adicionarDisciplinaNaLista(id, nome, sigla, codigo, periodo) {
     lista.appendChild(divItem);
 }
 
+// Esta função é executada quando a janela é carregada.
+// Ela verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
+// Além disso, ela exibe o nome do docente logado na interface.
 window.onload = function(){
     var docenteDisplay = document.getElementById('docenteDisplay');
     if(!docenteDisplay) return; 
@@ -51,6 +70,8 @@ window.onload = function(){
     else { window.location.href = 'login.html'; }
 };
 
+// Função para realizar o logout do docente.
+// Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.
 function logout() {
     localStorage.removeItem('docenteName');
     localStorage.removeItem('docenteEmail');

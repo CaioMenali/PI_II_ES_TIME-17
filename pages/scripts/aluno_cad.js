@@ -1,8 +1,14 @@
 /* Autor: Felipe Batista batos */
 
+// Este arquivo contém as funções JavaScript para o cadastro de alunos.
+// Ele lida com a interação do usuário na página de cadastro de alunos, enviando os dados para o backend e atualizando a interface.
+
 const listaContainer = document.getElementById("lista-alunos");
 const msgVazia = document.getElementById("msg-lista-vazia-alunos");
 
+// Função assíncrona para salvar um novo aluno.
+// Captura os valores dos campos de nome e RA, valida-os e os envia para o endpoint /alunos do backend.
+// Em caso de sucesso, exibe uma mensagem, adiciona o aluno à lista e limpa os campos do formulário.
 async function salvarAluno() {
     const inputNome = document.getElementById("nome_aluno");
     const inputRA = document.getElementById("RA_aluno");
@@ -44,6 +50,9 @@ async function salvarAluno() {
     }
 }
 
+// Função assíncrona para carregar e exibir a lista de alunos cadastrados.
+// Faz uma requisição ao endpoint /alunos/listar do backend e preenche a lista na interface.
+// Se não houver alunos, exibe uma mensagem de lista vazia.
 async function carregarAlunos() {
     const response = await fetch("http://localhost:3000/alunos/listar");
     const lista = await response.json();
@@ -62,6 +71,10 @@ async function carregarAlunos() {
     });
 }
 
+// Função para adicionar visualmente um aluno à lista exibida na página.
+// Cria elementos HTML para representar o aluno e os anexa ao container da lista.
+// Parâmetros:
+//   - dados: Objeto contendo as propriedades 'nome' e 'RA' do aluno.
 function adicionarAlunoNaLista(dados) {
     if (msgVazia) msgVazia.style.display = "none";
 
@@ -81,6 +94,9 @@ function adicionarAlunoNaLista(dados) {
     listaContainer.appendChild(divItem);
 }
 
+// Esta função é executada quando a janela é carregada.
+// Ela verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
+// Além disso, ela exibe o nome do docente logado na interface.
 window.onload = function() {
     var docenteDisplay = document.getElementById('docenteDisplay');
     if(!docenteDisplay) return;
@@ -89,6 +105,8 @@ window.onload = function() {
     else { window.location.href = 'login.html'; }
 };
 
+// Função para realizar o logout do docente.
+// Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.
 function logout() {
     localStorage.removeItem('docenteName');
     localStorage.removeItem('docenteEmail');

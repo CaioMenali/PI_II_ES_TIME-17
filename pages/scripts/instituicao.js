@@ -1,5 +1,11 @@
 /* Autor: Felipe Cesar Ferreira Lirani */
 
+// Este arquivo contém as funções JavaScript para a listagem de instituições.
+// Ele é responsável por carregar e exibir a lista de instituições associadas ao docente logado na interface do usuário.
+
+// Função assíncrona para carregar e exibir a lista de instituições.
+// Faz uma requisição ao endpoint /instituicoes/listar do backend, filtrando pelo e-mail do docente logado.
+// Preenche a lista de instituições na interface e exibe uma mensagem de lista vazia se não houver instituições.
 async function carregarInstituicoes() {
     const container = document.getElementById("lista-instituicoes");
     const msgVazia = document.getElementById("msg-lista-vazia");
@@ -22,6 +28,11 @@ async function carregarInstituicoes() {
     });
 }
 
+// Função para adicionar visualmente uma instituição à lista exibida na página.
+// Cria elementos HTML para representar a instituição e os anexa ao container da lista.
+// Parâmetros:
+//   - id: O ID da instituição.
+//   - nome: O nome da instituição.
 function adicionarInstituicao(id, nome) {
     const container = document.getElementById("lista-instituicoes");
 
@@ -41,6 +52,9 @@ function adicionarInstituicao(id, nome) {
     container.appendChild(divItem);
 }
 
+// Esta função é executada quando a janela é carregada.
+// Ela inicia o carregamento das instituições e verifica se o usuário está logado (pelo nome do docente no localStorage).
+// Se não estiver logado, redireciona para a página de login. Além disso, exibe o nome do docente logado na interface.
 window.onload = function(){
     carregarInstituicoes();
     
@@ -51,6 +65,8 @@ window.onload = function(){
     else { window.location.href = 'login.html'; }
 };
 
+// Função para realizar o logout do docente.
+// Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.
 function logout() {
     localStorage.removeItem('docenteName');
     localStorage.removeItem('docenteEmail');
