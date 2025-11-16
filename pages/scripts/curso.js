@@ -3,12 +3,6 @@
 // Este arquivo contém as funções JavaScript para a listagem de cursos.
 // Ele é responsável por carregar e exibir a lista de cursos cadastrados, filtrados por instituição, na interface do usuário.
 
-// Esta função é executada quando a janela é carregada.
-// Ela inicia o processo de carregamento das instituições e, consequentemente, dos cursos.
-window.onload = async () => {
-    carregarInstituicoes();
-}; 
-
 // Função assíncrona para carregar e exibir a lista de instituições.
 // Faz uma requisição ao endpoint /instituicoes/listar do backend e preenche um elemento select com as instituições.
 // Também configura um evento de mudança para o select, que recarrega os cursos quando uma nova instituição é selecionada.
@@ -90,6 +84,9 @@ window.onload = function(){
     var nome = localStorage.getItem('docenteName');
     if(nome){ docenteDisplay.textContent = nome; } 
     else { window.location.href = 'login.html'; }
+    
+    // Esta função inicia o processo de carregamento das instituições e, consequentemente, dos cursos.
+    carregarInstituicoes();
 };
 
 // Função para realizar o logout do docente.

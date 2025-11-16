@@ -4,7 +4,7 @@
 // Ele lida com a interação do usuário na página de cadastro de componentes, adicionando-os visualmente à lista.
 
 // Função para configurar a página de cadastro de componentes.
-// Obtém referências aos elementos do formulário e da lista, e adiciona um event listener para o evento de submit do formulário.
+// Obtém referências aos elementos do formulário e da lista.
 function configurarPaginaComponente() {
     const form = document.getElementById("form-cad-componente");
     if (!form) return;
@@ -18,9 +18,8 @@ function configurarPaginaComponente() {
     const listaContainer = document.getElementById("lista-componentes");
     const msgVazia = document.getElementById("msg-lista-vazia-componentes");
 
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        
+    function salvarComponente() {
+
         const dados = {
             nome: inputNome.value.trim(),
             nota1: inputNota1.value.trim(),
@@ -42,7 +41,7 @@ function configurarPaginaComponente() {
         inputNota2.value = "";
         inputNota3.value = "";
         inputDesc.value = "";
-    });
+    }
 
     // Função que adiciona visualmente um componente à lista exibida na página.
 // Cria elementos HTML para representar o componente e os anexa ao container da lista.

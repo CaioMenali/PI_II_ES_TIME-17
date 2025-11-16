@@ -3,11 +3,7 @@
 // Este arquivo contém as funções JavaScript para a listagem de turmas.
 // Ele é responsável por carregar e exibir a lista de turmas cadastradas na interface do usuário.
 
-// Esta função é executada quando a janela é carregada.
-// Ela inicia o processo de carregamento das turmas.
-window.onload = () => {
-    carregarTurmas();
-};
+
 
 // Função assíncrona para carregar e exibir a lista de turmas.
 // Faz uma requisição ao endpoint /turmas/listar do backend e preenche a lista na interface.
@@ -67,6 +63,9 @@ window.onload = function(){
     var nome = localStorage.getItem('docenteName');
     if(nome){ docenteDisplay.textContent = nome; } 
     else { window.location.href = 'login.html'; }
+
+    // Esta função inicia o processo de carregamento das turmas.    
+    carregarTurmas();
 };
 
 // Função para realizar o logout do docente.

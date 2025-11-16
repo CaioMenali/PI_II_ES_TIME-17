@@ -3,11 +3,6 @@
 // Este arquivo contém as funções JavaScript para o cadastro de turmas.
 // Ele lida com a interação do usuário na página de cadastro de turmas, enviando os dados para o backend.
 
-// Função principal que roda quando a página carrega
-// Inicia o processo de cadastro de turma.
-window.onload = () => {
-    CadastroTurma();
-};
 
 // Esta função é executada quando a janela é carregada.
 // Ela verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
@@ -18,6 +13,9 @@ window.onload = function(){
     var nome = localStorage.getItem('docenteName');
     if(nome){ docenteDisplay.textContent = nome; } 
     else { window.location.href = 'login.html'; }
+
+    // Inicia o processo de cadastro de turma.
+    CadastroTurma();
 };
 
 // Função para realizar o logout do docente.
