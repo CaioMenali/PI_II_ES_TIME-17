@@ -1,4 +1,5 @@
 <!-- Autor: Felipe Cesar Ferreira Lirani -->
+<!-- Página de recuperação de senha do sistema NotaDez -->
  
 <!DOCTYPE html>
 <html lang="pt">
@@ -8,16 +9,25 @@
     <title>NotaDez recuperar senha</title>
 </head>
 <body>
+<!-- Container principal da tela de recuperação de senha -->
     <div id="login">
+        <!-- Título da aplicação na tela de recuperação de senha -->
         <h1>NotaDez</h1>
+        <!-- Container para os campos de entrada de recuperação de senha -->
         <div id="loginInput">
             <p>Recuperar senha</p>
+            <!-- Campo de entrada para o e-mail do usuário -->
             <input id="email" type="email" placeholder="E-mail"><br/>
+            <!-- Botão para verificar o e-mail -->
             <button type="button" onclick="verify_email()">Verificar</button><br/>
+            <!-- Caixa para redefinição de senha (inicialmente oculta) -->
             <div id="resetBox" style="display:none;">
+                <!-- Campo para a nova senha -->
                 <input id="newPassword" type="password" placeholder="Nova senha"><br/>
+                <!-- Botão para atualizar a senha -->
                 <button type="button" onclick="reset_password()">Atualizar senha</button><br/>
             </div>
+            <!-- Lista de links para voltar ao login -->
             <ul id="listLoginHelp">
                 <li><a href="login.html">Voltar ao login</a></li>
             </ul>

@@ -1,4 +1,5 @@
 <!-- Autor: Felipe Batista Bastos -->
+<!-- Página de listagem de cursos -->
  
 <!DOCTYPE html>
 <html lang="pt">
@@ -8,6 +9,7 @@
     <title>Nota Dez - Meus Cursos</title>
 </head>
 
+<!-- Seção do cabeçalho e navegação -->
 <header class="superbar-notadez">
     <div class="container">
         <a href="index.html" class="logo">NotaDez</a>
@@ -25,15 +27,19 @@
 
 <body>
 
+    <!-- Conteúdo principal da página -->
     <main class="content-container">
         <h1>Meus Cursos</h1>
 
+        <!-- Dropdown para selecionar a instituição -->
         <label for="select-instituicao">Instituição</label>
         <select id="select-instituicao"></select>
 
+        <!-- Botão para adicionar novo curso -->
         <a href="curso_cad.html" class="button-add">+ Adicionar Novo Curso</a>
 
         <p id="msg-lista-vazia-cursos">Nenhum curso cadastrado.</p>
+        <!-- Container da lista de cursos -->
         <div class="list-container" id="lista-cursos"></div>
     </main>
 

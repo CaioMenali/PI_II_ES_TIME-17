@@ -1,4 +1,5 @@
 <!-- Autor: Felipe Cesar Ferreira Lirani -->
+<!-- Página de login do sistema NotaDez -->
 
 <!DOCTYPE html>
 <html lang="pt">
@@ -9,14 +10,21 @@
 </head>
 
 <body>
+<!-- Container principal da tela de login -->
     <div id="login">
         <!-- Tela de login para o usuario -->
+        <!-- Título da aplicação na tela de login -->
         <h1>NotaDez</h1>
+        <!-- Container para os campos de entrada de login -->
         <div id="loginInput">
             <p>Preencha os campos de login ou crie uma conta</p>
+            <!-- Campo de entrada para o e-mail do usuário -->
             <input id="email" type="email" placeholder="E-mail"><br/>
+            <!-- Campo de entrada para a senha do usuário -->
             <input id="password" type="password" placeholder="Senha"><br/>
+            <!-- Botão para realizar o login -->
             <button id="submitbtn" type="submit" onclick="try_login()">Entrar</button><br/>
+            <!-- Lista de links para login (cadastro e recuperação de senha) -->
             <ul id="listLoginHelp">
                 <li><a href="loginRegister.html">Cadastrar usuário</a></li>
                 <li>|</li>

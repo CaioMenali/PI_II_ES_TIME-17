@@ -1,4 +1,5 @@
 <!-- Autor: Felipe Cesar Ferreira Lirani -->
+<!-- Página de cadastro de instituições -->
  
 <!DOCTYPE html>
 <html lang="pt">
@@ -8,6 +9,7 @@
     <title>NotaDez - Cadastrar instituições</title>
 </head>
 
+<!-- Seção do cabeçalho e navegação -->
 <header class="superbar-notadez">
     <div class="container">
         <a href="index.html" class="logo">NotaDez</a>
@@ -25,17 +27,21 @@
 
 <body>
     
+    <!-- Conteúdo principal da página de cadastro de instituição -->
     <main class="content-container">
         <h1>Cadastrar Instituição</h1>
 
         <div class="form-container-inline">
+            <!-- Formulário para cadastrar uma nova instituição -->
             <form id="form-cad-instituicao">
                 
+                <!-- Campo para o nome da instituição -->
                 <div class="form-group">
                     <label for="nome">Nome da Instituição</label>
                     <input type="text" id="nome" name="nome" placeholder="Ex: PUC-Campinas" required>
                 </div>
 
+                <!-- Botão para salvar a instituição cadastrada -->
                 <button type="submit" class="button-submit" onclick="cadastrarInstituicao()">Salvar Instituição</button>
             </form>
         </div>

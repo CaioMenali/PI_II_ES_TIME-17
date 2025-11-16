@@ -18,6 +18,14 @@ window.onload = async () => {
         op.textContent = i[1];
         selectInst.appendChild(op);
     });
+
+    // Ela também verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
+    // Além disso, ela exibe o nome do docente logado na interface.
+    var docenteDisplay = document.getElementById('docenteDisplay');
+    if(!docenteDisplay) return; 
+    var nome = localStorage.getItem('docenteName');
+    if(nome){ docenteDisplay.textContent = nome; } 
+    else { window.location.href = 'login.html'; }
 };
 
 // Função assíncrona para salvar um novo curso.
@@ -49,17 +57,6 @@ async function salvarCurso(event){
         alert("Erro: " + resposta.message);
     }
 }
-
-// Esta função é executada quando a janela é carregada.
-// Ela verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
-// Além disso, ela exibe o nome do docente logado na interface.
-window.onload = function(){
-    var docenteDisplay = document.getElementById('docenteDisplay');
-    if(!docenteDisplay) return; 
-    var nome = localStorage.getItem('docenteName');
-    if(nome){ docenteDisplay.textContent = nome; } 
-    else { window.location.href = 'login.html'; }
-};
 
 // Função para realizar o logout do docente.
 // Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.

@@ -1,4 +1,5 @@
 <!-- Autor: Felipe Batista Bastos -->
+<!-- Página de cadastro de cursos -->
  
 <!DOCTYPE html>
 <html lang="pt">
@@ -8,6 +9,7 @@
     <title>Nota Dez - Cadastrar Curso</title>
 </head>
 
+<!-- Seção do cabeçalho e navegação -->
 <header class="superbar-notadez">
     <div class="container">
         <a href="index.html" class="logo">NotaDez</a>
@@ -25,23 +27,29 @@
 
 <body>
 
+    <!-- Conteúdo principal da página -->
     <main class="content-container">
         <h1>Cadastrar Novo Curso</h1>
 
         <div class="form-container-inline">
 
+            <!-- Dropdown para selecionar a instituição -->
             <label for="instituicao_select">Instituição</label>
             <select id="instituicao_select" required></select>
 
+            <!-- Formulário para adicionar novo curso -->
             <form id="form-cad-curso">
+                <!-- Campo para o nome do curso -->
                 <div class="form-group">
                     <label for="nome_curso">Nome do Curso</label>
                     <input type="text" id="nome_curso" name="nome" placeholder="Ex: Engenharia de Software" required>
                 </div>
 
+                <!-- Botão para salvar o curso -->
                 <button id="submit" class="button-submit" onclick="salvarCurso(event)">Salvar Curso</button>
             </form>
 
+            <!-- Botão para voltar à página de cursos -->
             <a href="curso.html" class="button-voltar">Voltar</a>
         </div>
     </main>

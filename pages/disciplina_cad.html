@@ -1,4 +1,5 @@
 <!-- Autor: Felipe Batista Bastos-->
+<!-- Página de cadastro de disciplinas -->
 
 <!DOCTYPE html>
 <html lang="pt">
@@ -8,6 +9,7 @@
     <title>Nota Dez - Cadastrar Disciplinas</title>
 </head>
 
+<!-- Seção do cabeçalho e navegação -->
 <header class="superbar-notadez">
     <div class="container">
         <a href="index.html" class="logo">NotaDez</a>
@@ -24,11 +26,17 @@
 
 <body>
 
+    <!-- Conteúdo principal da página -->
     <div class="form-container-inline">
         <h2>Cadastrar Nova Disciplina</h2>
         
+        <!-- Formulário para adicionar nova disciplina -->
         <form id="form-cad-disciplina">
             
+            <!-- Campo para o nome da disciplina -->
+            <!-- Campo para a sigla da disciplina -->
+            <!-- Campo para o código da disciplina -->
+            <!-- Campo para o período do curso -->
             <div class="form-group">
                 <label for="nome_disciplina">Nome da Disciplina</label>
                 <input type="text" id="nome_disciplina" name="nome" placeholder="Ex: Projeto Integrador II" required>
@@ -49,6 +57,7 @@
                 <input type="text" id="periodo_disciplina" name="periodo" placeholder="Ex: 4º Semestre" required>
             </div>
 
+            <!-- Botão para salvar a disciplina -->
             <button type="submit" class="button-submit" onclick="salvarDisciplina()">Salvar Disciplina</button>
         </form>
     </div>
