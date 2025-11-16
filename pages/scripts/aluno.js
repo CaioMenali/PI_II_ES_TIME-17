@@ -1,4 +1,4 @@
-/* Autores: Felipe Batista Bastos, Gabriel Batista Bastos*/
+/* Autor: Gabriel Batista Bastos*/
 
 // Quando carregar a página, listar alunos
 window.onload = async () => {

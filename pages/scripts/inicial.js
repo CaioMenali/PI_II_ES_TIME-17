@@ -1,5 +1,4 @@
 // Autores: Felipe Cesar Ferreira Lirani
-// index
 
 // Função para verificar existencia de cadasto de intituicao e curso
 window.onload = async function() {

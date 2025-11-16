@@ -1,4 +1,4 @@
-/* Autores: Felipe Batista Bastos, Felipe Cesar Ferreira Lirani */
+/* Autores: Felipe Batista Bastos */
 
 window.onload = () => {
     carregarDisciplinas();

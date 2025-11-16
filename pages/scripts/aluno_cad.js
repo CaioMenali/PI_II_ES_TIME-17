@@ -1,4 +1,4 @@
-// Autor: Felipe Cesar Ferreira Lirani
+/* Autor: Felipe Batista batos */
 
 const listaContainer = document.getElementById("lista-alunos");
 const msgVazia = document.getElementById("msg-lista-vazia-alunos");

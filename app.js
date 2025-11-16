@@ -69,6 +69,7 @@ app.post("/cadastro", async (req, res) => {
       [email]
     );
 
+    // Se a verificação encontrar email avisa que ja existe, se nao cria o usuario
     if (verifica.rows.length > 0) {
       res.send("E-mail já cadastrado!");
     } else {
@@ -77,7 +78,7 @@ app.post("/cadastro", async (req, res) => {
       VALUES (SEQ_DOCENTE.NEXTVAL, :nome, :email, :telefone, :senha, NULL, NULL)`,
       [nome, email, telefone, senha],
       { autoCommit: true }
-);
+      );
 
       res.send("Docente cadastrado com sucesso!");
     }
