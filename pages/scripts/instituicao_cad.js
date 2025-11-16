@@ -2,24 +2,30 @@
 
 async function cadastrarInstituicao() {
     const inputNome = document.getElementById("nome");
-    console.log("Nome da instituição:", inputNome.value);
-    const nomeInstituicao = inputNome.value.trim();
+    const nomeInstituicao = inputNome.value;
+    const docenteEmail = localStorage.getItem('docenteEmail');
 
     if (!nomeInstituicao) {
         alert("Por favor, preencha o nome da instituição.");
         return;
     }
 
-    try {
+    if (!docenteEmail) {
+        alert("Não foi possível obter o e-mail do docente. Por favor, faça login novamente.");
+        window.location.href = 'login.html';
+        return;
+    }
 
+    try {
         const response = await fetch("http://localhost:3000/instituicoes", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ nome: nomeInstituicao })
+            body: JSON.stringify({ nome: nomeInstituicao, docenteEmail: docenteEmail })
         });
 
         if (!response.ok) {
-            throw new Error("Requisição falhou com status: " + response.status);
+            console.error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+            return;
         }
 
         const resposta = await response.json();

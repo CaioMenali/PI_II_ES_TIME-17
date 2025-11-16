@@ -170,24 +170,38 @@ app.get("/turmas/listar", async (req, res) => {
 // Esta rota é responsável por cadastrar uma nova instituição e associá-la a um docente, se fornecido.
 // Ela insere a instituição e, opcionalmente, atualiza o docente com o ID da nova instituição.
 app.post("/instituicoes", async (req, res) => {
-  const { nome } = req.body;
+  console.log("Dados recebidos:", req.body);
+  const { nome, docenteEmail } = req.body;
 
   try {
     const conn = await oracledb.getConnection(conexao);
 
-    await conn.execute(
+    // Inserir a nova instituição e obter o ID gerado
+    const resultInstituicao = await conn.execute(
       `INSERT INTO INSTITUICAO (ID_INSTITUICAO, NOME)
-       VALUES (SEQ_INSTITUICAO.NEXTVAL, :nome)`,
-      [nome],
+       VALUES (SEQ_INSTITUICAO.NEXTVAL, :nome)
+       RETURNING ID_INSTITUICAO INTO :idInstituicao`,
+      { nome: nome, idInstituicao: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT } },
       { autoCommit: true }
     );
+
+    const idInstituicao = resultInstituicao.outBinds.idInstituicao[0];
+
+    // Associar a instituição ao docente
+    if (docenteEmail && idInstituicao) {
+      await conn.execute(
+        `UPDATE DOCENTE SET FK_INSTITUICAO_ID_INSTITUICAO = :idInstituicao WHERE E_MAIL = :docenteEmail`,
+        [idInstituicao, docenteEmail],
+        { autoCommit: true }
+      );
+    }
 
     await conn.close();
     res.json({ success: true, message: "Instituição cadastrada com sucesso!" });
 
-  } catch (erro) {
-    console.error("Erro ao cadastrar instituição:", erro);
-    res.status(500).json({ success: false, message: erro.message });
+  } catch (err) {
+    console.error("Erro ao cadastrar instituição:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
@@ -197,17 +211,42 @@ app.post("/instituicoes", async (req, res) => {
 app.get("/instituicoes/listar", async (req, res) => {
   try {
     const conn = await oracledb.getConnection(conexao);
+    const docenteEmail = req.query.docenteEmail;
+    let instituicaoId = null;
 
-    const resultado = await conn.execute(
-      `SELECT ID_INSTITUICAO, NOME FROM INSTITUICAO ORDER BY ID_INSTITUICAO`
-    );
+    if (docenteEmail) {
+      const docenteResult = await conn.execute(
+        `SELECT FK_INSTITUICAO_ID_INSTITUICAO FROM DOCENTE WHERE E_MAIL = :email`,
+        [docenteEmail]
+      );
+
+      if (docenteResult.rows.length > 0) {
+        instituicaoId = docenteResult.rows[0][0];
+      }
+    }
+
+    let query = `SELECT ID_INSTITUICAO, NOME FROM INSTITUICAO`;
+    const binds = {};
+
+    if (instituicaoId) {
+      query += ` WHERE ID_INSTITUICAO = :instituicaoId`;
+      binds.instituicaoId = instituicaoId;
+    }
+
+    query += ` ORDER BY ID_INSTITUICAO`;
+
+    const resultado = await conn.execute(query, binds);
+
+    console.log("INSTITUIÇÕES ENCONTRADAS:");
+    console.log("Número total de instituições: " + resultado.rows.length);
+    console.log(resultado.rows);
 
     await conn.close();
     res.json(resultado.rows);
 
-  } catch (erro) {
-    console.error("Erro ao listar instituições:", erro);
-    res.status(500).json({ success: false, message: erro.message });
+  } catch (err) {
+    console.error("Erro ao listar instituições:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 

@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
     database: "NotaDez",
     synchronize: true,
     logging: true,
-    entities: [Post, Category],
+    entities: [],
     subscribers: [],
     migrations: [],
 })
