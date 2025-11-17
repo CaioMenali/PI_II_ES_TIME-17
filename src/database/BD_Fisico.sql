@@ -16,8 +16,16 @@ CREATE TABLE Docente (
     E_mail VARCHAR2(255),
     Telefone_celular VARCHAR2(20),
     Senha VARCHAR2(255),
-    fk_Instituicao_ID_Instituicao INT,
+    fk_Instuticao_ID_Instituicao INT,
     fk_Auditoria_ID_Auditoria INT
+);
+
+CREATE TABLE Docente_Instituicao (
+    ID_Docente INT,
+    ID_Instituicao INT,
+    PRIMARY KEY (ID_Docente, ID_Instituicao),
+    FOREIGN KEY (ID_Docente) REFERENCES Docente(ID_Docente),
+    FOREIGN KEY (ID_Instituicao) REFERENCES Instituicao(ID_Instituicao)
 );
 
 CREATE TABLE Disciplina (
@@ -127,7 +135,7 @@ ALTER TABLE Instituicao ADD CONSTRAINT fk_Curso_ID_Curso FOREIGN KEY (fk_Curso_I
 
 ALTER TABLE Curso ADD CONSTRAINT fk_Disciplina_ID_Disciplina FOREIGN KEY (fk_Disciplina_ID_Disciplina) REFERENCES Disciplina(ID_Disciplina);
 
-ALTER TABLE Docente ADD CONSTRAINT fk_Instituicao_ID_Instituicao FOREIGN KEY (fk_Instituicao_ID_Instituicao) REFERENCES Instituicao(ID_Instituicao);
+ALTER TABLE Docente ADD CONSTRAINT fk_Instuticao_ID_Instituicao FOREIGN KEY (fk_Instuticao_ID_Instituicao) REFERENCES Instituicao(ID_Instituicao);
 
 ALTER TABLE Docente ADD CONSTRAINT fk_Auditoria_Docente FOREIGN KEY (fk_Auditoria_ID_Auditoria) REFERENCES Auditoria(ID_Auditoria);
 
@@ -161,8 +169,3 @@ ALTER TABLE Disciplina
 ADD CONSTRAINT fk_Disciplina_Curso
 FOREIGN KEY (fk_Curso_ID_Curso)
 REFERENCES Curso(ID_Curso);
-
-ALTER TABLE Instituicao
-ADD CONSTRAINT fk_Instituicao_Docente
-FOREIGN KEY (fk_Docente_ID_Docente)
-REFERENCES Docente(ID_Docente);

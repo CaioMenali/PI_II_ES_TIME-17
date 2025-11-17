@@ -11,7 +11,7 @@ const router = Router();
 // Recebe no corpo da requisição:
 // - nome (obrigatório): nome da instituição a ser criada
 // - docenteEmail (opcional): e-mail de um docente existente que será vinculado à nova instituição
-// Se o docente for informado, a função também cria o relacionamento na tabela DOCENTE_INSTITUICAO
+// Se o docente for informado, a função também atualiza o relacionamento na tabela DOCENTE
 router.post("/cadastro", async (req: Request, res: Response) => {
   const { nome, docenteEmail } = req.body;
 
@@ -34,7 +34,6 @@ router.post("/cadastro", async (req: Request, res: Response) => {
     // Extrai o ID da instituição recém-criada
     const id = (resultInst.outBinds as { id: number[] }).id[0];
 
-    // Associar o docente à instituição através da tabela de junção Docente_Instituicao
     if (docenteEmail) {
       // Busca o ID do docente a partir do e-mail fornecido
       const resultDocente = await conn.execute<{ ID_DOCENTE: number }>(
@@ -42,7 +41,7 @@ router.post("/cadastro", async (req: Request, res: Response) => {
         [docenteEmail]
       );
 
-      // Se o docente existir, cria o relacionamento na tabela de junção
+      // Se o docente existir, atualiza a coluna fk_Instuticao_ID_Instituicao na tabela Docente
       if (resultDocente.rows && resultDocente.rows.length > 0) {
         const docenteId = resultDocente.rows[0].ID_DOCENTE;
         await conn.execute(
@@ -70,8 +69,6 @@ router.post("/cadastro", async (req: Request, res: Response) => {
 
 // Listar instituições
 // Essa função faz a listagem de todas as instituições cadastradas no banco de dados.
-// Recebe como parâmetro de query o e-mail do docente e retorna apenas as instituições
-// associadas a esse docente por meio da tabela de relacionamento DOCENTE_INSTITUICAO.
 router.get("/listar", async (req: Request, res: Response) => {
   const { docenteEmail } = req.query;
 
@@ -82,6 +79,7 @@ router.get("/listar", async (req: Request, res: Response) => {
 
   try {
     // Obtém uma conexão com o banco de dados Oracle
+    // Busca todas as instituições cadastradas
     const conn = await getConn();
 
     // Busca o ID do docente a partir do e-mail fornecido
@@ -109,10 +107,10 @@ router.get("/listar", async (req: Request, res: Response) => {
       [docenteId]
     );
 
-    // Caso o docente não esteja associado a nenhuma instituição, retorna erro 404
+    // Caso nenhuma instituição seja encontrada, retorna erro 404
     if (r.rows && r.rows.length === 0) {
       await conn.close();
-      return res.status(404).json({ error: "Nenhuma instituição encontrada para este docente." });
+      return res.status(404).json({ error: "Nenhuma instituição encontrada." });
     }
 
     // Fecha a conexão com o banco e retorna as instituições encontradas
