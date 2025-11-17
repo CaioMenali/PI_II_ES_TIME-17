@@ -67,18 +67,15 @@ CREATE TABLE Disciplina_Turma (
 CREATE TABLE Aluno (
     ID_Aluno INT PRIMARY KEY,
     Matricula VARCHAR2(30),
-    Nome VARCHAR2(255),
-    fk_Nota_ID_Nota INT,
-    fk_Auditoria_ID_Auditoria INT
+    Nome VARCHAR2(255)
 );
 
-CREATE TABLE TurmaAluno_Inscreve (
-    ID_Turma INT,
-    ID_Aluno INT,
-    Aluno_Matricula VARCHAR2(30),
+CREATE TABLE Turma_Aluno (
+    ID_Turma INT NOT NULL,
+    ID_Aluno INT NOT NULL,
     PRIMARY KEY (ID_Turma, ID_Aluno),
-    fk_Turma_ID_Turma INT,
-    fk_Aluno_ID_Aluno INT
+    FOREIGN KEY (ID_Turma) REFERENCES Turma(ID_Turma),
+    FOREIGN KEY (ID_Aluno) REFERENCES Aluno(ID_Aluno)
 );
 
 CREATE TABLE Componente (
@@ -147,10 +144,6 @@ INCREMENT BY 1
 NOCACHE
 NOCYCLE;
 
-ALTER TABLE TurmaAluno_Inscreve ADD CONSTRAINT fk_TurmaAluno_Turma FOREIGN KEY (fk_Turma_ID_Turma) REFERENCES Turma(ID_Turma);
-
-ALTER TABLE TurmaAluno_Inscreve ADD CONSTRAINT fk_TurmaAluno_Aluno FOREIGN KEY (fk_Aluno_ID_Aluno) REFERENCES Aluno(ID_Aluno);
-
 ALTER TABLE Componente ADD CONSTRAINT fk_Componente_Disciplina FOREIGN KEY (ID_Disciplina) REFERENCES Disciplina(ID_Disciplina);
 
 ALTER TABLE Componente ADD CONSTRAINT fk_Nota_ID_Nota FOREIGN KEY (fk_Nota_ID_Nota) REFERENCES Nota(ID_Nota);
@@ -160,7 +153,3 @@ ALTER TABLE Componente ADD CONSTRAINT fk_Auditoria_Componente FOREIGN KEY (fk_Au
 ALTER TABLE Nota ADD CONSTRAINT fk_Nota_Aluno FOREIGN KEY (ID_Aluno) REFERENCES Aluno(ID_Aluno);
 
 ALTER TABLE Nota ADD CONSTRAINT fk_Nota_Componente FOREIGN KEY (ID_Componente) REFERENCES Componente(ID_Componente);
-
-ALTER TABLE Aluno ADD CONSTRAINT fk_Aluno_Nota FOREIGN KEY (fk_Nota_ID_Nota) REFERENCES Nota(ID_Nota);
-
-ALTER TABLE Aluno ADD CONSTRAINT fk_Auditoria_Aluno FOREIGN KEY (fk_Auditoria_ID_Auditoria) REFERENCES Auditoria(ID_Auditoria);

@@ -5,44 +5,113 @@
 
 // Quando carregar a página, listar alunos
 window.onload = async () => {
+    const nome = localStorage.getItem("docenteName");
+    const email = localStorage.getItem("docenteEmail");
 
-    // Verifica se o usuário está logado
-    var docenteDisplay = document.getElementById('docenteDisplay');
-    if(!docenteDisplay) return; 
-    var nome = localStorage.getItem('docenteName');
-    if(nome){ docenteDisplay.textContent = nome; } 
-    else { window.location.href = 'login.html'; }
+    if (!nome || !email) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    document.getElementById("docenteDisplay").textContent = nome;
+
+    await carregarCursos();
+};
+
+// 1. Carrega cursos
+async function carregarCursos() {
+    const selectCurso = document.getElementById("select-curso");
+    const docenteEmail = localStorage.getItem("docenteEmail");
+
+    const rInst = await fetch(`http://localhost:3000/instituicoes/listar?docenteEmail=${encodeURIComponent(docenteEmail)}`);
+    const instituicoes = await rInst.json();
+
+    selectCurso.innerHTML = "";
+
+    for (let inst of instituicoes) {
+        const rCurso = await fetch(`http://localhost:3000/cursos/listar/${inst.ID_INSTITUICAO}`);
+        const cursos = await rCurso.json();
+
+        cursos.forEach(c => {
+            const op = document.createElement("option");
+            op.value = c.ID_CURSO;
+            op.textContent = `${c.NOME} (${inst.NOME})`;
+            selectCurso.appendChild(op);
+        });
+    }
+
+    selectCurso.addEventListener("change", carregarDisciplinas);
+    carregarDisciplinas();
+}
+
+// 2. Carregar disciplinas
+async function carregarDisciplinas() {
+    const idCurso = document.getElementById("select-curso").value;
+    const selectDisc = document.getElementById("select-disciplina");
+
+    const r = await fetch(`http://localhost:3000/disciplinas/listar/${idCurso}`);
+    const disciplinas = await r.json();
+
+    selectDisc.innerHTML = "";
+
+    disciplinas.forEach(d => {
+        const op = document.createElement("option");
+        op.value = d.ID_DISCIPLINA;
+        op.textContent = `${d.NOME} (${d.CODIGO})`;
+        selectDisc.appendChild(op);
+    });
+
+    selectDisc.addEventListener("change", carregarTurmas);
+    carregarTurmas();
+}
+
+// 3. Carregar turmas
+async function carregarTurmas() {
+    const idDisciplina = document.getElementById("select-disciplina").value;
+    const selectTurma = document.getElementById("select-turma");
+
+    const r = await fetch(`http://localhost:3000/turmas/listar/${idDisciplina}`);
+    const turmas = await r.json();
+
+    selectTurma.innerHTML = "";
+
+    turmas.forEach(t => {
+        const op = document.createElement("option");
+        op.value = t.ID_TURMA;
+        op.textContent = `${t.NOME} (${t.CODIGO})`;
+        selectTurma.appendChild(op);
+    });
+
+    selectTurma.addEventListener("change", carregarAlunos);
+    carregarAlunos();
+}
+
+// 4. Carregar alunos
+async function carregarAlunos() {
+    const idTurma = document.getElementById("select-turma").value;
 
     const listaContainer = document.getElementById("lista-alunos");
     const msgVazia = document.getElementById("msg-lista-vazia-alunos");
 
-    // Buscar lista no backend
-    const r = await fetch("http://localhost:3000/alunos/listar");
-    const lista = await r.json();
+    const r = await fetch(`http://localhost:3000/alunos/listar/${idTurma}`);
+    const alunos = await r.json();
 
     listaContainer.innerHTML = "";
 
-    if (!lista || lista.length === 0) {
+    if (!alunos || alunos.length === 0) {
         msgVazia.style.display = "block";
         return;
     }
 
     msgVazia.style.display = "none";
 
-    lista.forEach(a => {
-        adicionarAlunoNaLista(listaContainer, a[2], a[1]);
+    alunos.forEach(a => {
+        adicionarAlunoNaLista(listaContainer, a.NOME, a.MATRICULA);
     });
-};
+}
 
-
-// Função para adicionar visualmente um aluno à lista exibida na página.
-// Cria elementos HTML para representar o aluno e os anexa ao container da lista.
-// Parâmetros:
-//   - container: O elemento HTML onde o aluno será adicionado.
-//   - nome: O nome do aluno.
-//   - RA: O Registro Acadêmico do aluno.
+// 5. Monta a lista
 function adicionarAlunoNaLista(container, nome, RA) {
-
     const divItem = document.createElement("div");
     divItem.className = "list-item";
 
@@ -59,10 +128,9 @@ function adicionarAlunoNaLista(container, nome, RA) {
     container.appendChild(divItem);
 }
 
-// Função para realizar o logout do docente.
-// Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.
+// 6. Logout
 function logout() {
-    localStorage.removeItem('docenteName');
-    localStorage.removeItem('docenteEmail');
-    window.location.href = 'login.html';
-};
+    localStorage.removeItem("docenteName");
+    localStorage.removeItem("docenteEmail");
+    window.location.href = "login.html";
+}

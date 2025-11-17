@@ -1,0 +1,147 @@
+/* Autores: Felipe Batista Bastos */
+
+/* Estilo geral para pagina */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/*  Cabeçalho */
+.superbar-notadez {
+    background-color: #ffffff;
+    padding: 15px 0;
+    border-bottom: 1px solid #dddddd;
+}
+
+.superbar-notadez .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.main-nav ul {
+    list-style-type: none;
+}
+
+/*  Área de Listagem de Alunos */
+
+.content-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.content-container h1 {
+    font-size: 28px;
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+
+.list-container {
+    margin-bottom: 20px;
+}
+
+.list-container p {
+    color: #777;
+    font-style: italic;
+    font-size: 16px;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #fdfdfd;
+}
+
+.list-item strong {
+    font-size: 18px;
+    color: #333;
+}
+
+.list-item a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.list-item a:hover {
+    text-decoration: underline;
+}
+
+/* Botão de adicionar aluno */
+.button-add {
+    display: block;
+    width: fit-content;
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.button-add:hover {
+    background-color: #0056b3;
+}
+
+/* Botão de sair */
+.logout-btn {
+    margin-left:10px;
+    padding:6px 12px;
+    background-color:#6c757d;
+    color:#fff;
+    border:none;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+.logout-btn:hover {
+    background-color:#5a6268;
+}
+
+.list-item .delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.list-item .delete-btn:hover {
+    background-color: #c82333;
+}

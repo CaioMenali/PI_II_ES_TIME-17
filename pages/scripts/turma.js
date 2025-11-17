@@ -127,7 +127,7 @@ function adicionarTurmaNaLista(id, nome, codigo) {
     strongNome.textContent = `${nome} (${codigo})`;
 
     const link = document.createElement("a");
-    link.href = "#";
+    link.href = "aluno.html";
     link.textContent = "Ver Alunos";
 
     divItem.appendChild(strongNome);
