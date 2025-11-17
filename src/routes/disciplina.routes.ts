@@ -15,7 +15,6 @@ router.post("/cadastro", async (req: Request, res: Response) => {
   try {
     const conn = await getConn();
 
-    // 1) Inserir disciplina
     const resultDisc = await conn.execute(
       `INSERT INTO DISCIPLINA (
          ID_DISCIPLINA, NOME, SIGLA, CODIGO, PERIODO, TIPOCALCULO
@@ -34,7 +33,6 @@ router.post("/cadastro", async (req: Request, res: Response) => {
 
     const idDisciplina = (resultDisc.outBinds as any).id[0];
 
-    // 2) Fazer vínculo N:N com o curso
     await conn.execute(
       `INSERT INTO CURSO_DISCIPLINA (ID_CURSO, ID_DISCIPLINA)
        VALUES (:curso, :disc)`,
