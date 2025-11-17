@@ -56,6 +56,14 @@ CREATE TABLE Turma (
     Local VARCHAR2(100)
 );
 
+CREATE TABLE Disciplina_Turma (
+    ID_Disciplina INT NOT NULL,
+    ID_Turma INT NOT NULL,
+    PRIMARY KEY (ID_Disciplina, ID_Turma),
+    FOREIGN KEY (ID_Disciplina) REFERENCES Disciplina(ID_Disciplina),
+    FOREIGN KEY (ID_Turma) REFERENCES Turma(ID_Turma)
+);
+
 CREATE TABLE Aluno (
     ID_Aluno INT PRIMARY KEY,
     Matricula VARCHAR2(30),
