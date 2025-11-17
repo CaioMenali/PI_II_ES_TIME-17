@@ -101,4 +101,43 @@ router.get("/listar", async (req: Request, res: Response) => {
   }
 });
 
+// Excluir instituição
+router.delete("/excluir:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const conn = await getConn();
+
+    // Verificar se existem cursos associados a esta instituição
+    const checkCourses = await conn.execute(
+      `SELECT COUNT(*) AS "COUNT" FROM INSTITUICAO_CURSO WHERE ID_INSTITUICAO = :id`,
+      [id],
+      { outFormat: oracledb.OUT_FORMAT_OBJECT }
+    );
+
+    if (checkCourses.rows && (checkCourses.rows[0] as any).COUNT > 0) {
+      await conn.close();
+      return res.status(409).json({ error: "Não é possível excluir a instituição, pois existem cursos vinculados a ela." });
+    }
+
+    // Excluir a instituição
+    const result = await conn.execute(
+      `DELETE FROM INSTITUICAO WHERE ID_INSTITUICAO = :id`,
+      [id],
+      { autoCommit: true }
+    );
+
+    await conn.close();
+
+    if (result.rowsAffected && result.rowsAffected === 1) {
+      res.status(200).json({ message: "Instituição excluída com sucesso." });
+    } else {
+      res.status(404).json({ error: "Instituição não encontrada." });
+    }
+
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 export default router;

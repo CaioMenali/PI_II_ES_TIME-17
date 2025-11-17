@@ -49,6 +49,12 @@ function adicionarInstituicao(id, nome) {
     divItem.appendChild(strongNome);
     divItem.appendChild(link);
 
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "delete-btn";
+    deleteButton.textContent = "Excluir";
+    deleteButton.onclick = () => excluirInstituicao(id, nome);
+    divItem.appendChild(deleteButton);
+
     container.appendChild(divItem);
 }
 
@@ -72,3 +78,33 @@ function logout() {
     localStorage.removeItem('docenteEmail');
     window.location.href = 'login.html';
 };
+
+// Função assíncrona para excluir uma instituição.
+async function excluirInstituicao(id, nome) {
+    if (!confirm(`Tem certeza que deseja excluir a instituição "${nome}"?`)) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:3000/instituicoes/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                // Adicione headers de autenticação se necessário
+            },
+        });
+
+        if (response.ok) {
+            alert(`Instituição "${nome}" excluída com sucesso!`);
+            carregarInstituicoes(); // Recarrega a lista de instituições
+        } else if (response.status === 409) {
+            const errorData = await response.json();
+            alert(`Erro: ${errorData.error}`);
+        } else {
+            alert(`Erro ao excluir a instituição "${nome}".`);
+        }
+    } catch (error) {
+        console.error("Erro ao excluir instituição:", error);
+        alert("Erro de conexão ao tentar excluir a instituição.");
+    }
+}
