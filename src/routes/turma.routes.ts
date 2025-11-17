@@ -1,9 +1,12 @@
+// Autor: Felpe Batista Bastos
+
 import { Router, Request, Response } from "express";
 import { getConn } from "../database/oracle";
 
 const router = Router();
 
 // Cadastrar turma
+// Essa função faz o cadastro de uma nova turma no banco de dados.
 router.post("/", async (req: Request, res: Response) => {
   const { nome, codigo } = req.body;
 
@@ -28,6 +31,7 @@ router.post("/", async (req: Request, res: Response) => {
 });
 
 // Listar turmas
+// Essa função faz a listagem de todas as turmas cadastradas no banco de dados.
 router.get("/listar", async (req: Request, res: Response) => {
   try {
     const conn = await getConn();

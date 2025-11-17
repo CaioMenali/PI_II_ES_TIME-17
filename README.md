@@ -5,7 +5,7 @@ Este repositório será destinado ao armazenamento do projeto "Nota Dez" da mat�
 A main será reservada apenas aos arquivos do programa e suas versões finais 
 e nas Branches as versões de cada parte do projeto, separado por tópicos, a qual estão sendo desenvolvidas e/ou terminadas. 
 
-Para iniciar o sistema é necessario instalar as dependencias com o comando 'npm install', rodar o comando 'npx tsc' para compilar o typescript e por fim iniciar o servidor com o comando 'node .\dist\app.js'.
+Para iniciar o sistema é necessario instalar as dependencias com o comando 'npm install', rodar o comando 'npx tsc' para compilar o typescript, alterar as informações de conexão com o banco de dados no arquivo 'oracle.ts'(localizado em 'src/database/oracle.ts') e por fim iniciar o servidor com o comando 'node .\dist\server.js'.
 
 Integrantes:
 

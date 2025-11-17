@@ -1,3 +1,5 @@
+// Autor: Felpe Cesar Ferreira Lirani
+
 {
   // compilador que ira gerar os codigos em TS
   "compilerOptions": {

@@ -17,6 +17,10 @@ function abrirInstituicao() {
     window.location.href = "instituicao.html";
 };
 
+function abrirCurso() {
+    window.location.href = "curso.html";
+};
+
 // Função assíncrona para abrir a página de disciplinas.
 // Primeiro, verifica se a instituição e o curso estão cadastrados. Se sim, redireciona para a página de disciplinas; caso contrário, exibe um alerta.
 async function abrirDisciplinas() {
@@ -43,15 +47,25 @@ async function abrirTurmas() {  const autorizado = await verificarInstituicaoECu
 // Retorna true se ambos existirem, false caso contrário.
 async function verificarInstituicaoECurso() {
     try {
-        // Substituir depois do backend estar funcionando
-        // const resp = await fetch('/api/verificarInstituicaoCurso');
-        // const data = await resp.json();
-        // return data.temInstituicao && data.temCurso;
+        const docenteEmail = localStorage.getItem('docenteEmail');
+        if (!docenteEmail) {
+            console.error("Email do docente não encontrado no localStorage.");
+            return false;
+        }
 
-        // Por enquanto, simulação:
-        const temInstituicao = true;
-        const temCurso = true;
-        return temInstituicao && temCurso;
+        const url = `/instituicoes/listar?docenteEmail=${encodeURIComponent(docenteEmail)}`;
+        const resp = await fetch(url);
+
+        if (!resp.ok) {
+            console.error(`Erro ao buscar instituições: ${resp.status} - ${resp.statusText}`);
+            return false;
+        }
+
+        const instituicoes = await resp.json();
+        console.log("Instituições encontradas:", instituicoes);
+
+        // Verifica se há instituições cadastradas para o docente
+        return instituicoes && instituicoes.length > 0;
     } catch (erro) {
         console.error("Erro ao verificar instituição e curso:", erro);
         return false;

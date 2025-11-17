@@ -1,10 +1,13 @@
+// Autor: Felpe Cesar Ferreira Lirani
+
 import { Router, Request, Response } from "express";
 import { getConn } from "../database/oracle";
 
 const router = Router();
 
 // Cadastrar disciplina
-router.post("/", async (req: Request, res: Response) => {
+// Essa função faz o cadastro de uma nova disciplina no banco de dados.
+router.post("/cadastro", async (req: Request, res: Response) => {
   const { nome, sigla, codigo, periodo } = req.body;
 
   try {
@@ -30,6 +33,7 @@ router.post("/", async (req: Request, res: Response) => {
 });
 
 // Listar disciplinas
+// Essa função faz a listagem de todas as disciplinas cadastradas no banco de dados.
 router.get("/listar", async (req: Request, res: Response) => {
   try {
     const conn = await getConn();

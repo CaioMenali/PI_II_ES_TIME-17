@@ -1,3 +1,4 @@
+// Autor: Felpe Cesar Ferreira Lirani
 
 import { Router, Request, Response } from "express";
 import oracledb from "oracledb";
@@ -6,6 +7,7 @@ import { getConn } from "../database/oracle";
 const router = Router();
 
 // Cadastro de docente
+// Essa função faz o cadastro de um novo docente no banco de dados.
 router.post("/cadastro", async (req: Request, res: Response) => {
   const { nome, email, telefone, senha } = req.body;
 
@@ -41,6 +43,7 @@ router.post("/cadastro", async (req: Request, res: Response) => {
 });
 
 // Login do docente
+// Essa função faz a autenticação de docentes no sistema verificando suas credenciais.
 router.post("/login", async (req: Request, res: Response) => {
   const { username, password } = req.body;
 
@@ -64,6 +67,7 @@ router.post("/login", async (req: Request, res: Response) => {
 });
 
 // Listar docentes
+// Essa função faz a listagem de todos os docentes cadastrados no banco de dados.
 router.get("/listar", async (req: Request, res: Response) => {
   try {
     const conn = await getConn();
