@@ -11,8 +11,10 @@ router.post("/cadastro", async (req: Request, res: Response) => {
   const { nome, docenteEmail } = req.body;
 
   try {
+    // Abre conexão com o banco Oracle
     const conn = await getConn();
 
+    // Insere a nova instituição e captura o ID gerado pela sequence
     const resultInst = await conn.execute(
       `INSERT INTO INSTITUICAO (ID_INSTITUICAO, NOME)
        VALUES (SEQ_INSTITUICAO.NEXTVAL, :nome)
@@ -24,6 +26,7 @@ router.post("/cadastro", async (req: Request, res: Response) => {
       { autoCommit: true }
     );
 
+    // Extrai o ID da instituição recém-criada
     const id = (resultInst.outBinds as { id: number[] }).id[0];
 
     if (docenteEmail) {
@@ -33,6 +36,7 @@ router.post("/cadastro", async (req: Request, res: Response) => {
         { outFormat: oracledb.OUT_FORMAT_OBJECT }
       );
 
+      // Se o docente existir, atualiza a coluna fk_Instuticao_ID_Instituicao na tabela Docente
       if (resultDocente.rows && resultDocente.rows.length > 0) {
         
         const docenteId = (resultDocente.rows[0] as any).ID_DOCENTE;
@@ -48,10 +52,12 @@ router.post("/cadastro", async (req: Request, res: Response) => {
       }
     }
 
+    // Fecha a conexão com o banco
     await conn.close();
     res.json({ success: true, message: "Instituição cadastrada!" });
 
   } catch (err: any) {
+    // Em caso de erro, retorna status 500 com a mensagem do erro
     res.status(500).json({ error: err.message });
   }
 });
@@ -60,11 +66,14 @@ router.post("/cadastro", async (req: Request, res: Response) => {
 router.get("/listar", async (req: Request, res: Response) => {
   const { docenteEmail } = req.query;
 
+  // Validação: garante que o e-mail do docente foi informado
   if (!docenteEmail) {
     return res.status(400).json({ error: "docenteEmail é obrigatório." });
   }
 
   try {
+    // Obtém uma conexão com o banco de dados Oracle
+    // Busca todas as instituições cadastradas
     const conn = await getConn();
 
     const resultDocente = await conn.execute(
@@ -93,6 +102,7 @@ router.get("/listar", async (req: Request, res: Response) => {
     res.json(r.rows ?? []);
 
   } catch (err: any) {
+    // Em caso de erro na operação, retorna status 500 com a mensagem do erro
     res.status(500).json({ error: err.message });
   }
 });

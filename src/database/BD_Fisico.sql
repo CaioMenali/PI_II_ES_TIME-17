@@ -16,7 +16,7 @@ CREATE TABLE Docente (
     E_mail VARCHAR2(255),
     Telefone_celular VARCHAR2(20),
     Senha VARCHAR2(255),
-
+    fk_Instuticao_ID_Instituicao INT,
     fk_Auditoria_ID_Auditoria INT
 );
 
@@ -135,7 +135,7 @@ ALTER TABLE Instituicao ADD CONSTRAINT fk_Curso_ID_Curso FOREIGN KEY (fk_Curso_I
 
 ALTER TABLE Curso ADD CONSTRAINT fk_Disciplina_ID_Disciplina FOREIGN KEY (fk_Disciplina_ID_Disciplina) REFERENCES Disciplina(ID_Disciplina);
 
-
+ALTER TABLE Docente ADD CONSTRAINT fk_Instuticao_ID_Instituicao FOREIGN KEY (fk_Instuticao_ID_Instituicao) REFERENCES Instituicao(ID_Instituicao);
 
 ALTER TABLE Docente ADD CONSTRAINT fk_Auditoria_Docente FOREIGN KEY (fk_Auditoria_ID_Auditoria) REFERENCES Auditoria(ID_Auditoria);
 
