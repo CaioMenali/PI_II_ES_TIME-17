@@ -2,6 +2,7 @@
 
 import oracledb from "oracledb";
 
+// Configuração de conexão com o banco de dados Oracle
 export const conexao = {
   user: "SYSTEM",
   password: "senha",
