@@ -84,9 +84,9 @@ window.onload = function(){
     var nome = localStorage.getItem('docenteName');
     if(nome){ docenteDisplay.textContent = nome; } 
     else { window.location.href = 'login.html'; }
-    
+
     // Esta função inicia o processo de carregamento das instituições e, consequentemente, dos cursos.
-    carregarInstituicoes();
+    carregarCursos();
 };
 
 // Função para realizar o logout do docente.

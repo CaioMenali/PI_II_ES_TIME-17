@@ -1,10 +1,13 @@
+// Autor: Felpe Batista Bastos
+
 import { Router, Request, Response } from "express";
 import { getConn } from "../database/oracle";
 
 const router = Router();
 
 // Cadastrar curso
-router.post("/", async (req: Request, res: Response) => {
+// Essa função faz o cadastro de um novo curso no banco de dados.
+router.post("/cadastro", async (req: Request, res: Response) => {
   const { nome, fk_instituicao } = req.body;
 
   try {
@@ -27,6 +30,7 @@ router.post("/", async (req: Request, res: Response) => {
 });
 
 // Listar cursos por ID da instituição
+// Essa função faz a listagem de cursos por ID da instituição.
 router.get("/listar/:idInst", async (req: Request, res: Response) => {
   const id = req.params.idInst;
 

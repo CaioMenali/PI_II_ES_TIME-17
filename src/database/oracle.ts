@@ -1,3 +1,5 @@
+// Autor: Felpe Cesar Ferreira Lirani
+
 import oracledb from "oracledb";
 
 export const conexao = {
@@ -6,6 +8,7 @@ export const conexao = {
   connectString: "localhost:1521/XEPDB1"
 };
 
+// Essa função faz a conexão com o banco de dados Oracle.
 export async function getConn() {
   return await oracledb.getConnection(conexao);
 }

@@ -1,3 +1,5 @@
+// Autor: Felpe Cesar Ferreira Lirani
+
 import { Router, Request, Response } from "express";
 import oracledb from "oracledb";
 import { getConn } from "../database/oracle";
@@ -5,6 +7,7 @@ import { getConn } from "../database/oracle";
 const router = Router();
 
 // Cadastrar instituição
+// Essa função faz o cadastro de uma nova instituição no banco de dados.
 router.post("/cadastro", async (req: Request, res: Response) => {
   const { nome, docenteEmail } = req.body;
 
@@ -43,6 +46,7 @@ router.post("/cadastro", async (req: Request, res: Response) => {
 });
 
 // Listar instituições
+// Essa função faz a listagem de todas as instituições cadastradas no banco de dados.
 router.get("/listar", async (req: Request, res: Response) => {
   const { docenteEmail } = req.query;
 

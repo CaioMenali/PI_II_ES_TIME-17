@@ -1,3 +1,5 @@
+// Autor: Felpe Cesar Ferreira Lirani
+
 import { Router, Request, Response } from "express";
 import oracledb from "oracledb";
 import { getConn } from "../database/oracle";
@@ -5,6 +7,7 @@ import { getConn } from "../database/oracle";
 const router = Router();
 
 // Verificar email
+// Essa função faz a verificação da existência de um e-mail de docente no banco de dados.
 router.post("/verify-email", async (req: Request, res: Response) => {
   const { email } = req.body;
 
@@ -22,6 +25,7 @@ router.post("/verify-email", async (req: Request, res: Response) => {
 });
 
 // Resetar senha
+// Essa função faz o reset da senha de um docente no banco de dados.
 router.post("/reset", async (req: Request, res: Response) => {
   const { email, newPassword } = req.body;
 
