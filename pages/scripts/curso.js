@@ -73,7 +73,7 @@ function adicionarCursoNaLista(id, nome) {
     strongNome.textContent = nome;
 
     const link = document.createElement("a");
-    link.href = "#";
+    link.href = "disciplina.html";
     link.textContent = "Ver Disciplinas";
 
     divItem.appendChild(strongNome);

@@ -6,67 +6,103 @@
 // Função assíncrona para salvar uma nova disciplina.
 // Captura os valores dos campos de nome, sigla, código e período, valida-os e os envia para o endpoint /disciplinas do backend.
 // Em caso de sucesso, exibe uma mensagem e limpa os campos do formulário.
-async function salvarDisciplina() {
-    const inputNome = document.getElementById("nome_disciplina");
-    const inputSigla = document.getElementById("sigla_disciplina");
-    const inputCodigo = document.getElementById("codigo_disciplina");
-    const inputPeriodo = document.getElementById("periodo_disciplina");
 
-    const dados = {
-        nome: inputNome.value.trim(),
-        sigla: inputSigla.value.trim(),
-        codigo: inputCodigo.value.trim(),
-        periodo: inputPeriodo.value.trim()
-    };
+// Carregar cursos do docente ao abrir a página
+window.onload = async () => {
+    const nome = localStorage.getItem("docenteName");
+    const email = localStorage.getItem("docenteEmail");
 
-    if (!dados.nome || !dados.sigla || !dados.codigo) {
+    if (!nome || !email) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    document.getElementById("docenteDisplay").textContent = nome;
+
+    await carregarCursos();
+};
+
+// Carrega somente os cursos das instituições do docente
+async function carregarCursos() {
+    const select = document.getElementById("select-curso");
+
+    const docenteEmail = localStorage.getItem("docenteEmail");
+
+    // 1. Carregar instituições que o docente pertence
+    const rInst = await fetch(`http://localhost:3000/instituicoes/listar?docenteEmail=${encodeURIComponent(docenteEmail)}`);
+    const instituicoes = await rInst.json();
+
+    select.innerHTML = "";
+
+    if (!instituicoes || instituicoes.length === 0) {
+        const op = document.createElement("option");
+        op.value = "";
+        op.textContent = "Nenhuma instituição encontrada";
+        select.appendChild(op);
+        select.disabled = true;
+        return;
+    }
+
+    // 2. Carregar cursos de cada instituição
+    for (let inst of instituicoes) {
+        const rCurso = await fetch(`http://localhost:3000/cursos/listar/${inst.ID_INSTITUICAO}`);
+        const cursos = await rCurso.json();
+
+        cursos.forEach(c => {
+            const op = document.createElement("option");
+            op.value = c.ID_CURSO;
+            op.textContent = `${c.NOME} (${inst.NOME})`;
+            select.appendChild(op);
+        });
+    }
+}
+
+// Salvar disciplina
+async function salvarDisciplina(event) {
+    event.preventDefault();
+
+    const nome = document.getElementById("nome_disciplina").value.trim();
+    const sigla = document.getElementById("sigla_disciplina").value.trim();
+    const codigo = document.getElementById("codigo_disciplina").value.trim();
+    const periodo = document.getElementById("periodo_disciplina").value.trim();
+    const idCurso = document.getElementById("select-curso").value;
+
+    if (!nome || !sigla || !codigo) {
         alert("Preencha Nome, Sigla e Código.");
         return;
     }
 
+    if (!idCurso) {
+        alert("Selecione um curso!");
+        return;
+    }
+
+    const dados = { nome, sigla, codigo, periodo, idCurso };
+
     try {
-        const r = await fetch("http://localhost:3000/disciplinas", {
+        const resposta = await fetch("http://localhost:3000/disciplinas/cadastro", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(dados)
         });
 
-        if (!r.ok) {
-            throw new Error("Requisição falhou com status: " + r.status);
-        }
+        const json = await resposta.json();
 
-        const resposta = await r.json();
-
-        if (resposta.success) {
-            alert("Disciplina cadastrada com sucesso!");
-            inputNome.value = "";
-            inputSigla.value = "";
-            inputCodigo.value = "";
-            inputPeriodo.value = "";
+        if (json.success) {
+            alert("Disciplina cadastrada!");
+            window.location.href = "disciplina.html";
         } else {
-            alert("Erro ao cadastrar: " + resposta.message);
+            alert("Erro: " + json.error);
         }
-    } catch (erro) {
-        alert("Ocorreu um erro inesperado ao cadastrar a disciplina: " + erro.message);
-        console.error("Erro ao cadastrar disciplina:", erro);
+    } catch (err) {
+        alert("Erro ao cadastrar disciplina: " + err.message);
+        console.error(err);
     }
 }
 
-// Esta função é executada quando a janela é carregada.
-// Ela verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
-// Além disso, ela exibe o nome do docente logado na interface.
-window.onload = function(){
-    var docenteDisplay = document.getElementById('docenteDisplay');
-    if(!docenteDisplay) return; 
-    var nome = localStorage.getItem('docenteName');
-    if(nome){ docenteDisplay.textContent = nome; } 
-    else { window.location.href = 'login.html'; }
-};
-
-// Função para realizar o logout do docente.
-// Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.
+// Logout
 function logout() {
-    localStorage.removeItem('docenteName');
-    localStorage.removeItem('docenteEmail');
-    window.location.href = 'login.html';
-};
+    localStorage.removeItem("docenteName");
+    localStorage.removeItem("docenteEmail");
+    window.location.href = "login.html";
+}
