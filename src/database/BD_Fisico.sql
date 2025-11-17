@@ -21,9 +21,7 @@ CREATE TABLE Docente (
     Nome VARCHAR2(255),
     E_mail VARCHAR2(255),
     Telefone_celular VARCHAR2(20),
-    Senha VARCHAR2(255),
-    fk_Instuticao_ID_Instituicao INT,
-    fk_Auditoria_ID_Auditoria INT
+    Senha VARCHAR2(255)
 );
 
 CREATE TABLE Docente_Instituicao (
@@ -40,9 +38,7 @@ CREATE TABLE Disciplina (
     Sigla VARCHAR2(20),
     Codigo VARCHAR2(20),
     Periodo VARCHAR2(20),
-    TipoCalculo VARCHAR2(50),
-    fk_Turma_ID_Turma INT,
-    fk_Componente_ID_Componente INT
+    TipoCalculo VARCHAR2(50)
 );
 
 CREATE TABLE Curso_Disciplina (
@@ -142,15 +138,6 @@ START WITH 1
 INCREMENT BY 1
 NOCACHE
 NOCYCLE;
-
-
-ALTER TABLE Docente ADD CONSTRAINT fk_Instuticao_ID_Instituicao FOREIGN KEY (fk_Instuticao_ID_Instituicao) REFERENCES Instituicao(ID_Instituicao);
-
-ALTER TABLE Docente ADD CONSTRAINT fk_Auditoria_Docente FOREIGN KEY (fk_Auditoria_ID_Auditoria) REFERENCES Auditoria(ID_Auditoria);
-
-ALTER TABLE Disciplina ADD CONSTRAINT fk_Turma_ID_Turma FOREIGN KEY (fk_Turma_ID_Turma) REFERENCES Turma(ID_Turma);
-
-ALTER TABLE Disciplina ADD CONSTRAINT fk_Componente_ID_Componente FOREIGN KEY (fk_Componente_ID_Componente) REFERENCES Componente(ID_Componente);
 
 ALTER TABLE TurmaAluno_Inscreve ADD CONSTRAINT fk_TurmaAluno_Turma FOREIGN KEY (fk_Turma_ID_Turma) REFERENCES Turma(ID_Turma);
 
