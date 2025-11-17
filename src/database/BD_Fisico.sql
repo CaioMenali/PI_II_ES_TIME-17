@@ -1,7 +1,6 @@
 CREATE TABLE Instituicao (
     ID_Instituicao INT PRIMARY KEY,
-    Nome VARCHAR2(255),
-    fk_Curso_ID_Curso INT
+    Nome VARCHAR2(255)
 );
 
 CREATE TABLE Curso (
@@ -26,6 +25,14 @@ CREATE TABLE Docente_Instituicao (
     PRIMARY KEY (ID_Docente, ID_Instituicao),
     FOREIGN KEY (ID_Docente) REFERENCES Docente(ID_Docente),
     FOREIGN KEY (ID_Instituicao) REFERENCES Instituicao(ID_Instituicao)
+);
+
+CREATE TABLE Instituicao_Curso (
+    ID_Instituicao INT,
+    ID_Curso INT,
+    PRIMARY KEY (ID_Instituicao, ID_Curso),
+    FOREIGN KEY (ID_Instituicao) REFERENCES Instituicao(ID_Instituicao),
+    FOREIGN KEY (ID_Curso) REFERENCES Curso(ID_Curso)
 );
 
 CREATE TABLE Disciplina (
@@ -131,7 +138,7 @@ INCREMENT BY 1
 NOCACHE
 NOCYCLE;
 
-ALTER TABLE Instituicao ADD CONSTRAINT fk_Curso_ID_Curso FOREIGN KEY (fk_Curso_ID_Curso) REFERENCES Curso(ID_Curso);
+
 
 ALTER TABLE Curso ADD CONSTRAINT fk_Disciplina_ID_Disciplina FOREIGN KEY (fk_Disciplina_ID_Disciplina) REFERENCES Disciplina(ID_Disciplina);
 
