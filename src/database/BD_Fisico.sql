@@ -35,14 +35,6 @@ CREATE TABLE Docente_Instituicao (
     FOREIGN KEY (ID_Instituicao) REFERENCES Instituicao(ID_Instituicao)
 );
 
-CREATE TABLE Instituicao_Curso (
-    ID_Instituicao INT,
-    ID_Curso INT,
-    PRIMARY KEY (ID_Instituicao, ID_Curso),
-    FOREIGN KEY (ID_Instituicao) REFERENCES Instituicao(ID_Instituicao),
-    FOREIGN KEY (ID_Curso) REFERENCES Curso(ID_Curso)
-);
-
 CREATE TABLE Disciplina (
     ID_Disciplina INT PRIMARY KEY,
     Nome VARCHAR2(255),
