@@ -8,53 +8,37 @@
 // Também configura um evento de mudança para o select, que recarrega os cursos quando uma nova instituição é selecionada.
 async function carregarInstituicoes() {
     const select = document.getElementById("select-instituicao");
-    select.innerHTML = ""; // Limpa as opções existentes
+    select.innerHTML = "";
 
-    const docenteEmail = localStorage.getItem('docenteEmail');
+    const docenteEmail = localStorage.getItem("docenteEmail");
     if (!docenteEmail) {
-        console.error("docenteEmail não encontrado no localStorage. Redirecionando para a página de login.");
-        window.location.href = 'login.html';
+        window.location.href = "login.html";
         return;
     }
 
-    try {
-        const r = await fetch(`http://localhost:3000/instituicoes/listar?docenteEmail=${encodeURIComponent(docenteEmail)}`);
-        if (!r.ok) {
-            throw new Error(`Erro ao carregar instituições: ${r.statusText}`);
-        }
-        const lista = await r.json();
+    const r = await fetch(`http://localhost:3000/instituicoes/listar?docenteEmail=${encodeURIComponent(docenteEmail)}`);
+    const lista = await r.json();
 
-        if (lista.length === 0) {
-            const op = document.createElement("option");
-            op.value = "";
-            op.textContent = "Nenhuma instituição encontrada para este docente.";
-            select.appendChild(op);
-            select.disabled = true; // Desabilita o select se não houver opções
-        } else {
-            lista.forEach(i => {
-                const op = document.createElement("option");
-                op.value = i[0];
-                op.textContent = i[1];
-                select.appendChild(op);
-            });
-            select.disabled = false;
-        }
-
-        select.addEventListener("change", carregarCursos);
-        carregarCursos(); // Carrega os cursos da primeira instituição ou exibe mensagem de vazio
-    } catch (error) {
-        console.error("Erro ao carregar instituições:", error);
+    if (!lista || lista.length === 0) {
         const op = document.createElement("option");
         op.value = "";
-        op.textContent = "Erro ao carregar instituições.";
+        op.textContent = "Nenhuma instituição encontrada";
         select.appendChild(op);
         select.disabled = true;
+        return;
     }
+
+    lista.forEach(inst => {
+        const op = document.createElement("option");
+        op.value = inst.ID_INSTITUICAO;
+        op.textContent = inst.NOME;
+        select.appendChild(op);
+    });
+
+    select.addEventListener("change", carregarCursos);
+    carregarCursos();
 }
 
-// Função assíncrona para carregar e exibir a lista de cursos com base na instituição selecionada.
-// Faz uma requisição ao endpoint /cursos/listar/:idInst do backend e preenche a lista de cursos na interface.
-// Se não houver cursos para a instituição, exibe uma mensagem de lista vazia.
 async function carregarCursos() {
     const select = document.getElementById("select-instituicao");
     const idInst = select.value;
@@ -66,24 +50,19 @@ async function carregarCursos() {
     const lista = await r.json();
 
     listaContainer.innerHTML = "";
-    
+
     if (!lista || lista.length === 0) {
-    msgVazia.style.display = "block";
-    return;
-}
+        msgVazia.style.display = "block";
+        return;
+    }
 
     msgVazia.style.display = "none";
 
     lista.forEach(c => {
-        adicionarCursoNaLista(c[0], c[1]);
+        adicionarCursoNaLista(c.ID_CURSO, c.NOME);
     });
 }
 
-// Função para adicionar visualmente um curso à lista exibida na página.
-// Cria elementos HTML para representar o curso e os anexa ao container da lista.
-// Parâmetros:
-//   - id: O ID do curso.
-//   - nome: O nome do curso.
 function adicionarCursoNaLista(id, nome) {
     const listaContainer = document.getElementById("lista-cursos");
 
@@ -103,24 +82,17 @@ function adicionarCursoNaLista(id, nome) {
     listaContainer.appendChild(divItem);
 }
 
-// Esta função é executada quando a janela é carregada.
-// Ela verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
-// Além disso, ela exibe o nome do docente logado na interface.
-window.onload = function(){
-    var docenteDisplay = document.getElementById('docenteDisplay');
-    if(!docenteDisplay) return; 
-    var nome = localStorage.getItem('docenteName');
-    if(nome){ docenteDisplay.textContent = nome; } 
-    else { window.location.href = 'login.html'; }
+window.onload = function() {
+    const nome = localStorage.getItem("docenteName");
+    const display = document.getElementById("docenteDisplay");
+    if (!nome) window.location.href = "login.html";
+    else display.textContent = nome;
 
-    // Esta função inicia o processo de carregamento das instituições e, consequentemente, dos cursos.
-    carregarCursos();
+    carregarInstituicoes();
 };
 
-// Função para realizar o logout do docente.
-// Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.
 function logout() {
-    localStorage.removeItem('docenteName');
-    localStorage.removeItem('docenteEmail');
-    window.location.href = 'login.html';
-};
+    localStorage.removeItem("docenteName");
+    localStorage.removeItem("docenteEmail");
+    window.location.href = "login.html";
+}
