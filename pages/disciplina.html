@@ -9,12 +9,9 @@
     <title>Nota Dez - Disciplinas</title>
 </head>
 
-<!-- Seção do cabeçalho e navegação -->
 <header class="superbar-notadez">
 	<div class="container">
-		<!-- Logo -->
 		<a href="index.html" class="logo">NotaDez</a>
-		<!-- Navegação e Botões -->
 		<nav class="main-nav">
 			<ul>
                 <li>
@@ -26,24 +23,23 @@
     </div>
 </header>
 
-<!-- Conteúdo principal da página -->
 <body>
-    
     <main class="content-container">
         <h1>Minhas Disciplinas</h1>
 
-        <!-- Dropdown para selecionar o curso -->
         <label for="select-curso">Curso</label>
         <select id="select-curso"></select>
-        <!-- Container da lista de disciplinas -->
+
+        <!-- LISTA (fica vazia para JS preencher) -->
         <div class="list-container" id="lista-disciplinas">
-            <p id="msg-lista-vazia-disciplinas">Nenhuma disciplina cadastrada. Adicione uma abaixo.</p>
-            <!-- Botão para adicionar nova disciplina -->
-            <a href="disciplina_cad.html" class="button-add">Adicionar</a>
-            </div>
+            <p id="msg-lista-vazia-disciplinas">Nenhuma disciplina cadastrada.</p>
+        </div>
+
+        <!-- Botão deve ficar FORA da lista -->
+        <a href="disciplina_cad.html" class="button-add">Adicionar</a>
+
     </main>
     
     <script src="scripts/disciplina.js"></script>
-    
 </body>
 </html>

@@ -6,16 +6,68 @@
 // Função assíncrona para carregar e exibir a lista de disciplinas.
 // Faz uma requisição ao endpoint /disciplinas/listar do backend e preenche a lista na interface.
 // Se não houver disciplinas, exibe uma mensagem de lista vazia.
+
+// Ao carregar a página
+window.onload = async () => {
+    const nome = localStorage.getItem("docenteName");
+    const email = localStorage.getItem("docenteEmail");
+
+    if (!nome || !email) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    document.getElementById("docenteDisplay").textContent = nome;
+
+    await carregarCursos();
+};
+
+// Carrega todos os cursos do docente
+async function carregarCursos() {
+    const select = document.getElementById("select-curso");
+    const docenteEmail = localStorage.getItem("docenteEmail");
+
+    const rInst = await fetch(`http://localhost:3000/instituicoes/listar?docenteEmail=${encodeURIComponent(docenteEmail)}`);
+    const instituicoes = await rInst.json();
+
+    if (!instituicoes || instituicoes.length === 0) {
+        select.innerHTML = "<option>Nenhuma instituição encontrada</option>";
+        select.disabled = true;
+        return;
+    }
+
+    select.innerHTML = "";
+
+    for (let inst of instituicoes) {
+        const rCurso = await fetch(`http://localhost:3000/cursos/listar/${inst.ID_INSTITUICAO}`);
+        const cursos = await rCurso.json();
+
+        cursos.forEach(c => {
+            const op = document.createElement("option");
+            op.value = c.ID_CURSO;
+            op.textContent = `${c.NOME} (${inst.NOME})`;
+            select.appendChild(op);
+        });
+    }
+
+    select.addEventListener("change", carregarDisciplinas);
+    carregarDisciplinas();
+}
+
+// Carrega disciplinas do curso selecionado
 async function carregarDisciplinas() {
+    const select = document.getElementById("select-curso");
+    const idCurso = select.value;
+
     const lista = document.getElementById("lista-disciplinas");
     const msgVazia = document.getElementById("msg-lista-vazia-disciplinas");
 
-    const r = await fetch("http://localhost:3000/disciplinas/listar");
+    const r = await fetch(`http://localhost:3000/disciplinas/listar/${idCurso}`);
     const disciplinas = await r.json();
 
     lista.innerHTML = "";
 
-    if (disciplinas.length === 0) {
+    if (!disciplinas || disciplinas.length === 0) {
         msgVazia.style.display = "block";
         return;
     }
@@ -23,18 +75,10 @@ async function carregarDisciplinas() {
     msgVazia.style.display = "none";
 
     disciplinas.forEach(d => {
-        adicionarDisciplinaNaLista(d[0], d[1], d[2], d[3], d[4]);
+        adicionarDisciplinaNaLista(d.ID_DISCIPLINA, d.NOME, d.SIGLA, d.CODIGO, d.PERIODO);
     });
 }
 
-// Função para adicionar visualmente uma disciplina à lista exibida na página.
-// Cria elementos HTML para representar a disciplina e os anexa ao container da lista.
-// Parâmetros:
-//   - id: O ID da disciplina.
-//   - nome: O nome da disciplina.
-//   - sigla: A sigla da disciplina.
-//   - codigo: O código da disciplina.
-//   - periodo: O período da disciplina.
 function adicionarDisciplinaNaLista(id, nome, sigla, codigo, periodo) {
     const lista = document.getElementById("lista-disciplinas");
 
@@ -53,24 +97,8 @@ function adicionarDisciplinaNaLista(id, nome, sigla, codigo, periodo) {
     lista.appendChild(divItem);
 }
 
-// Esta função é executada quando a janela é carregada.
-// Ela verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
-// Além disso, ela exibe o nome do docente logado na interface.
-window.onload = function(){
-    var docenteDisplay = document.getElementById('docenteDisplay');
-    if(!docenteDisplay) return; 
-    var nome = localStorage.getItem('docenteName');
-    if(nome){ docenteDisplay.textContent = nome; } 
-    else { window.location.href = 'login.html'; }
-
-    // Esta função inicia o processo de carregamento das disciplinas.
-    carregarDisciplinas();
-};
-
-// Função para realizar o logout do docente.
-// Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.
 function logout() {
-    localStorage.removeItem('docenteName');
-    localStorage.removeItem('docenteEmail');
-    window.location.href = 'login.html';
-};
+    localStorage.removeItem("docenteName");
+    localStorage.removeItem("docenteEmail");
+    window.location.href = "login.html";
+}

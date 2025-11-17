@@ -54,7 +54,7 @@ async function salvarCurso(event){
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             nome,
-            fk_instituicao: idInst
+            idInstituicao: idInst
         })
     });
 
