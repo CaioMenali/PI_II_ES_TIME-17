@@ -64,8 +64,16 @@ async function verificarInstituicaoECurso() {
         const instituicoes = await resp.json();
         console.log("Instituições encontradas:", instituicoes);
 
-        // Verifica se há instituições cadastradas para o docente
-        return instituicoes && instituicoes.length > 0;
+        // Verifica se há instituições cadastradas para o docente e se alguma delas possui cursos
+        if (instituicoes && instituicoes.length > 0) {
+            for (const instituicao of instituicoes) {
+                if (instituicao.CURSOS && instituicao.CURSOS.length > 0) {
+                    return true; // Encontrou instituição com cursos
+                }
+            }
+            return false; // Encontrou instituições, mas nenhuma delas tem cursos
+        }
+        return false; // Nenhuma instituição encontrada
     } catch (erro) {
         console.error("Erro ao verificar instituição e curso:", erro);
         return false;

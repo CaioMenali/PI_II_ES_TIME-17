@@ -38,21 +38,6 @@ body {
     text-decoration: none;
 }
 
-.list-item .delete-btn {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-left: 10px;
-}
-
-.list-item .delete-btn:hover {
-    background-color: #c82333;
-}
-
 /* Navegação principal */
 .main-nav ul {
     list-style: none;
@@ -145,4 +130,20 @@ body {
 
 .logout-btn:hover {
     background-color: #5a6268;
+}
+
+/* Botão de exclusão */
+.delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
 }
