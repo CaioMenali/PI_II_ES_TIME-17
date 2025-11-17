@@ -28,7 +28,7 @@ async function carregarCursos() {
 
     const docenteEmail = localStorage.getItem("docenteEmail");
 
-    // 1. Carregar instituições que o docente pertence
+    // Carregar instituições que o docente pertence
     const rInst = await fetch(`http://localhost:3000/instituicoes/listar?docenteEmail=${encodeURIComponent(docenteEmail)}`);
     const instituicoes = await rInst.json();
 

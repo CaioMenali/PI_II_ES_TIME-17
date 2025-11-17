@@ -66,3 +66,8 @@ function logout() {
     localStorage.removeItem('docenteEmail');
     window.location.href = 'login.html';
 };
+
+// Função para voltar à página de instituições.
+function voltarParaInstituicoes() {
+    window.location.href = 'instituicao.html';
+};

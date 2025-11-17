@@ -4,9 +4,6 @@ import { getConn } from "../database/oracle";
 
 const router = Router();
 
-// -------------------------------------------------------
-// Cadastrar curso
-// -------------------------------------------------------
 router.post("/cadastro", async (req: Request, res: Response) => {
   const { nome, idInstituicao } = req.body;
 
@@ -73,11 +70,6 @@ router.get("/listar/:idInstituicao", async (req: Request, res: Response) => {
 // Excluir curso
 router.delete("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
-
-  // TODO: Implementar verificação de permissões do usuário e autenticação
-  // if (!req.user || !req.user.canDeleteCurso) {
-  //   return res.status(403).json({ error: "Acesso negado." });
-  // }
 
   try {
     const conn = await getConn();

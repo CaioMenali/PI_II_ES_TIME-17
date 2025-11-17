@@ -42,9 +42,11 @@ window.onload = async () => {
     });
 };
 
-// Salvar curso
-async function salvarCurso(event){
-    event.preventDefault();
+// Salvar curso 
+// Esta função é chamada quando o botão de salvar curso é clicado.
+// Ela coleta os dados do formulário, como o nome do curso e o ID da instituição, e envia uma requisição POST para o backend para cadastrar o curso.
+// Após o cadastro, exibe uma mensagem de sucesso ou erro, e redireciona o usuário para a página de cursos.
+async function salvarCurso() {
 
     const nome = document.getElementById("nome_curso").value;
     const idInst = document.getElementById("instituicao_select").value;
@@ -68,8 +70,14 @@ async function salvarCurso(event){
     }
 }
 
+// Função para realizar o logout do docente.
 function logout() {
     localStorage.removeItem("docenteName");
     localStorage.removeItem("docenteEmail");
     window.location.href = "login.html";
+}
+
+// Função para voltar à página de cursos.
+function voltarParaCursos() {
+    window.location.href = "curso.html";
 }
