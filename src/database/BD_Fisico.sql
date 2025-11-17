@@ -84,9 +84,7 @@ CREATE TABLE Componente (
     Sigla VARCHAR2(20),
     Descricao VARCHAR2(255),
     Peso NUMBER(5,2),
-    ID_Disciplina INT,
-    fk_Nota_ID_Nota INT,
-    fk_Auditoria_ID_Auditoria INT
+    ID_Disciplina INT
 );
 
 CREATE TABLE Nota (
@@ -96,6 +94,15 @@ CREATE TABLE Nota (
     ID_Componente INT
 );
 
+CREATE TABLE Aluno_Nota (
+    ID_Aluno INT NOT NULL,
+    ID_Disciplina INT NOT NULL,
+    Nota_Final NUMBER(5,2),
+    PRIMARY KEY (ID_Aluno, ID_Disciplina),
+    FOREIGN KEY (ID_Aluno) REFERENCES Aluno(ID_Aluno),
+    FOREIGN KEY (ID_Disciplina) REFERENCES Disciplina(ID_Disciplina)
+);
+    
 CREATE TABLE Auditoria (
     ID_Auditoria INT PRIMARY KEY,
     DataHora DATE,
@@ -107,6 +114,7 @@ CREATE TABLE Auditoria (
     fk_Auditoria_Aluno INT,
     fk_Auditoria_Componente INT
 );
+
 
 CREATE SEQUENCE SEQ_DOCENTE
 START WITH 1
@@ -144,12 +152,14 @@ INCREMENT BY 1
 NOCACHE
 NOCYCLE;
 
-ALTER TABLE Componente ADD CONSTRAINT fk_Componente_Disciplina FOREIGN KEY (ID_Disciplina) REFERENCES Disciplina(ID_Disciplina);
+CREATE SEQUENCE SEQ_NOTA
+START WITH 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
 
-ALTER TABLE Componente ADD CONSTRAINT fk_Nota_ID_Nota FOREIGN KEY (fk_Nota_ID_Nota) REFERENCES Nota(ID_Nota);
-
-ALTER TABLE Componente ADD CONSTRAINT fk_Auditoria_Componente FOREIGN KEY (fk_Auditoria_ID_Auditoria) REFERENCES Auditoria(ID_Auditoria);
-
-ALTER TABLE Nota ADD CONSTRAINT fk_Nota_Aluno FOREIGN KEY (ID_Aluno) REFERENCES Aluno(ID_Aluno);
-
-ALTER TABLE Nota ADD CONSTRAINT fk_Nota_Componente FOREIGN KEY (ID_Componente) REFERENCES Componente(ID_Componente);
+CREATE SEQUENCE SEQ_COMPONENTE
+START WITH 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
