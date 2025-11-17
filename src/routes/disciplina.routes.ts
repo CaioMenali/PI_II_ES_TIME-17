@@ -5,10 +5,7 @@ import { getConn } from "../database/oracle";
 import oracledb from "oracledb";
 
 const router = Router();
-
-// -------------------------------------------------------
 // Cadastrar disciplina
-// -------------------------------------------------------
 router.post("/cadastro", async (req: Request, res: Response) => {
   const { nome, sigla, codigo, periodo, idCurso } = req.body;
 
@@ -54,10 +51,8 @@ router.post("/cadastro", async (req: Request, res: Response) => {
   }
 });
 
-
-// -------------------------------------------------------
 // Listar disciplinas por curso
-// -------------------------------------------------------
+
 router.get("/listar/:idCurso", async (req: Request, res: Response) => {
   const idCurso = req.params.idCurso;
 

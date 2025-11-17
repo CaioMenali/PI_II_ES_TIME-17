@@ -1,71 +1,118 @@
 /* Autor: Felipe Batista Bastos */
 
-// Este arquivo contém as funções JavaScript para o cadastro de turmas.
-// Ele lida com a interação do usuário na página de cadastro de turmas, enviando os dados para o backend.
+// Ao carregar a página
+window.onload = async () => {
+    const nome = localStorage.getItem("docenteName");
+    const email = localStorage.getItem("docenteEmail");
 
-
-// Esta função é executada quando a janela é carregada.
-// Ela verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
-// Além disso, ela exibe o nome do docente logado na interface.
-window.onload = function(){
-    var docenteDisplay = document.getElementById('docenteDisplay');
-    if(!docenteDisplay) return; 
-    var nome = localStorage.getItem('docenteName');
-    if(nome){ docenteDisplay.textContent = nome; } 
-    else { window.location.href = 'login.html'; }
-
-    // Inicia o processo de cadastro de turma.
-    CadastroTurma();
-};
-
-// Função para realizar o logout do docente.
-// Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.
-function logout() {
-    localStorage.removeItem('docenteName');
-    localStorage.removeItem('docenteEmail');
-    window.location.href = 'login.html';
-};
-
-
-// Função para configurar o cadastro de turma.
-// Obtém referências aos elementos do formulário e adiciona um event listener para o evento de submit do formulário.
-// Captura os valores de nome e código da turma, valida-os e os envia para o endpoint /turmas do backend.
-// Em caso de sucesso, exibe uma mensagem e limpa os campos do formulário.
-function CadastroTurma() {
-    const form = document.getElementById("form-cad-turma");
-    if (!form) return;
-
-    const inputNome = document.getElementById("nome_turma");
-    const inputCodigo = document.getElementById("codigo_turma");
-
-    form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-
-        const dados = {
-            nome: inputNome.value.trim(),
-            codigo: inputCodigo.value.trim()
-        };
-
-        if (!dados.nome || !dados.codigo) {
-            alert("Por favor, preencha o Nome e o Código da turma.");
-            return;
-        }
-
-        // Envia ao backend
-        const r = await fetch("http://localhost:3000/turmas", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(dados)
-        });
-
-        const resposta = await r.json();
-
-        if (resposta.success) {
-            alert("Turma cadastrada com sucesso!");
-            inputNome.value = "";
-            inputCodigo.value = "";
-        } else {
-            alert("Erro ao salvar turma: " + resposta.message);
-        }
-    });
+    if (!nome || !email) {
+        window.location.href = "login.html";
+        return;
     }
+
+    document.getElementById("docenteDisplay").textContent = nome;
+
+    await carregarCursos();
+};
+
+// Carrega os cursos das instituições do docente
+async function carregarCursos() {
+    const selectCurso = document.getElementById("select-curso");
+    const docenteEmail = localStorage.getItem("docenteEmail");
+
+    const rInst = await fetch(`http://localhost:3000/instituicoes/listar?docenteEmail=${encodeURIComponent(docenteEmail)}`);
+    const instituicoes = await rInst.json();
+
+    selectCurso.innerHTML = "";
+
+    if (!instituicoes || instituicoes.length === 0) {
+        selectCurso.innerHTML = "<option>Nenhuma instituição encontrada</option>";
+        selectCurso.disabled = true;
+        return;
+    }
+
+    for (let inst of instituicoes) {
+        const rCurso = await fetch(`http://localhost:3000/cursos/listar/${inst.ID_INSTITUICAO}`);
+        const cursos = await rCurso.json();
+
+        cursos.forEach(c => {
+            const op = document.createElement("option");
+            op.value = c.ID_CURSO;
+            op.textContent = `${c.NOME} (${inst.NOME})`;
+            selectCurso.appendChild(op);
+        });
+    }
+
+    selectCurso.addEventListener("change", carregarDisciplinas);
+    carregarDisciplinas();
+}
+
+// Carrega disciplinas do curso selecionado
+async function carregarDisciplinas() {
+    const selectCurso = document.getElementById("select-curso");
+    const selectDisciplina = document.getElementById("select-disciplina");
+    const idCurso = selectCurso.value;
+
+    const r = await fetch(`http://localhost:3000/disciplinas/listar/${idCurso}`);
+    const disciplinas = await r.json();
+
+    selectDisciplina.innerHTML = "";
+
+    if (!disciplinas || disciplinas.length === 0) {
+        const op = document.createElement("option");
+        op.value = "";
+        op.textContent = "Sem disciplinas cadastradas";
+        selectDisciplina.appendChild(op);
+        return;
+    }
+
+    disciplinas.forEach(d => {
+        const op = document.createElement("option");
+        op.value = d.ID_DISCIPLINA;
+        op.textContent = `${d.NOME} (${d.CODIGO})`;
+        selectDisciplina.appendChild(op);
+    });
+}
+
+// Salvar turma
+document.getElementById("form-cad-turma").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const nome = document.getElementById("nome_turma").value.trim();
+    const codigo = document.getElementById("codigo_turma").value.trim();
+    const idDisciplina = document.getElementById("select-disciplina").value;
+
+    if (!nome || !codigo) {
+        alert("Preencha Nome e Código.");
+        return;
+    }
+
+    if (!idDisciplina) {
+        alert("Selecione uma disciplina!");
+        return;
+    }
+
+    const dados = { nome, codigo, idDisciplina };
+
+    const resp = await fetch("http://localhost:3000/turmas/cadastro", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados)
+    });
+
+    const json = await resp.json();
+
+    if (json.success) {
+        alert("Turma cadastrada!");
+        window.location.href = "turma.html";
+    } else {
+        alert("Erro: " + json.error);
+    }
+});
+
+// Logout
+function logout() {
+    localStorage.removeItem("docenteName");
+    localStorage.removeItem("docenteEmail");
+    window.location.href = "login.html";
+}

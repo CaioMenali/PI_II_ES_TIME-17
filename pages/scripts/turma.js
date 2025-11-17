@@ -8,35 +8,117 @@
 // Função assíncrona para carregar e exibir a lista de turmas.
 // Faz uma requisição ao endpoint /turmas/listar do backend e preenche a lista na interface.
 // Se não houver turmas, exibe uma mensagem de lista vazia.
+//  AO CARREGAR A PÁGINA
+window.onload = async () => {
+    const nome = localStorage.getItem("docenteName");
+    const email = localStorage.getItem("docenteEmail");
+
+    if (!nome || !email) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    document.getElementById("docenteDisplay").textContent = nome;
+
+    await carregarCursos();
+};
+
+
+// 1. CARREGAR CURSOS DO DOCENTE
+
+async function carregarCursos() {
+    const selectCurso = document.getElementById("select-curso");
+    const docenteEmail = localStorage.getItem("docenteEmail");
+
+    const rInst = await fetch(
+        `http://localhost:3000/instituicoes/listar?docenteEmail=${encodeURIComponent(docenteEmail)}`
+    );
+    const instituicoes = await rInst.json();
+
+    if (!instituicoes || instituicoes.length === 0) {
+        selectCurso.innerHTML = "<option>Nenhuma instituição encontrada</option>";
+        selectCurso.disabled = true;
+        return;
+    }
+
+    selectCurso.innerHTML = "";
+
+    for (let inst of instituicoes) {
+        const rCurso = await fetch(
+            `http://localhost:3000/cursos/listar/${inst.ID_INSTITUICAO}`
+        );
+        const cursos = await rCurso.json();
+
+        cursos.forEach(c => {
+            const op = document.createElement("option");
+            op.value = c.ID_CURSO;
+            op.textContent = `${c.NOME} (${inst.NOME})`;
+            selectCurso.appendChild(op);
+        });
+    }
+
+    selectCurso.addEventListener("change", carregarDisciplinas);
+    carregarDisciplinas();
+}
+
+
+// 2. CARREGAR DISCIPLINAS DO CURSO SELECIONADO
+
+async function carregarDisciplinas() {
+    const idCurso = document.getElementById("select-curso").value;
+    const selectDisciplina = document.getElementById("select-disciplina");
+
+    const r = await fetch(`http://localhost:3000/disciplinas/listar/${idCurso}`);
+    const disciplinas = await r.json();
+
+    selectDisciplina.innerHTML = "";
+
+    if (!disciplinas || disciplinas.length === 0) {
+        selectDisciplina.innerHTML = "<option>Nenhuma disciplina encontrada</option>";
+        return;
+    }
+
+    disciplinas.forEach(d => {
+        const op = document.createElement("option");
+        op.value = d.ID_DISCIPLINA;
+        op.textContent = `${d.NOME} (${d.CODIGO})`;
+        selectDisciplina.appendChild(op);
+    });
+
+    selectDisciplina.addEventListener("change", carregarTurmas);
+    carregarTurmas();
+}
+// 3. CARREGAR TURMAS DA DISCIPLINA
+
 async function carregarTurmas() {
-    const listaContainer = document.getElementById("lista-turmas");
+    const idDisciplina = document.getElementById("select-disciplina").value;
+
+    const lista = document.getElementById("lista-turmas");
     const msgVazia = document.getElementById("msg-lista-vazia-turmas");
 
-    const r = await fetch("http://localhost:3000/turmas/listar");
-    const lista = await r.json();
+    const r = await fetch(
+        `http://localhost:3000/turmas/listar/${idDisciplina}`
+    );
+    const turmas = await r.json();
 
-    listaContainer.innerHTML = "";
+    lista.innerHTML = "";
 
-    if (lista.length === 0) {
+    if (!turmas || turmas.length === 0) {
         msgVazia.style.display = "block";
         return;
     }
 
     msgVazia.style.display = "none";
 
-    lista.forEach(t => {
-        adicionarTurmaNaLista(t[0], t[1], t[2]); 
+    turmas.forEach(t => {
+        adicionarTurmaNaLista(t.ID_TURMA, t.NOME, t.CODIGO);
     });
 }
 
-// Função para adicionar visualmente uma turma à lista exibida na página.
-// Cria elementos HTML para representar a turma e os anexa ao container da lista.
-// Parâmetros:
-//   - id: O ID da turma.
-//   - nome: O nome da turma.
-//   - codigo: O código da turma.
+// 4. ADICIONAR TURMA NA LISTA VISUAL
+
 function adicionarTurmaNaLista(id, nome, codigo) {
-    const listaContainer = document.getElementById("lista-turmas");
+    const lista = document.getElementById("lista-turmas");
 
     const divItem = document.createElement("div");
     divItem.className = "list-item";
@@ -44,34 +126,18 @@ function adicionarTurmaNaLista(id, nome, codigo) {
     const strongNome = document.createElement("strong");
     strongNome.textContent = `${nome} (${codigo})`;
 
-    const linkVer = document.createElement("a");
-    linkVer.href = "#";
-    linkVer.textContent = "Ver Alunos";
+    const link = document.createElement("a");
+    link.href = "#";
+    link.textContent = "Ver Alunos";
 
     divItem.appendChild(strongNome);
-    divItem.appendChild(linkVer);
-
-    listaContainer.appendChild(divItem);
+    divItem.appendChild(link);
+    lista.appendChild(divItem);
 }
+// 5. LOGOUT
 
-// Esta função é executada quando a janela é carregada.
-// Ela verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
-// Além disso, ela exibe o nome do docente logado na interface.
-window.onload = function(){
-    var docenteDisplay = document.getElementById('docenteDisplay');
-    if(!docenteDisplay) return; 
-    var nome = localStorage.getItem('docenteName');
-    if(nome){ docenteDisplay.textContent = nome; } 
-    else { window.location.href = 'login.html'; }
-
-    // Esta função inicia o processo de carregamento das turmas.    
-    carregarTurmas();
-};
-
-// Função para realizar o logout do docente.
-// Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.
 function logout() {
-    localStorage.removeItem('docenteName');
-    localStorage.removeItem('docenteEmail');
-    window.location.href = 'login.html';
-};
+    localStorage.removeItem("docenteName");
+    localStorage.removeItem("docenteEmail");
+    window.location.href = "login.html";
+}

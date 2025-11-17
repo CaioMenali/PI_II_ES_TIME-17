@@ -89,7 +89,7 @@ function adicionarDisciplinaNaLista(id, nome, sigla, codigo, periodo) {
     strongNome.textContent = `${nome} (${codigo})`;
 
     const link = document.createElement("a");
-    link.href = "#";
+    link.href = "turma.html";
     link.textContent = "Ver Turmas";
 
     divItem.appendChild(strongNome);

@@ -9,7 +9,6 @@
     <title>Nota Dez - Cadastrar Turma</title>
 </head>
 
-<!-- Seção do cabeçalho e navegação -->
 <header class="superbar-notadez">
     <div class="container">
         <a href="index.html" class="logo">NotaDez</a>
@@ -27,37 +26,39 @@
 
 <body>
 
-<!-- Conteúdo principal da página -->
-    <main class="content-container">
-        <h1>Cadastrar Nova Turma</h1>
+<main class="content-container">
+    <h1>Cadastrar Nova Turma</h1>
 
-        <!-- Container do formulário de cadastro de turma -->
-        <div class="form-container-inline">
-            <!-- Formulário para adicionar nova turma -->
-            <form id="form-cad-turma">
+    <div class="form-container-inline">
+        <form id="form-cad-turma">
 
-                <!-- Campo para o nome da turma -->
-                <div class="form-group">
-                    <label for="nome_turma">Nome da Turma</label>
-                    <input type="text" id="nome_turma" name="nome" placeholder="Ex: Turma A - Noturno" required>
-                </div>
+            <div class="form-group">
+                <label for="select-curso">Curso</label>
+                <select id="select-curso" required></select>
+            </div>
 
-                <!-- Campo para o código da turma -->
-                <div class="form-group">
-                    <label for="codigo_turma">Código da Turma</label>
-                    <input type="text" id="codigo_turma" name="codigo" placeholder="Ex: PI2-T1" required>
-                </div>
+            <div class="form-group">
+                <label for="select-disciplina">Disciplina</label>
+                <select id="select-disciplina" required></select>
+            </div>
 
-                <!-- Botão para salvar a turma -->
-                <button type="submit" class="button-submit">Salvar Turma</button>
-            </form>
+            <div class="form-group">
+                <label for="nome_turma">Nome da Turma</label>
+                <input type="text" id="nome_turma" placeholder="Ex: Turma A - Noturno" required>
+            </div>
 
-            <!-- Botão para voltar para a página de turmas -->
-            <a href="turma.html" class="button-voltar">Voltar para Minhas Turmas</a>
-        </div>
-    </main>
+            <div class="form-group">
+                <label for="codigo_turma">Código da Turma</label>
+                <input type="text" id="codigo_turma" placeholder="Ex: PI2-T1" required>
+            </div>
 
-    <script src="scripts/turma_cad.js"></script>
-    
+            <button type="submit" class="button-submit">Salvar Turma</button>
+        </form>
+
+        <a href="turma.html" class="button-voltar">Voltar</a>
+    </div>
+</main>
+
+<script src="scripts/turma_cad.js"></script>
 </body>
 </html>
