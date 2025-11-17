@@ -7,7 +7,6 @@ import { getConn } from "../database/oracle";
 const router = Router();
 
 // Cadastrar instituição
-// Essa função faz o cadastro de uma nova instituição no banco de dados.
 router.post("/cadastro", async (req: Request, res: Response) => {
   const { nome, docenteEmail } = req.body;
 
@@ -27,16 +26,17 @@ router.post("/cadastro", async (req: Request, res: Response) => {
 
     const id = (resultInst.outBinds as { id: number[] }).id[0];
 
-    // Lógica para associar o docente à instituição através da tabela de junção Docente_Instituicao
-    // A coluna FK_INSTITUICAO_ID_INSTITUICAO foi removida da tabela DOCENTE.
     if (docenteEmail) {
-      const resultDocente = await conn.execute<{ ID_DOCENTE: number }>(
+      const resultDocente = await conn.execute(
         `SELECT ID_DOCENTE FROM DOCENTE WHERE E_MAIL = :docenteEmail`,
-        [docenteEmail]
+        [docenteEmail],
+        { outFormat: oracledb.OUT_FORMAT_OBJECT }
       );
 
       if (resultDocente.rows && resultDocente.rows.length > 0) {
-        const docenteId = resultDocente.rows[0].ID_DOCENTE;
+        
+        const docenteId = (resultDocente.rows[0] as any).ID_DOCENTE;
+
         await conn.execute(
           `INSERT INTO DOCENTE_INSTITUICAO (ID_DOCENTE, ID_INSTITUICAO)
            VALUES (:docenteId, :instituicaoId)`,
@@ -44,43 +44,42 @@ router.post("/cadastro", async (req: Request, res: Response) => {
           { autoCommit: true }
         );
       } else {
-        // Opcional: Tratar caso o docente não seja encontrado
         console.warn(`Docente com email ${docenteEmail} não encontrado para associação.`);
       }
     }
 
     await conn.close();
-
     res.json({ success: true, message: "Instituição cadastrada!" });
+
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
 });
 
 // Listar instituições
-// Essa função faz a listagem de todas as instituições cadastradas no banco de dados.
 router.get("/listar", async (req: Request, res: Response) => {
   const { docenteEmail } = req.query;
 
   if (!docenteEmail) {
     return res.status(400).json({ error: "docenteEmail é obrigatório." });
   }
+
   try {
     const conn = await getConn();
 
-    const resultDocente = await conn.execute<{ ID_DOCENTE: number }>(
+    const resultDocente = await conn.execute(
       `SELECT ID_DOCENTE FROM DOCENTE WHERE E_MAIL = :docenteEmail`,
-      [docenteEmail]
+      [docenteEmail],
+      { outFormat: oracledb.OUT_FORMAT_OBJECT }
     );
 
-    if (resultDocente.rows && resultDocente.rows.length === 0) {
+    if (!resultDocente.rows || resultDocente.rows.length === 0) {
       await conn.close();
       return res.status(404).json({ error: "Docente não encontrado." });
     }
 
-    const docenteId = resultDocente.rows![0].ID_DOCENTE;
+    const docenteId = (resultDocente.rows[0] as any).ID_DOCENTE;
 
-    // Busca as instituições associadas ao docente através da tabela de junção DOCENTE_INSTITUICAO
     const r = await conn.execute(
       `SELECT I.ID_INSTITUICAO, I.NOME
        FROM INSTITUICAO I
@@ -90,13 +89,9 @@ router.get("/listar", async (req: Request, res: Response) => {
       [docenteId]
     );
 
-    if (r.rows && r.rows.length === 0) {
-      await conn.close();
-      return res.status(404).json({ error: "Nenhuma instituição encontrada para este docente." });
-    }
-
     await conn.close();
-    res.json(r.rows);
+    res.json(r.rows ?? []);
+
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
