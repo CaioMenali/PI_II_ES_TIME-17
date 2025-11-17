@@ -79,6 +79,12 @@ function adicionarCursoNaLista(id, nome) {
     divItem.appendChild(strongNome);
     divItem.appendChild(link);
 
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "delete-btn";
+    deleteButton.textContent = "Excluir";
+    deleteButton.onclick = () => excluirCurso(id, nome);
+    divItem.appendChild(deleteButton);
+
     listaContainer.appendChild(divItem);
 }
 
@@ -95,4 +101,34 @@ function logout() {
     localStorage.removeItem("docenteName");
     localStorage.removeItem("docenteEmail");
     window.location.href = "login.html";
+}
+
+// Função assíncrona para excluir um curso.
+async function excluirCurso(id, nome) {
+    if (!confirm(`Tem certeza que deseja excluir o curso "${nome}"?`)) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:3000/cursos/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                // Adicione headers de autenticação se necessário
+            },
+        });
+
+        if (response.ok) {
+            alert(`Curso "${nome}" excluído com sucesso!`);
+            carregarCursos(); // Recarrega a lista de cursos
+        } else if (response.status === 409) {
+            const errorData = await response.json();
+            alert(`Erro: ${errorData.error}`);
+        } else {
+            alert(`Erro ao excluir o curso "${nome}".`);
+        }
+    } catch (error) {
+        console.error("Erro ao excluir curso:", error);
+        alert("Erro de conexão ao tentar excluir o curso.");
+    }
 }
