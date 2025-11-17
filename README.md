@@ -5,7 +5,23 @@ Este repositório será destinado ao armazenamento do projeto "Nota Dez" da mat�
 A main será reservada apenas aos arquivos do programa e suas versões finais 
 e nas Branches as versões de cada parte do projeto, separado por tópicos, a qual estão sendo desenvolvidas e/ou terminadas. 
 
-Para iniciar o sistema é necessario instalar as dependencias com o comando 'npm install', rodar o comando 'npx tsc' para compilar o typescript, rodar o arquivo 'BD_Fisico.sql'(localizado em 'src/database/BD_Fisico.sql') no seu banco de dados, alterar as informações de conexão com o banco de dados no arquivo 'oracle.ts'(localizado em 'src/database/oracle.ts') e por fim iniciar o servidor com o comando 'node .\dist\server.js'.
+Para iniciar o sistema e seu correto funcionamento é necessario seguir as sequintes etapas:
+
+. instalar as dependencias com o comando 'npm install';
+
+. instalar o TS com o comando 'npm i typescript' (caso o TS já esteja instalado prossiga para o próximo passo);
+
+. rodar o comando 'npx tsc' para compilar o typescript;
+
+. baixar o Oracle Database, correpondente a maquina a ser utilizada, no site: https://www.oracle.com/br/database/technologies/xe-downloads.html
+
+. baixar o Oracle Developer, correpondente a maquina a ser utilizada, no site: https://www.oracle.com/br/database/sqldeveloper/technologies/download/
+
+. rodar o arquivo 'BD_Fisico.sql'(localizado em 'src/database/BD_Fisico.sql') no seu banco de dados;
+
+. alterar as informações de conexão com o banco de dados no arquivo 'oracle.ts'(localizado em 'src/database/oracle.ts') 
+
+. por fim, iniciar o servidor com o comando 'node .\dist\server.js'.
 
 Integrantes:
 
