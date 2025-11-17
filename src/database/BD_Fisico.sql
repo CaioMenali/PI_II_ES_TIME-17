@@ -5,8 +5,7 @@ CREATE TABLE Instituicao (
 
 CREATE TABLE Curso (
     ID_Curso INT PRIMARY KEY,
-    Nome VARCHAR2(255),
-    fk_Disciplina_ID_Disciplina INT
+    Nome VARCHAR2(255)
 );
 
 CREATE TABLE Instituicao_Curso (
@@ -41,12 +40,18 @@ CREATE TABLE Disciplina (
     Sigla VARCHAR2(20),
     Codigo VARCHAR2(20),
     Periodo VARCHAR2(20),
-    ID_Instituicao INT,
     TipoCalculo VARCHAR2(50),
     fk_Turma_ID_Turma INT,
     fk_Componente_ID_Componente INT
 );
 
+CREATE TABLE Curso_Disciplina (
+    ID_Curso INT NOT NULL,
+    ID_Disciplina INT NOT NULL,
+    PRIMARY KEY (ID_Curso, ID_Disciplina),
+    FOREIGN KEY (ID_Curso) REFERENCES Curso(ID_Curso),
+    FOREIGN KEY (ID_Disciplina) REFERENCES Disciplina(ID_Disciplina)
+);
 CREATE TABLE Turma (
     ID_Turma INT PRIMARY KEY,
     Nome VARCHAR2(255),
@@ -139,9 +144,6 @@ NOCACHE
 NOCYCLE;
 
 
-
-ALTER TABLE Curso ADD CONSTRAINT fk_Disciplina_ID_Disciplina FOREIGN KEY (fk_Disciplina_ID_Disciplina) REFERENCES Disciplina(ID_Disciplina);
-
 ALTER TABLE Docente ADD CONSTRAINT fk_Instuticao_ID_Instituicao FOREIGN KEY (fk_Instuticao_ID_Instituicao) REFERENCES Instituicao(ID_Instituicao);
 
 ALTER TABLE Docente ADD CONSTRAINT fk_Auditoria_Docente FOREIGN KEY (fk_Auditoria_ID_Auditoria) REFERENCES Auditoria(ID_Auditoria);
@@ -167,12 +169,3 @@ ALTER TABLE Nota ADD CONSTRAINT fk_Nota_Componente FOREIGN KEY (ID_Componente) R
 ALTER TABLE Aluno ADD CONSTRAINT fk_Aluno_Nota FOREIGN KEY (fk_Nota_ID_Nota) REFERENCES Nota(ID_Nota);
 
 ALTER TABLE Aluno ADD CONSTRAINT fk_Auditoria_Aluno FOREIGN KEY (fk_Auditoria_ID_Auditoria) REFERENCES Auditoria(ID_Auditoria);
-
-ALTER TABLE Curso ADD fk_Instituicao_ID_Instituicao INT;
-
-ALTER TABLE Disciplina ADD fk_Curso_ID_Curso INT;
-
-ALTER TABLE Disciplina
-ADD CONSTRAINT fk_Disciplina_Curso
-FOREIGN KEY (fk_Curso_ID_Curso)
-REFERENCES Curso(ID_Curso);
