@@ -27,14 +27,26 @@ router.post("/cadastro", async (req: Request, res: Response) => {
 
     const id = (resultInst.outBinds as { id: number[] }).id[0];
 
+    // Lógica para associar o docente à instituição através da tabela de junção Docente_Instituicao
+    // A coluna FK_INSTITUICAO_ID_INSTITUICAO foi removida da tabela DOCENTE.
     if (docenteEmail) {
-      await conn.execute(
-        `UPDATE DOCENTE
-         SET FK_INSTITUICAO_ID_INSTITUICAO = :id
-         WHERE E_MAIL = :email`,
-        [id, docenteEmail],
-        { autoCommit: true }
+      const resultDocente = await conn.execute<{ ID_DOCENTE: number }>(
+        `SELECT ID_DOCENTE FROM DOCENTE WHERE E_MAIL = :docenteEmail`,
+        [docenteEmail]
       );
+
+      if (resultDocente.rows && resultDocente.rows.length > 0) {
+        const docenteId = resultDocente.rows[0].ID_DOCENTE;
+        await conn.execute(
+          `INSERT INTO DOCENTE_INSTITUICAO (ID_DOCENTE, ID_INSTITUICAO)
+           VALUES (:docenteId, :instituicaoId)`,
+          [docenteId, id],
+          { autoCommit: true }
+        );
+      } else {
+        // Opcional: Tratar caso o docente não seja encontrado
+        console.warn(`Docente com email ${docenteEmail} não encontrado para associação.`);
+      }
     }
 
     await conn.close();
@@ -68,8 +80,13 @@ router.get("/listar", async (req: Request, res: Response) => {
 
     const docenteId = resultDocente.rows![0].ID_DOCENTE;
 
+    // Busca as instituições associadas ao docente através da tabela de junção DOCENTE_INSTITUICAO
     const r = await conn.execute(
-      `SELECT ID_INSTITUICAO, NOME FROM INSTITUICAO WHERE FK_DOCENTE_ID_DOCENTE = :docenteId ORDER BY ID_INSTITUICAO`,
+      `SELECT I.ID_INSTITUICAO, I.NOME
+       FROM INSTITUICAO I
+       JOIN DOCENTE_INSTITUICAO DI ON I.ID_INSTITUICAO = DI.ID_INSTITUICAO
+       WHERE DI.ID_DOCENTE = :docenteId
+       ORDER BY I.ID_INSTITUICAO`,
       [docenteId]
     );
 
