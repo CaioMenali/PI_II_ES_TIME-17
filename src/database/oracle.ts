@@ -2,8 +2,8 @@ import oracledb from "oracledb";
 
 export const conexao = {
   user: "SYSTEM",
-  password: "senha",
-  connectString: "localhost:1521/XEPDB1"
+  password: "Fgrc2006*",
+  connectString: "localhost:1521/xe"
 };
 
 export async function getConn() {
