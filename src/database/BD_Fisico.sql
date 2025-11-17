@@ -1,3 +1,6 @@
+-- Autor: Felipe Batista Bastos
+-- Código sql para criação do banco de dados
+
 CREATE TABLE Instituicao (
     ID_Instituicao INT PRIMARY KEY,
     Nome VARCHAR2(255)

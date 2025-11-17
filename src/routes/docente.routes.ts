@@ -106,4 +106,5 @@ router.get("/listar", async (req: Request, res: Response) => {
   }
 });
 
+// Exporta o router para ser utilizado nas rotas da aplicação
 export default router;
