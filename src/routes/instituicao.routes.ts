@@ -44,12 +44,35 @@ router.post("/cadastro", async (req: Request, res: Response) => {
 
 // Listar instituições
 router.get("/listar", async (req: Request, res: Response) => {
+  const { docenteEmail } = req.query;
+
+  if (!docenteEmail) {
+    return res.status(400).json({ error: "docenteEmail é obrigatório." });
+  }
   try {
     const conn = await getConn();
 
-    const r = await conn.execute(
-      `SELECT ID_INSTITUICAO, NOME FROM INSTITUICAO ORDER BY ID_INSTITUICAO`
+    const resultDocente = await conn.execute<{ ID_DOCENTE: number }>(
+      `SELECT ID_DOCENTE FROM DOCENTE WHERE E_MAIL = :docenteEmail`,
+      [docenteEmail]
     );
+
+    if (resultDocente.rows && resultDocente.rows.length === 0) {
+      await conn.close();
+      return res.status(404).json({ error: "Docente não encontrado." });
+    }
+
+    const docenteId = resultDocente.rows![0].ID_DOCENTE;
+
+    const r = await conn.execute(
+      `SELECT ID_INSTITUICAO, NOME FROM INSTITUICAO WHERE FK_DOCENTE_ID_DOCENTE = :docenteId ORDER BY ID_INSTITUICAO`,
+      [docenteId]
+    );
+
+    if (r.rows && r.rows.length === 0) {
+      await conn.close();
+      return res.status(404).json({ error: "Nenhuma instituição encontrada para este docente." });
+    }
 
     await conn.close();
     res.json(r.rows);
