@@ -87,8 +87,9 @@ router.get("/listar", async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Docente não encontrado." });
     }
 
-    const docenteId = (resultDocente.rows[0] as any).ID_DOCENTE;
-    
+    // Extrai o ID do docente encontrado
+    const docenteId = (resultDocente.rows![0] as any).ID_DOCENTE;
+
     // Busca as instituições associadas ao docente através da tabela de associação DOCENTE_INSTITUICAO
     const r = await conn.execute(
       `SELECT I.ID_INSTITUICAO, I.NOME
