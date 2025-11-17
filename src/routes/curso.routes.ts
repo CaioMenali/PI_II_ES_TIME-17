@@ -1,6 +1,7 @@
 // Autor: Felpe Batista Bastos
 
 import { Router, Request, Response } from "express";
+import oracledb from "oracledb";
 import { getConn } from "../database/oracle";
 
 const router = Router();
@@ -42,7 +43,8 @@ router.get("/listar/:idInst", async (req: Request, res: Response) => {
        FROM CURSO
        WHERE FK_INSTITUICAO_ID_INSTITUICAO = :id
        ORDER BY ID_CURSO`,
-      [id]
+      [id],
+      { outFormat: oracledb.OUT_FORMAT_OBJECT }
     );
 
     await conn.close();

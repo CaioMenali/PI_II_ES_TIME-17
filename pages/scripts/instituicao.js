@@ -24,7 +24,7 @@ async function carregarInstituicoes() {
     msgVazia.style.display = "none";
 
     lista.forEach(i => {
-        adicionarInstituicao(i[0], i[1]);
+        adicionarInstituicao(i.ID_INSTITUICAO, i.NOME);
     });
 }
 

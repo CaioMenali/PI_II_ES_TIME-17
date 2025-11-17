@@ -9,37 +9,47 @@ window.onload = async () => {
 
     const selectInst = document.getElementById("instituicao_select");
 
-    const r = await fetch("http://localhost:3000/instituicoes/listar");
+    const docenteEmail = localStorage.getItem("docenteEmail");
+    const docenteNome = localStorage.getItem("docenteName");
+
+    if (!docenteEmail) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    document.getElementById("docenteDisplay").textContent = docenteNome;
+
+    // Carrega SOMENTE as instituições do docente
+    const r = await fetch(`http://localhost:3000/instituicoes/listar?docenteEmail=${encodeURIComponent(docenteEmail)}`);
     const lista = await r.json();
 
-    lista.forEach(i => {
+    selectInst.innerHTML = "";
+
+    if (!lista || lista.length === 0) {
         const op = document.createElement("option");
-        op.value = i[0];
-        op.textContent = i[1];
+        op.value = "";
+        op.textContent = "Nenhuma instituição encontrada";
+        selectInst.appendChild(op);
+        selectInst.disabled = true;
+        return;
+    }
+
+    lista.forEach(inst => {
+        const op = document.createElement("option");
+        op.value = inst.ID_INSTITUICAO;
+        op.textContent = inst.NOME;
         selectInst.appendChild(op);
     });
-
-    // Ela também verifica se o usuário está logado (pelo nome do docente no localStorage) e redireciona para a página de login se não estiver.
-    // Além disso, ela exibe o nome do docente logado na interface.
-    var docenteDisplay = document.getElementById('docenteDisplay');
-    if(!docenteDisplay) return; 
-    var nome = localStorage.getItem('docenteName');
-    if(nome){ docenteDisplay.textContent = nome; } 
-    else { window.location.href = 'login.html'; }
 };
 
-// Função assíncrona para salvar um novo curso.
-// Captura o nome do curso e o ID da instituição selecionada, e os envia para o endpoint /cursos do backend.
-// Em caso de sucesso, exibe uma mensagem e redireciona para a página de cursos.
-// Parâmetros:
-//   - event: O evento de submissão do formulário (opcional).
+// Salvar curso
 async function salvarCurso(event){
-    if(event) event.preventDefault();
-    const selectInst = document.getElementById("instituicao_select");
-    const nome = document.getElementById("nome_curso").value;
-    const idInst = selectInst.value;
+    event.preventDefault();
 
-    const r = await fetch("http://localhost:3000/cursos", {
+    const nome = document.getElementById("nome_curso").value;
+    const idInst = document.getElementById("instituicao_select").value;
+
+    const r = await fetch("http://localhost:3000/cursos/cadastro", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -54,14 +64,12 @@ async function salvarCurso(event){
         alert("Curso cadastrado com sucesso!");
         window.location.href = "curso.html";
     } else {
-        alert("Erro: " + resposta.message);
+        alert("Erro: " + resposta.error);
     }
 }
 
-// Função para realizar o logout do docente.
-// Remove as informações de login (nome e e-mail) do localStorage e redireciona o usuário para a página de login.
 function logout() {
-    localStorage.removeItem('docenteName');
-    localStorage.removeItem('docenteEmail');
-    window.location.href = 'login.html';
-};
+    localStorage.removeItem("docenteName");
+    localStorage.removeItem("docenteEmail");
+    window.location.href = "login.html";
+}

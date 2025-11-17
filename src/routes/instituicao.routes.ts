@@ -11,10 +11,8 @@ router.post("/cadastro", async (req: Request, res: Response) => {
   const { nome, docenteEmail } = req.body;
 
   try {
-    // Abre conexão com o banco Oracle
     const conn = await getConn();
 
-    // Insere a nova instituição e captura o ID gerado pela sequence
     const resultInst = await conn.execute(
       `INSERT INTO INSTITUICAO (ID_INSTITUICAO, NOME)
        VALUES (SEQ_INSTITUICAO.NEXTVAL, :nome)
@@ -26,7 +24,6 @@ router.post("/cadastro", async (req: Request, res: Response) => {
       { autoCommit: true }
     );
 
-    // Extrai o ID da instituição recém-criada
     const id = (resultInst.outBinds as { id: number[] }).id[0];
 
     if (docenteEmail) {
@@ -36,9 +33,7 @@ router.post("/cadastro", async (req: Request, res: Response) => {
         { outFormat: oracledb.OUT_FORMAT_OBJECT }
       );
 
-      // Se o docente existir, atualiza a coluna fk_Instuticao_ID_Instituicao na tabela Docente
       if (resultDocente.rows && resultDocente.rows.length > 0) {
-        
         const docenteId = (resultDocente.rows[0] as any).ID_DOCENTE;
 
         await conn.execute(
@@ -47,37 +42,33 @@ router.post("/cadastro", async (req: Request, res: Response) => {
           [docenteId, id],
           { autoCommit: true }
         );
-      } else {
-        console.warn(`Docente com email ${docenteEmail} não encontrado para associação.`);
       }
     }
 
-    // Fecha a conexão com o banco
     await conn.close();
     res.json({ success: true, message: "Instituição cadastrada!" });
 
   } catch (err: any) {
-    // Em caso de erro, retorna status 500 com a mensagem do erro
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // Listar instituições
 router.get("/listar", async (req: Request, res: Response) => {
   const { docenteEmail } = req.query;
 
-  // Validação: garante que o e-mail do docente foi informado
   if (!docenteEmail) {
     return res.status(400).json({ error: "docenteEmail é obrigatório." });
   }
 
   try {
-    // Obtém uma conexão com o banco de dados Oracle
-    // Busca todas as instituições cadastradas
     const conn = await getConn();
 
     const resultDocente = await conn.execute(
-      `SELECT ID_DOCENTE FROM DOCENTE WHERE E_MAIL = :docenteEmail`,
+      `SELECT ID_DOCENTE 
+       FROM DOCENTE 
+       WHERE E_MAIL = :docenteEmail`,
       [docenteEmail],
       { outFormat: oracledb.OUT_FORMAT_OBJECT }
     );
@@ -87,24 +78,25 @@ router.get("/listar", async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Docente não encontrado." });
     }
 
-    // Extrai o ID do docente encontrado
-    const docenteId = (resultDocente.rows![0] as any).ID_DOCENTE;
+    const docenteId = (resultDocente.rows[0] as any).ID_DOCENTE;
 
-    // Busca as instituições associadas ao docente através da tabela de associação DOCENTE_INSTITUICAO
     const r = await conn.execute(
-      `SELECT I.ID_INSTITUICAO, I.NOME
+      `SELECT 
+          I.ID_INSTITUICAO AS "ID_INSTITUICAO",
+          I.NOME AS "NOME"
        FROM INSTITUICAO I
        JOIN DOCENTE_INSTITUICAO DI ON I.ID_INSTITUICAO = DI.ID_INSTITUICAO
-       WHERE DI.ID_DOCENTE = :docenteId
+       WHERE DI.ID_DOCENTE = :id
        ORDER BY I.ID_INSTITUICAO`,
-      [docenteId]
+      [docenteId],
+      { outFormat: oracledb.OUT_FORMAT_OBJECT }
     );
 
     await conn.close();
-    res.json(r.rows ?? []);
+
+    return res.json(r.rows ?? []);
 
   } catch (err: any) {
-    // Em caso de erro na operação, retorna status 500 com a mensagem do erro
     res.status(500).json({ error: err.message });
   }
 });
