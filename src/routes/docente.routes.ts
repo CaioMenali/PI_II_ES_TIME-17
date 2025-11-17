@@ -31,10 +31,9 @@ router.post("/cadastro", async (req: Request, res: Response) => {
     // Usa a sequência SEQ_DOCENTE para gerar o ID automaticamente
     await conn.execute(
       `INSERT INTO DOCENTE (
-        ID_DOCENTE, NOME, E_MAIL, TELEFONE_CELULAR, SENHA,
-        FK_INSTITUICAO_ID_INSTITUICAO, FK_AUDITORIA_ID_AUDITORIA
+        ID_DOCENTE, NOME, E_MAIL, TELEFONE_CELULAR, SENHA
       )
-      VALUES (SEQ_DOCENTE.NEXTVAL, :nome, :email, :telefone, :senha, NULL, NULL)`,
+      VALUES (SEQ_DOCENTE.NEXTVAL, :nome, :email, :telefone, :senha)`,
       [nome, email, telefone, senha],
       { autoCommit: true }
     );
