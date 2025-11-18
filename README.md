@@ -11,11 +11,11 @@ Para iniciar o sistema e seu correto funcionamento é necessario seguir as sequi
 
 . instalar o TS com o comando 'npm i typescript' (caso o TS já esteja instalado prossiga para o próximo passo);
 
-. rodar o comando 'npx tsc' para compilar o typescript;
+. rodar o comando 'npx tsc' ou 'npm run build' para compilar o typescript;
 
-. baixar o Oracle Database, correpondente a maquina a ser utilizada, no site: https://www.oracle.com/br/database/technologies/xe-downloads.html
+. baixar o Oracle Database 21c Express Edition, correpondente a maquina a ser utilizada, no site: https://www.oracle.com/br/database/technologies/xe-downloads.html
 
-. baixar o Oracle Developer, correpondente a maquina a ser utilizada, no site: https://www.oracle.com/br/database/sqldeveloper/technologies/download/
+. baixar o Oracle SQL Developer, correpondente a maquina a ser utilizada, no site: https://www.oracle.com/br/database/sqldeveloper/technologies/download/
 
 . rodar o arquivo 'BD_Fisico.sql'(localizado em 'src/database/BD_Fisico.sql') no seu banco de dados;
 
