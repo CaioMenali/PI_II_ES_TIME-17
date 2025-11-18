@@ -4,16 +4,20 @@
 // Ele lida com a interação do usuário na página de cadastro de alunos, enviando os dados para o backend e atualizando a interface.
 
 window.onload = async () => {
+    // Pega nome e email do docente salvos no navegador
     const nome = localStorage.getItem("docenteName");
     const email = localStorage.getItem("docenteEmail");
 
+    // Se não houver login, manda pra tela de login
     if (!nome || !email) {
         window.location.href = "login.html";
         return;
     }
 
+    // Mostra o nome do docente na tela
     document.getElementById("docenteDisplay").textContent = nome;
 
+    // Carrega a lista de cursos que ele pode acessar
     await carregarCursos();
 };
 

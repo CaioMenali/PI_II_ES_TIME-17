@@ -100,7 +100,7 @@ async function carregarAlunos() {
     });
 }
 
-/* 5. Salvar nota */
+/* Salvar nota */
 document.getElementById("form-cad-nota").addEventListener("submit", async (e) => {
     e.preventDefault();
 
