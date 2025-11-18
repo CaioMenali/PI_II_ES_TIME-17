@@ -78,47 +78,70 @@ async function carregarTurmas() {
         selectTurma.appendChild(op);
     });
 
-    selectTurma.addEventListener("change", carregarAlunos);
-    carregarAlunos();
+    selectTurma.addEventListener("change", carregarNotas);
+    carregarNotas();
 }
 
-/* 4. Carregar alunos */
-async function carregarAlunos() {
+/* 4. Carregar notas */
+async function carregarNotas() {
     const idTurma = document.getElementById("select-turma").value;
-    const selectAluno = document.getElementById("select-aluno");
+    const lista = document.getElementById("lista-notas");
+    const msgVazia = document.getElementById("msg-lista-vazia");
 
-    const r = await fetch(`http://localhost:3000/alunos/listar/${idTurma}`);
-    const alunos = await r.json();
+    const r = await fetch(`http://localhost:3000/nota/listar/${idTurma}`);
+    const notas = await r.json();
 
-    selectAluno.innerHTML = "";
+    lista.innerHTML = "";
 
-    alunos.forEach(a => {
-        const op = document.createElement("option");
-        op.value = a.ID_ALUNO;
-        op.textContent = `${a.NOME} (RA: ${a.MATRICULA})`;
-        selectAluno.appendChild(op);
+    if (!notas || notas.length === 0) {
+        msgVazia.style.display = "block";
+        return;
+    }
+
+    msgVazia.style.display = "none";
+
+    notas.forEach(n => {
+        adicionarNotaNaLista(lista, n);
     });
 }
 
-/* 5. Salvar nota */
-document.getElementById("form-cad-nota").addEventListener("submit", async (e) => {
-    e.preventDefault();
+/* 5. Montar lista */
+function adicionarNotaNaLista(container, nota) {
+    const div = document.createElement("div");
+    div.className = "list-item";
 
-    const idAluno = document.getElementById("select-aluno").value;
-    const valor = parseFloat(document.getElementById("valor_nota").value);
+    const left = document.createElement("strong");
+    left.textContent = `${nota.ALUNO} (${nota.MATRICULA})`;
 
-    const resp = await fetch("http://localhost:3000/nota/cadastro", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ idAluno, valor })
-    });
+    const input = document.createElement("input");
+    input.type = "number";
+    input.min = "0";
+    input.max = "10";
+    input.step = "0.01";
+    input.value = nota.VALOR;
+    input.className = "nota-edit";
 
-    const json = await resp.json();
+    const btn = document.createElement("button");
+    btn.textContent = "Salvar";
+    btn.className = "edit-btn";
 
-    if (json.success) {
-        alert("Nota cadastrada!");
-        window.location.href = "nota.html";
-    } else {
-        alert("Erro: " + json.error);
-    }
-});
+    btn.onclick = async () => {
+        const novoValor = parseFloat(input.value);
+
+        const resp = await fetch("http://localhost:3000/nota/atualizar", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idNota: nota.ID_NOTA, novoValor })
+        });
+
+        const json = await resp.json();
+        if (json.success) alert("Nota atualizada!");
+        else alert("Erro: " + json.error);
+    };
+
+    div.appendChild(left);
+    div.appendChild(input);
+    div.appendChild(btn);
+
+    container.appendChild(div);
+}

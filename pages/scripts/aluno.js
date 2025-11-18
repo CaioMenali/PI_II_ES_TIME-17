@@ -142,7 +142,7 @@ function adicionarAlunoNaLista(container, nome, RA) {
 
     // Link para acessar as notas do aluno (placeholder, sem ação por enquanto)
     const linkNotas = document.createElement("a");
-    linkNotas.href = "#";
+    linkNotas.href = "nota.html";
     linkNotas.textContent = "Ver Notas";
 
     // Monta a estrutura do item e o adiciona ao container

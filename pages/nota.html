@@ -1,0 +1,48 @@
+<!-- Autor: Felipe Batista Bastos -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <link href="styles/nota.css" rel="stylesheet" type="text/css"/>
+    <title>Nota Dez - Gerenciar Notas</title>
+</head>
+
+<header class="superbar-notadez">
+    <div class="container">
+        <a href="index.html" class="logo">NotaDez</a>
+        <nav class="main-nav">
+            <ul>
+                <li>
+                    <span id="docenteDisplay"></span>
+                    <button class="logout-btn" onclick="logout()">Sair</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<body>
+
+<main class="content-container">
+    <h1>Gerenciar Notas</h1>
+
+    <label>Curso</label>
+    <select id="select-curso"></select>
+
+    <label>Disciplina</label>
+    <select id="select-disciplina"></select>
+
+    <label>Turma</label>
+    <select id="select-turma"></select>
+
+    <div class="list-container" id="lista-notas">
+        <p id="msg-lista-vazia">Nenhuma nota cadastrada.</p>
+    </div>
+
+    <a href="nota_cad.html" class="button-add">+ Cadastrar Nota</a>
+</main>
+
+<script src="scripts/nota.js"></script>
+
+</body>
+</html>

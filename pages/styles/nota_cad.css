@@ -1,6 +1,4 @@
-/* Autores:Felipe Batista Bastos, Felipe Cesar Ferreira Lirani */
-
-/* Estilo geral para pagina */
+/* Autor: Felipe Batista Bastos */
 * {
     margin: 0;
     padding: 0;
@@ -8,169 +6,72 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     background-color: #f4f4f4;
-    color: #333333;
 }
 
-/* Cabeçalho */
 .superbar-notadez {
-    background-color: #ffffff;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
     padding: 15px 0;
-    border-bottom: 1px solid #dddddd;
 }
 
-/* Container do cabeçalho */
 .superbar-notadez .container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    margin: auto;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    padding: 0 20px;
 }
 
-/* Nome do site */
 .logo {
     font-size: 24px;
-    font-weight: bold;
     color: #007bff;
     text-decoration: none;
 }
 
-/* Navegação principal */
-.main-nav ul {
-    list-style-type: none;
-}
-
-/* Container das páginas de formulário */
 .content-container {
     max-width: 900px;
     margin: 40px auto;
-    padding: 20px;
-}
-
-.content-container h1 {
-    font-size: 28px;
-    color: #333;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-    margin-bottom: 25px;
-}
-
-/* Container da lista de itens */
-.list-container {
-    margin-bottom: 40px;
-}
-
-.list-container p {
-    color: #777;
-    font-style: italic;
-    font-size: 16px;
-    padding: 10px;
-}
-
-/* Itens da lista */
-.list-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #ffffff;
-}
-
-.list-item strong {
-    font-size: 18px;
-    color: #333;
-}
-
-.list-item a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: 600;
-    font-size: 15px;
-}
-
-.list-item a:hover {
-    text-decoration: underline;
-}
-
-
-/* Formulário de cadastro */
-.form-container-inline {
+    background: #fff;
     padding: 25px;
-    background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
 }
 
-.form-container-inline h2 {
-    text-align: center;
-    color: #333;
-    margin-top: 0;
-    margin-bottom: 25px;
-    font-size: 22px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
+label {
     font-weight: bold;
-    color: #444;
-    font-size: 15px;
+    margin-top: 15px;
+    display: block;
 }
 
-.form-group textarea {
+select, input {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin-top: 6px;
+    padding: 10px;
     font-size: 16px;
-    font-family: Arial, sans-serif;
 }
 
-.form-group textarea {
-    min-height: 80px;
-    resize: vertical;
+.form-container-inline {
+    margin-top: 25px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background: #fafafa;
+    border-radius: 8px;
 }
 
-/* Botão de submit do formulário */
 .button-submit {
     width: 100%;
     padding: 12px;
-    background-color: #007bff;
-    color: white;
+    background: #007bff;
     border: none;
-    border-radius: 5px;
-    font-weight: bold;
+    color: white;
+    border-radius: 6px;
+    margin-top: 15px;
     font-size: 18px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 .button-submit:hover {
-    background-color: #0056b3;
-}
-
-/* Botão de logout */
-.logout-btn {
-    margin-left:10px;
-    padding:6px 12px;
-    background-color:#6c757d;
-    color:#fff;
-    border:none;
-    border-radius:4px;
-    cursor:pointer
-}
-
-.logout-btn:hover {
-    background-color:#5a6268
+    background: #0056b3;
 }
