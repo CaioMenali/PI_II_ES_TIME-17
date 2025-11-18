@@ -24,7 +24,7 @@ window.onload = async () => {
 };
 
 
-// 1. CARREGAR CURSOS DO DOCENTE
+// CARREGAR CURSOS DO DOCENTE
 
 async function carregarCursos() {
     const selectCurso = document.getElementById("select-curso");
@@ -62,7 +62,7 @@ async function carregarCursos() {
 }
 
 
-// 2. CARREGAR DISCIPLINAS DO CURSO SELECIONADO
+// CARREGAR DISCIPLINAS DO CURSO SELECIONADO
 
 async function carregarDisciplinas() {
     const idCurso = document.getElementById("select-curso").value;
@@ -88,7 +88,7 @@ async function carregarDisciplinas() {
     selectDisciplina.addEventListener("change", carregarTurmas);
     carregarTurmas();
 }
-// 3. CARREGAR TURMAS DA DISCIPLINA
+// CARREGAR TURMAS DA DISCIPLINA
 
 async function carregarTurmas() {
     const idDisciplina = document.getElementById("select-disciplina").value;
@@ -115,7 +115,7 @@ async function carregarTurmas() {
     });
 }
 
-// 4. ADICIONAR TURMA NA LISTA VISUAL
+// ADICIONAR TURMA NA LISTA VISUAL
 
 function adicionarTurmaNaLista(id, nome, codigo) {
     const lista = document.getElementById("lista-turmas");
@@ -134,10 +134,15 @@ function adicionarTurmaNaLista(id, nome, codigo) {
     divItem.appendChild(link);
     lista.appendChild(divItem);
 }
-// 5. LOGOUT
+// LOGOUT
 
 function logout() {
     localStorage.removeItem("docenteName");
     localStorage.removeItem("docenteEmail");
     window.location.href = "login.html";
+}
+
+// Função para redirecionar o usuário para a página inicial.
+function voltarParaInicio() {
+    window.location.href = "index.html";
 }

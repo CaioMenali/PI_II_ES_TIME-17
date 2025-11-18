@@ -29,11 +29,13 @@
     <main class="content-container">
         <h1>Componentes de Nota</h1>
 
+        <!-- Container que exibe a lista de componentes cadastrados -->
         <div class="list-container" id="lista-componentes">
             <p id="msg-lista-vazia-componentes">Nenhum componente cadastrado. Adicione um abaixo.</p>
             
             </div>
 
+        <!-- Formulário inline para cadastrar novos componentes de nota -->
         <div class="form-container-inline">
             <h2>Cadastrar Novo Componente</h2>
             
@@ -64,11 +66,13 @@
                     <textarea type="text" id="desc_componente" name="descricao" placeholder="Ex: Prova teórica sobre conteúdo do primeiro módulo."></textarea>
                 </div>
 
+                <!-- Botão que dispara a função salvarComponente() para enviar os dados -->
                 <button type="button" class="button-submit" onclick="salvarComponente()">Salvar Componente</button>
             </form>
         </div>
     </main>
     
+    <!-- Script que contém a lógica de cadastro e manipulação de componentes -->
     <script src="scripts/nota_cad.js"></script>
     
 </body>

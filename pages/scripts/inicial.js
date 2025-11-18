@@ -24,7 +24,7 @@ function abrirCurso() {
 // Função assíncrona para abrir a página de disciplinas.
 // Primeiro, verifica se a instituição e o curso estão cadastrados. Se sim, redireciona para a página de disciplinas; caso contrário, exibe um alerta.
 async function abrirDisciplinas() {
-    const autorizado = await verificarInstituicaoECurso();
+    const autorizado = await verificarInstituicao();
     if (autorizado) {
         window.location.href = "disciplina.html";
     } else {
@@ -34,7 +34,7 @@ async function abrirDisciplinas() {
 
 // Função assíncrona para abrir a página de turmas.
 // Primeiro, verifica se a instituição e o curso estão cadastrados. Se sim, redireciona para a página de turmas; caso contrário, exibe um alerta.
-async function abrirTurmas() {  const autorizado = await verificarInstituicaoECurso();
+async function abrirTurmas() {  const autorizado = await verificarInstituicao()
     if (autorizado) {
         window.location.href = "turma.html";
     } else {
@@ -45,7 +45,7 @@ async function abrirTurmas() {  const autorizado = await verificarInstituicaoECu
 // Função assíncrona para verificar a existência de cadastro de instituição e curso no backend.
 // Atualmente, simula a existência de ambos para fins de desenvolvimento.
 // Retorna true se ambos existirem, false caso contrário.
-async function verificarInstituicaoECurso() {
+async function verificarInstituicao() {
     try {
         const docenteEmail = localStorage.getItem('docenteEmail');
         if (!docenteEmail) {
@@ -53,7 +53,7 @@ async function verificarInstituicaoECurso() {
             return false;
         }
 
-        const url = `/instituicoes/listar?docenteEmail=${encodeURIComponent(docenteEmail)}`;
+        const url = `http://localhost:3000/instituicoes/listar?docenteEmail=${encodeURIComponent(docenteEmail)}`;
         const resp = await fetch(url);
 
         if (!resp.ok) {
@@ -64,18 +64,13 @@ async function verificarInstituicaoECurso() {
         const instituicoes = await resp.json();
         console.log("Instituições encontradas:", instituicoes);
 
-        // Verifica se há instituições cadastradas para o docente e se alguma delas possui cursos
+        // Verifica se há instituições cadastradas para o docente
         if (instituicoes && instituicoes.length > 0) {
-            for (const instituicao of instituicoes) {
-                if (instituicao.CURSOS && instituicao.CURSOS.length > 0) {
-                    return true; // Encontrou instituição com cursos
-                }
-            }
-            return false; // Encontrou instituições, mas nenhuma delas tem cursos
+            return true; // Encontrou instituição
         }
         return false; // Nenhuma instituição encontrada
     } catch (erro) {
-        console.error("Erro ao verificar instituição e curso:", erro);
+        console.error("Erro ao verificar instituição:", erro);
         return false;
     };
 };

@@ -42,15 +42,16 @@ window.onload = async () => {
     });
 };
 
-// Salvar curso 
-// Esta função é chamada quando o botão de salvar curso é clicado.
-// Ela coleta os dados do formulário, como o nome do curso e o ID da instituição, e envia uma requisição POST para o backend para cadastrar o curso.
+// Esta função coleta os dados do formulário, como o nome do curso e o ID da instituição, e envia uma requisição POST para o backend para cadastrar o curso.
 // Após o cadastro, exibe uma mensagem de sucesso ou erro, e redireciona o usuário para a página de cursos.
 async function salvarCurso() {
 
+    // Pega o nome do curso digitado no campo de texto
     const nome = document.getElementById("nome_curso").value;
+    // Pega o ID da instituição selecionada no combo
     const idInst = document.getElementById("instituicao_select").value;
 
+    // Envia os dados para o backend
     const r = await fetch("http://localhost:3000/cursos/cadastro", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -60,12 +61,15 @@ async function salvarCurso() {
         })
     });
 
+    // Aguarda a resposta do servidor
     const resposta = await r.json();
 
+    // Se deu certo, avisa e volta para a lista de cursos
     if (resposta.success) {
         alert("Curso cadastrado com sucesso!");
         window.location.href = "curso.html";
     } else {
+        // Se deu erro, mostra a mensagem
         alert("Erro: " + resposta.error);
     }
 }

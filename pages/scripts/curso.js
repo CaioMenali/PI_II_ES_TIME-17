@@ -97,6 +97,7 @@ function logout() {
     window.location.href = "login.html";
 }
 
-function voltarParaInstituicoes() {
-    window.location.href = "instituicao.html";
+// Função para redirecionar o usuário para a página inicial.
+function voltarParaInicio() {
+    window.location.href = "index.html";
 }

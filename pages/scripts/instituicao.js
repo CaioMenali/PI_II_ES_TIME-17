@@ -72,3 +72,8 @@ function logout() {
     localStorage.removeItem('docenteEmail');
     window.location.href = 'login.html';
 };
+
+// Função para redirecionar o usuário para a página inicial.
+function voltarParaInicio() {
+    window.location.href = "index.html";
+}

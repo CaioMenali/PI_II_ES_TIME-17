@@ -117,6 +117,25 @@ body {
     background-color: #0056b3;
 }
 
+/* Botão de voltar */
+.button-back {
+    width: 100%;
+    padding: 12px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.button-back:hover {
+    background-color: #5a6268;
+}
+
 /* Botão sair */
 .logout-btn {
     margin-left: 10px;
@@ -130,20 +149,4 @@ body {
 
 .logout-btn:hover {
     background-color: #5a6268;
-}
-
-/* Botão de exclusão */
-.delete-btn {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.delete-btn:hover {
-    background-color: #c82333;
 }
