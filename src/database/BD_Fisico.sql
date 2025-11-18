@@ -1,6 +1,3 @@
--- Autor: Felipe Batista Bastos
--- Código sql para criação do banco de dados
-
 CREATE TABLE Instituicao (
     ID_Instituicao INT PRIMARY KEY,
     Nome VARCHAR2(255)
@@ -166,3 +163,54 @@ START WITH 1
 INCREMENT BY 1
 NOCACHE
 NOCYCLE;
+
+CREATE SEQUENCE AUDITORIA_SEQ 
+START WITH 1 
+INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER TG_AUDITORIA_NOTA
+AFTER INSERT OR UPDATE ON NOTA
+FOR EACH ROW
+DECLARE
+    v_msg VARCHAR2(255);
+    v_nome_aluno ALUNO.NOME%TYPE;
+BEGIN
+    -- Buscar nome do aluno
+    SELECT NOME INTO v_nome_aluno
+    FROM ALUNO
+    WHERE ID_ALUNO = :NEW.ID_ALUNO;
+
+    IF INSERTING THEN
+        v_msg := '(Aluno '  v_nome_aluno  ') - Nota ' 
+                 TO_CHAR(:NEW.VALOR)  ' cadastrada pela primeira vez.';
+
+    ELSIF UPDATING THEN
+        v_msg := '(Aluno '  v_nome_aluno  ') - Nota de ' 
+                 TO_CHAR(:OLD.VALOR)  ' para ' 
+                 TO_CHAR(:NEW.VALOR)  ' modificada e salva.';
+    END IF;
+
+    INSERT INTO AUDITORIA (
+        ID_AUDITORIA,
+        DATAHORA,
+        MENSAGEM,
+        ID_DOCENTE,
+        ID_ALUNO,
+        ID_COMPONENTE,
+        FK_AUDITORIA_DOCENTE,
+        FK_AUDITORIA_ALUNO,
+        FK_AUDITORIA_COMPONENTE
+    )
+    VALUES (
+        AUDITORIA_SEQ.NEXTVAL, 
+        SYSDATE,
+        v_msg,
+        NULL,
+        :NEW.ID_ALUNO,
+        NULL,
+        NULL,
+        NULL,
+        NULL
+    );
+END;
+/
