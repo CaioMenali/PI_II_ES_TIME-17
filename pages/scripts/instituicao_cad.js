@@ -7,15 +7,19 @@
 // Captura o nome da instituição e o e-mail do docente logado, valida-os e os envia para o endpoint /instituicoes do backend.
 // Em caso de sucesso, exibe uma mensagem e redireciona para a página de instituições.
 async function cadastrarInstituicao() {
+    // Captura o valor digitado no campo de nome da instituição
     const inputNome = document.getElementById("nome");
     const nomeInstituicao = inputNome.value;
+    // Obtém o e-mail do docente armazenado no localStorage
     const docenteEmail = localStorage.getItem('docenteEmail');
 
+    // Valida se o nome foi preenchido
     if (!nomeInstituicao) {
         alert("Por favor, preencha o nome da instituição.");
         return;
     }
 
+    // Valida se o e-mail do docente está disponível
     if (!docenteEmail) {
         alert("Não foi possível obter o e-mail do docente. Por favor, faça login novamente.");
         window.location.href = 'login.html';
@@ -23,19 +27,23 @@ async function cadastrarInstituicao() {
     }
 
     try {
+        // Envia os dados para o backend
         const response = await fetch("http://localhost:3000/instituicoes/cadastro", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ nome: nomeInstituicao, docenteEmail: docenteEmail })
         });
 
+        // Verifica se a resposta do servidor está OK
         if (!response.ok) {
             console.error(`Erro na requisição: ${response.status} - ${response.statusText}`);
             return;
         }
 
+        // Converte a resposta para JSON
         const resposta = await response.json();
 
+        // Exibe mensagem de sucesso ou erro baseado na resposta
         if (resposta.success) {
             alert("Instituição cadastrada com sucesso!");
             window.location.href = "instituicao.html";
@@ -43,6 +51,7 @@ async function cadastrarInstituicao() {
             alert("Erro ao cadastrar: " + resposta.message);
         }
     } catch (err) {
+        // Captura e exibe erros inesperados
         alert("Ocorreu um erro inesperado: " + err.message);
         console.error("Erro no cadastro da instituição:", err);
     }

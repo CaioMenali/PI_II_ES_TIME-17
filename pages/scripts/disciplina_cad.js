@@ -43,7 +43,7 @@ async function carregarCursos() {
         return;
     }
 
-    // 2. Carregar cursos de cada instituição
+    // Carregar cursos de cada instituição
     for (let inst of instituicoes) {
         const rCurso = await fetch(`http://localhost:3000/cursos/listar/${inst.ID_INSTITUICAO}`);
         const cursos = await rCurso.json();
@@ -59,27 +59,33 @@ async function carregarCursos() {
 
 // Salvar disciplina
 async function salvarDisciplina(event) {
+    // Impede o envio padrão do formulário
     event.preventDefault();
 
+    // Captura e limpa os valores dos campos do formulário
     const nome = document.getElementById("nome_disciplina").value.trim();
     const sigla = document.getElementById("sigla_disciplina").value.trim();
     const codigo = document.getElementById("codigo_disciplina").value.trim();
     const periodo = document.getElementById("periodo_disciplina").value.trim();
     const idCurso = document.getElementById("select-curso").value;
 
+    // Valida campos obrigatórios
     if (!nome || !sigla || !codigo) {
         alert("Preencha Nome, Sigla e Código.");
         return;
     }
 
+    // Valida se um curso foi selecionado
     if (!idCurso) {
         alert("Selecione um curso!");
         return;
     }
 
+    // Monta objeto com dados da disciplina
     const dados = { nome, sigla, codigo, periodo, idCurso };
 
     try {
+        // Envia dados ao backend para cadastro
         const resposta = await fetch("http://localhost:3000/disciplinas/cadastro", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -88,6 +94,7 @@ async function salvarDisciplina(event) {
 
         const json = await resposta.json();
 
+        // Feedback ao usuário baseado na resposta
         if (json.success) {
             alert("Disciplina cadastrada!");
             window.location.href = "disciplina.html";

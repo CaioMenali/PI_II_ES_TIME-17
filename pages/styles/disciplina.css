@@ -123,6 +123,25 @@ body {
     background-color: #0056b3;
 }
 
+/* Botão de voltar */
+.button-back {
+    width: 100%;
+    padding: 12px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.button-back:hover {
+    background-color: #5a6268;
+}
+
 /* Botão Logout */
 .logout-btn {
     margin-left:10px;
