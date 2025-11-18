@@ -1,79 +1,55 @@
 <!-- Autor: Felipe Batista Bastos -->
-<!-- Página de cadastro de componentes de nota -->
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="utf-8">
-    <link href="styles/nota_cad.css" rel="stylesheet" type="Text/css"/>
-    <title>Nota Dez - Componentes de Nota</title>
+    <link href="styles/nota_cad.css" rel="stylesheet" type="text/css"/>
+    <title>Nota Dez - Cadastro de Nota</title>
 </head>
 
 <header class="superbar-notadez">
-	<div class="container">
-		<!-- Logo -->
-		<a href="index.html" class="logo">NotaDez</a>
-		<!-- Navegação e Botões -->
-		<nav class="main-nav">
+    <div class="container">
+        <a href="index.html" class="logo">NotaDez</a>
+        <nav class="main-nav">
             <ul>
                 <li>
                     <span id="docenteDisplay"></span>
-                    <button id="logoutBtn" class="logout-btn" type="button" onclick="logout()">Sair</button>
+                    <button class="logout-btn" onclick="logout()">Sair</button>
                 </li>
             </ul>
         </nav>
     </div>
 </header>
+
 <body>
-    
-    <main class="content-container">
-        <h1>Componentes de Nota</h1>
 
-        <!-- Container que exibe a lista de componentes cadastrados -->
-        <div class="list-container" id="lista-componentes">
-            <p id="msg-lista-vazia-componentes">Nenhum componente cadastrado. Adicione um abaixo.</p>
-            
-            </div>
+<main class="content-container">
+    <h1>Cadastrar Nota</h1>
 
-        <!-- Formulário inline para cadastrar novos componentes de nota -->
-        <div class="form-container-inline">
-            <h2>Cadastrar Novo Componente</h2>
-            
-            <form id="form-cad-componente">
-                
-                <div class="form-group">
-                    <label for="nome_componente">Nome do Componente</label>
-                    <input type="text" id="nome_componente" name="nome" placeholder="Ex: Prova 1" required>
-                </div>
+    <label>Curso</label>
+    <select id="select-curso"></select>
 
-                <div class="form-group">
-                    <label for="sigla_componente">Nota da Prova 1</label>
-                    <input type="text" id="prova1_componente" name="Prova" placeholder="Ex: P1" required>
-                </div>
+    <label>Disciplina</label>
+    <select id="select-disciplina"></select>
 
-                <div class="form-group">
-                    <label for="sigla_componente">Nota da Prova 2</label>
-                    <input type="text" id="prova2_componente" name="Prova" placeholder="Ex: P2" required>
-                </div>
+    <label>Turma</label>
+    <select id="select-turma"></select>
 
-                    <div class="form-group">
-                    <label for="sigla_componente">Nota da Prova 3</label>
-                    <input type="text" id="prova3_componente" name="Prova" placeholder="Ex: P3" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="desc_componente">Descrição</label>
-                    <textarea type="text" id="desc_componente" name="descricao" placeholder="Ex: Prova teórica sobre conteúdo do primeiro módulo."></textarea>
-                </div>
+    <label>Aluno</label>
+    <select id="select-aluno"></select>
 
-                <!-- Botão que dispara a função salvarComponente() para enviar os dados -->
-                <button type="button" class="button-submit" onclick="salvarComponente()">Salvar Componente</button>
-            </form>
-        </div>
-    </main>
-    
-    <!-- Script que contém a lógica de cadastro e manipulação de componentes -->
-    <script src="scripts/nota_cad.js"></script>
-    
+    <label>Componente (Prova/Trabalho/etc)</label>
+    <select id="select-componente"></select>
+
+    <form id="form-nota">
+        <label>Valor da Nota</label>
+        <input type="number" id="valor_nota" min="0" max="10" step="0.1" required>
+
+        <button type="submit" class="button-submit">Salvar Nota</button>
+    </form>
+</main>
+
+<script src="scripts/nota_cad.js"></script>
+
 </body>
 </html>
