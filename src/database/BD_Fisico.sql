@@ -1,5 +1,7 @@
--- Autor: Felipe Batista Bastos
--- Código sql para criação do banco de dados
+-- Autor: Gabriel Batista Bastos
+-- Banco de Dados Completo
+
+--  Tabelas Principais
 
 CREATE TABLE Instituicao (
     ID_Instituicao INT PRIMARY KEY,
@@ -51,6 +53,7 @@ CREATE TABLE Curso_Disciplina (
     FOREIGN KEY (ID_Curso) REFERENCES Curso(ID_Curso),
     FOREIGN KEY (ID_Disciplina) REFERENCES Disciplina(ID_Disciplina)
 );
+
 CREATE TABLE Turma (
     ID_Turma INT PRIMARY KEY,
     Nome VARCHAR2(255),
@@ -93,8 +96,7 @@ CREATE TABLE Componente (
 CREATE TABLE Nota (
     ID_Nota INT PRIMARY KEY,
     Valor NUMBER(5,2),
-    ID_Aluno INT,
-    ID_Componente INT
+    ID_Aluno INT
 );
 
 CREATE TABLE Aluno_Nota (
@@ -105,64 +107,90 @@ CREATE TABLE Aluno_Nota (
     FOREIGN KEY (ID_Aluno) REFERENCES Aluno(ID_Aluno),
     FOREIGN KEY (ID_Disciplina) REFERENCES Disciplina(ID_Disciplina)
 );
-    
+
 CREATE TABLE Auditoria (
     ID_Auditoria INT PRIMARY KEY,
     DataHora DATE,
     Mensagem VARCHAR2(255),
-    ID_Docente INT,
-    ID_Aluno INT,
-    ID_Componente INT,
-    fk_Auditoria_Docente INT,
-    fk_Auditoria_Aluno INT,
-    fk_Auditoria_Componente INT
+    ID_Aluno INT
 );
 
+-- Sequências
+CREATE SEQUENCE SEQ_DOCENTE 
+START WITH 1 
+INCREMENT BY 1;
 
-CREATE SEQUENCE SEQ_DOCENTE
-START WITH 1
-INCREMENT BY 1
-NOCACHE
-NOCYCLE;
+CREATE SEQUENCE SEQ_TURMA 
+START WITH 1 
+INCREMENT BY 1;
 
-CREATE SEQUENCE SEQ_TURMA
-START WITH 1
-INCREMENT BY 1
-NOCACHE
-NOCYCLE;
+CREATE SEQUENCE SEQ_INSTITUICAO 
+START WITH 1 
+INCREMENT BY 1;
 
-CREATE SEQUENCE SEQ_INSTITUICAO
-START WITH 1
-INCREMENT BY 1
-NOCACHE
-NOCYCLE;
+CREATE SEQUENCE SEQ_ALUNO 
+START WITH 1 
+INCREMENT BY 1;
 
-CREATE SEQUENCE SEQ_ALUNO
-START WITH 1
-INCREMENT BY 1
-NOCACHE
-NOCYCLE;
+CREATE SEQUENCE SEQ_DISCIPLINA 
+START WITH 1 
+INCREMENT BY 1;
 
-CREATE SEQUENCE SEQ_DISCIPLINA
-START WITH 1
-INCREMENT BY 1
-NOCACHE
-NOCYCLE;
+CREATE SEQUENCE SEQ_CURSO 
+START WITH 1 
+INCREMENT BY 1;
 
-CREATE SEQUENCE SEQ_CURSO
-START WITH 1
-INCREMENT BY 1
-NOCACHE
-NOCYCLE;
+CREATE SEQUENCE SEQ_NOTA 
+START WITH 1 
+INCREMENT BY 1;
 
-CREATE SEQUENCE SEQ_NOTA
-START WITH 1
-INCREMENT BY 1
-NOCACHE
-NOCYCLE;
+CREATE SEQUENCE SEQ_COMPONENTE 
+START WITH 1 
+INCREMENT BY 1;
 
-CREATE SEQUENCE SEQ_COMPONENTE
-START WITH 1
-INCREMENT BY 1
-NOCACHE
-NOCYCLE;
+CREATE SEQUENCE AUDITORIA_SEQ
+START WITH 1 
+INCREMENT BY 1 
+
+
+-- Trigger da Auditoria
+CREATE OR REPLACE TRIGGER TG_AUDITORIA_NOTA
+AFTER INSERT OR UPDATE ON NOTA
+FOR EACH ROW
+DECLARE
+    v_msg VARCHAR2(255);
+    v_nome_aluno ALUNO.NOME%TYPE;
+BEGIN
+    SELECT NOME INTO v_nome_aluno
+    FROM ALUNO
+    WHERE ID_ALUNO = :NEW.ID_ALUNO;
+
+    IF INSERTING THEN
+        v_msg := '(Aluno ' || v_nome_aluno || ') - Nota '
+                 || TO_CHAR(:NEW.VALOR)
+                 || ' cadastrada pela primeira vez.';
+    ELSE
+        v_msg := '(Aluno ' || v_nome_aluno || ') - Nota de '
+                 || TO_CHAR(:OLD.VALOR)
+                 || ' para '
+                 || TO_CHAR(:NEW.VALOR)
+                 || ' modificada e salva.';
+    END IF;
+
+    INSERT INTO AUDITORIA (
+        ID_AUDITORIA,
+        DATAHORA,
+        MENSAGEM,
+        ID_Aluno
+    )
+    VALUES (
+        AUDITORIA_SEQ.NEXTVAL,
+        SYSDATE,
+        v_msg,
+        :NEW.ID_ALUNO
+    );
+END;
+/
+
+
+
