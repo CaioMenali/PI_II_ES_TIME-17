@@ -45,22 +45,27 @@ async function abrirTurmas() {  const autorizado = await verificarInstituicao()
 // Função assíncrona para verificar a existência de cadastro de instituição e curso no backend.
 // Atualmente, simula a existência de ambos para fins de desenvolvimento.
 // Retorna true se ambos existirem, false caso contrário.
+// Verifica se o docente possui pelo menos uma instituição cadastrada no backend
 async function verificarInstituicao() {
     try {
+        // Recupera o e-mail do docente armazenado no navegador
         const docenteEmail = localStorage.getItem('docenteEmail');
         if (!docenteEmail) {
             console.error("Email do docente não encontrado no localStorage.");
             return false;
         }
 
+        // Monta a URL com o e-mail do docente para buscar suas instituições
         const url = `http://localhost:3000/instituicoes/listar?docenteEmail=${encodeURIComponent(docenteEmail)}`;
         const resp = await fetch(url);
 
+        // Se a resposta do servidor não for OK, loga o erro e retorna false
         if (!resp.ok) {
             console.error(`Erro ao buscar instituições: ${resp.status} - ${resp.statusText}`);
             return false;
         }
 
+        // Converte a resposta em JSON
         const instituicoes = await resp.json();
         console.log("Instituições encontradas:", instituicoes);
 
@@ -70,6 +75,7 @@ async function verificarInstituicao() {
         }
         return false; // Nenhuma instituição encontrada
     } catch (erro) {
+        // Captura e loga qualquer erro inesperado na requisição
         console.error("Erro ao verificar instituição:", erro);
         return false;
     };

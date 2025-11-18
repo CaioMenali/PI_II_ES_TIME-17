@@ -19,7 +19,7 @@ window.onload = async () => {
 
     document.getElementById("docenteDisplay").textContent = docenteNome;
 
-    // Carrega SOMENTE as instituições do docente
+    // Carrega somente as instituições do docente
     const r = await fetch(`http://localhost:3000/instituicoes/listar?docenteEmail=${encodeURIComponent(docenteEmail)}`);
     const lista = await r.json();
 
