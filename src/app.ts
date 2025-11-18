@@ -12,6 +12,7 @@ import alunoRoutes from "./routes/aluno.routes";
 import disciplinaRoutes from "./routes/disciplina.routes";
 import cursoRoutes from "./routes/curso.routes";
 import recoveryRoutes from "./routes/recovery.routes";
+import notaRoutes from "./routes/nota.routes";
 
 // Essa função faz a inicialização da aplicação Express.
 const app = express();
@@ -33,6 +34,7 @@ app.use("/alunos", alunoRoutes);
 app.use("/disciplinas", disciplinaRoutes);
 app.use("/cursos", cursoRoutes);
 app.use("/recover", recoveryRoutes);
+app.use("/nota", notaRoutes)
 
 // Isso exporta a instância do aplicativo Express para ser utilizada em outros módulos.
 export default app;

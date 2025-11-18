@@ -119,7 +119,7 @@ function adicionarAlunoNaLista(container, nome, RA) {
     strongNome.textContent = `${nome} (RA: ${RA})`;
 
     const linkNotas = document.createElement("a");
-    linkNotas.href = "#";
+    linkNotas.href = "nota.html";
     linkNotas.textContent = "Ver Notas";
 
     divItem.appendChild(strongNome);

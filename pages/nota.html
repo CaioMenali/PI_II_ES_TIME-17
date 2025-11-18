@@ -3,8 +3,8 @@
 <html lang="pt">
 <head>
     <meta charset="utf-8">
-    <link href="styles/nota_cad.css" rel="stylesheet" type="text/css"/>
-    <title>Nota Dez - Cadastrar Nota</title>
+    <link href="styles/nota.css" rel="stylesheet" type="text/css"/>
+    <title>Nota Dez - Gerenciar Notas</title>
 </head>
 
 <header class="superbar-notadez">
@@ -24,7 +24,7 @@
 <body>
 
 <main class="content-container">
-    <h1>Cadastrar Nota</h1>
+    <h1>Gerenciar Notas</h1>
 
     <label>Curso</label>
     <select id="select-curso"></select>
@@ -35,22 +35,14 @@
     <label>Turma</label>
     <select id="select-turma"></select>
 
-    <label>Aluno</label>
-    <select id="select-aluno"></select>
-
-    <div class="form-container-inline">
-        <form id="form-cad-nota">
-            <div class="form-group">
-                <label>Valor da Nota (0 a 10)</label>
-                <input type="number" min="0" max="10" step="0.01" id="valor_nota" required>
-            </div>
-
-            <button type="submit" class="button-submit">Salvar Nota</button>
-        </form>
+    <div class="list-container" id="lista-notas">
+        <p id="msg-lista-vazia">Nenhuma nota cadastrada.</p>
     </div>
+
+    <a href="nota_cad.html" class="button-add">+ Cadastrar Nota</a>
 </main>
 
-<script src="scripts/nota_cad.js"></script>
+<script src="scripts/nota.js"></script>
 
 </body>
 </html>
